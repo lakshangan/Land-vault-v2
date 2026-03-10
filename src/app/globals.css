@@ -151,3 +151,7 @@ body::before {
   left: -10%;
   background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
 }
+
+.section-spacing {
+  padding: 12rem 0;
+}
