@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { Network } from 'lucide-react';
 
 export default function Preloader() {
     const [loading, setLoading] = useState(true);
@@ -12,12 +13,12 @@ export default function Preloader() {
             setProgress((prev) => {
                 if (prev >= 100) {
                     clearInterval(timer);
-                    setTimeout(() => setLoading(false), 1000);
+                    setTimeout(() => setLoading(false), 800);
                     return 100;
                 }
-                return prev + Math.random() * 5;
+                return prev + Math.random() * 8;
             });
-        }, 100);
+        }, 120);
 
         return () => clearInterval(timer);
     }, []);
@@ -27,11 +28,11 @@ export default function Preloader() {
             {loading && (
                 <motion.div
                     initial={{ opacity: 1 }}
-                    exit={{ opacity: 0, transition: { duration: 1, ease: "easeInOut" } }}
+                    exit={{ opacity: 0, scale: 1.1, filter: 'blur(20px)', transition: { duration: 1, ease: "easeInOut" } }}
                     style={{
                         position: 'fixed',
                         inset: 0,
-                        zIndex: 1000,
+                        zIndex: 10000,
                         background: '#050505',
                         display: 'flex',
                         flexDirection: 'column',
@@ -39,56 +40,78 @@ export default function Preloader() {
                         justifyContent: 'center',
                     }}
                 >
-                    {/* Animated Cube Placeholder / Logo */}
-                    <div style={{ position: 'relative', width: 200, height: 200 }}>
+                    {/* Central Logo HUD HUD HUD */}
+                    <div style={{ position: 'relative', width: 120, height: 120, marginBottom: '4rem' }}>
                         <motion.div
-                            animate={{
-                                rotateX: [0, 180, 360],
-                                rotateY: [0, 180, 360],
-                            }}
-                            transition={{
-                                duration: 4,
-                                repeat: Infinity,
-                                ease: "linear",
-                            }}
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                             style={{
-                                width: '100%',
-                                height: '100%',
-                                border: '2px solid #bfff00',
-                                boxShadow: '0 0 40px rgba(191, 255, 0, 0.3)',
+                                position: 'absolute',
+                                inset: 0,
+                                border: '1px dashed rgba(255,255,255,0.1)',
+                                borderRadius: '50%'
                             }}
                         />
-                        {/* Inner particles effect could go here */}
+                        <motion.div
+                            animate={{ rotate: -360 }}
+                            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                            style={{
+                                position: 'absolute',
+                                inset: '10%',
+                                border: '1px solid rgba(88,86,214,0.3)',
+                                borderRadius: '50%'
+                            }}
+                        />
+                        <div style={{
+                            position: 'absolute',
+                            inset: '25%',
+                            background: 'linear-gradient(135deg, #ff2d55, #5856d6)',
+                            borderRadius: '12px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: '#fff',
+                            boxShadow: '0 0 40px rgba(88,86,214,0.3)'
+                        }}>
+                            <Network size={32} />
+                        </div>
                     </div>
 
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5 }}
-                        style={{ marginTop: 40, textAlign: 'center' }}
+                        transition={{ delay: 0.2 }}
+                        style={{ textAlign: 'center' }}
                     >
-                        <h2 style={{ fontSize: '1.5rem', fontWeight: 300, color: '#bfff00', letterSpacing: 4 }}>
+                        <h2 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#fff', letterSpacing: 6, marginBottom: '1rem' }}>
                             LAND VAULT
                         </h2>
-                        <p style={{ marginTop: 10, color: '#666', fontSize: '0.9rem', fontStyle: 'italic' }}>
-                            “Tokenizing the World’s Land Assets”
+                        <div style={{ width: 250, height: '1px', background: 'rgba(255,255,255,0.05)', position: 'relative', overflow: 'hidden' }}>
+                            <motion.div
+                                style={{
+                                    height: '100%',
+                                    background: 'linear-gradient(90deg, transparent, #ff2d55, transparent)',
+                                    width: '40%',
+                                    position: 'absolute',
+                                    left: `${progress}%`,
+                                    transform: 'translateX(-50%)'
+                                }}
+                            />
+                        </div>
+                        <p style={{ marginTop: 15, color: 'rgba(255,255,255,0.2)', fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: 2 }}>
+                            Initializing Protocol Layer... {Math.round(progress)}%
                         </p>
                     </motion.div>
 
-                    <div style={{ width: 200, height: 2, background: '#111', marginTop: 30, position: 'relative' }}>
-                        <motion.div
-                            style={{
-                                height: '100%',
-                                background: '#bfff00',
-                                width: `${progress}%`,
-                                boxShadow: '0 0 10px #bfff00',
-                            }}
-                        />
-                    </div>
-
-                    <p style={{ marginTop: 10, color: '#bfff00', fontSize: '0.8rem', fontFamily: 'monospace' }}>
-                        {Math.round(progress)}%
-                    </p>
+                    {/* Background Ambient Glow */}
+                    <div style={{
+                        position: 'absolute',
+                        width: '400px',
+                        height: '400px',
+                        background: 'radial-gradient(circle, #5856d611 0%, transparent 70%)',
+                        filter: 'blur(100px)',
+                        zIndex: -1
+                    }} />
                 </motion.div>
             )}
         </AnimatePresence>

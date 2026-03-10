@@ -2,17 +2,15 @@
 
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { useState } from 'react';
+import { Network } from 'lucide-react';
 
 export default function Navbar() {
     const { scrollY } = useScroll();
     const [scrolled, setScrolled] = useState(false);
 
     useMotionValueEvent(scrollY, "change", (latest) => {
-        if (latest > 50) {
-            setScrolled(true);
-        } else {
-            setScrolled(false);
-        }
+        if (latest > 50) setScrolled(true);
+        else setScrolled(false);
     });
 
     return (
@@ -27,26 +25,53 @@ export default function Navbar() {
                 height: 'var(--nav-height)',
                 display: 'flex',
                 alignItems: 'center',
-                zIndex: 100,
-                transition: 'all 0.3s ease',
-                background: scrolled ? 'rgba(5, 5, 5, 0.8)' : 'transparent',
-                backdropFilter: scrolled ? 'blur(10px)' : 'none',
-                borderBottom: scrolled ? '1px solid var(--border)' : '1px solid transparent'
+                zIndex: 1000,
+                transition: 'all 0.4s cubic-bezier(0.19, 1, 0.22, 1)',
+                background: scrolled ? 'rgba(5, 5, 5, 0.85)' : 'transparent',
+                backdropFilter: scrolled ? 'blur(20px)' : 'none',
+                borderBottom: scrolled ? '1px solid rgba(255, 255, 255, 0.05)' : '1px solid transparent'
             }}
         >
-            <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div style={{ fontWeight: 700, fontSize: '1.2rem', letterSpacing: 2, color: '#bfff00' }}>
-                    LAND VAULT
+            <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', maxWidth: '1400px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+                    <div style={{
+                        width: '32px',
+                        height: '32px',
+                        background: 'linear-gradient(135deg, #ff2d55, #5856d6)',
+                        borderRadius: '8px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#fff'
+                    }}>
+                        <Network size={18} />
+                    </div>
+                    <div style={{
+                        fontWeight: 800,
+                        fontSize: '1rem',
+                        letterSpacing: '0.2em',
+                        color: '#fff',
+                        textTransform: 'uppercase'
+                    }}>
+                        LAND VAULT
+                    </div>
                 </div>
 
-                <div style={{ display: 'flex', gap: '3rem', fontSize: '0.9rem', color: '#aaa' }}>
+                <div style={{
+                    display: 'flex',
+                    gap: '3.5rem',
+                    fontSize: '0.75rem',
+                    color: 'rgba(255,255,255,0.5)',
+                    textTransform: 'uppercase',
+                    fontWeight: 700,
+                    letterSpacing: '0.1em'
+                }}>
                     {['Protocol', 'Assets', 'Economy', 'Governance'].map((item) => (
                         <a
                             key={item}
                             href={`#${item.toLowerCase()}`}
-                            style={{ transition: 'color 0.2s' }}
-                            onMouseOver={(e) => (e.target as HTMLElement).style.color = '#fff'}
-                            onMouseOut={(e) => (e.target as HTMLElement).style.color = '#aaa'}
+                            style={{ transition: 'all 0.3s ease' }}
+                            className="nav-link"
                         >
                             {item}
                         </a>
@@ -54,26 +79,36 @@ export default function Navbar() {
                 </div>
 
                 <button style={{
-                    border: '1px solid rgba(191, 255, 0, 0.3)',
-                    color: '#bfff00',
-                    padding: '0.6rem 1.5rem',
-                    borderRadius: '100px',
-                    fontSize: '0.85rem',
-                    fontWeight: 600,
-                    transition: 'all 0.3s'
+                    background: 'rgba(255,255,255,0.03)',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    color: '#fff',
+                    padding: '0.75rem 2rem',
+                    borderRadius: '4px',
+                    fontSize: '0.75rem',
+                    fontWeight: 800,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.15em',
+                    transition: 'all 0.3s cubic-bezier(0.19, 1, 0.22, 1)'
                 }}
-                    onMouseOver={(e) => {
-                        (e.target as HTMLElement).style.background = '#bfff00';
-                        (e.target as HTMLElement).style.color = '#000';
-                    }}
-                    onMouseOut={(e) => {
-                        (e.target as HTMLElement).style.background = 'transparent';
-                        (e.target as HTMLElement).style.color = '#bfff00';
-                    }}
+                    className="nav-cta"
                 >
-                    Launch App
+                    Launch Terminal
                 </button>
             </div>
+
+            <style jsx>{`
+        .nav-link:hover {
+          color: #fff;
+          text-shadow: 0 0 20px rgba(255,255,255,0.3);
+          transform: translateY(-1px);
+        }
+        .nav-cta:hover {
+          background: #fff;
+          color: #000;
+          box-shadow: 0 10px 30px rgba(255,255,255,0.1);
+          transform: translateY(-2px);
+        }
+      `}</style>
         </motion.nav>
     );
 }
