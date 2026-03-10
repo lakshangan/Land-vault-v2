@@ -50,63 +50,63 @@ export default function Solution() {
     return (
         <section ref={containerRef} className="solution-section" style={{ position: 'relative' }}>
             <div className="container">
-                <div className="solution-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(400px, 1fr) 1.2fr', gap: '8rem', alignItems: 'flex-start' }}>
+                <div className="solution-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '6rem', alignItems: 'flex-start' }}>
 
-                    {/* Left Text Column - Scrolls Naturally */}
+                    {/* Left Text Column - More Compact */}
                     <div className="solution-content">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8 }}
                             className="solution-header"
-                            style={{ marginBottom: '10rem' }}
+                            style={{ marginBottom: '6rem' }}
                         >
-                            <h2 style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', lineHeight: 1, marginBottom: '2.5rem' }}>
+                            <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: 1, marginBottom: '2rem' }}>
                                 The Land Vault <br />
                                 <span className="accent-color">Protocol Stack</span>
                             </h2>
-                            <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '1.25rem', lineHeight: 1.6, maxWidth: '500px' }}>
+                            <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '1.1rem', lineHeight: 1.6, maxWidth: '450px' }}>
                                 A multi-layered, institutional-grade architecture designed for high-velocity real estate liquidity.
                             </p>
                         </motion.div>
 
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '15rem' }} className="layers-container">
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10rem' }} className="layers-container">
                             {stackLayers.map((layer, i) => (
                                 <motion.div
                                     key={layer.id}
-                                    initial={{ opacity: 0, x: -30 }}
+                                    initial={{ opacity: 0, x: -20 }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     transition={{ duration: 0.8 }}
                                     viewport={{ margin: "-20%" }}
                                     className="layer-card"
-                                    style={{ minHeight: '400px' }}
+                                    style={{ minHeight: '300px' }}
                                 >
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '2rem' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem', marginBottom: '1.5rem' }}>
                                         <div style={{
                                             color: layer.color,
                                             background: `${layer.color}15`,
-                                            padding: '16px',
-                                            borderRadius: '16px',
-                                            boxShadow: `0 0 40px ${layer.color}22`
+                                            padding: '12px',
+                                            borderRadius: '12px',
+                                            boxShadow: `0 0 30px ${layer.color}15`
                                         }}>
                                             {layer.icon}
                                         </div>
-                                        <h3 style={{ fontSize: '1.5rem', letterSpacing: 4, textTransform: 'uppercase', fontWeight: 900 }}>
+                                        <h3 style={{ fontSize: '1.3rem', letterSpacing: 3, textTransform: 'uppercase', fontWeight: 900 }}>
                                             {layer.title}
                                         </h3>
                                     </div>
-                                    <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '1.15rem', marginBottom: '3rem', lineHeight: 1.8, maxWidth: '500px' }}>{layer.desc}</p>
-                                    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                                    <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '1.05rem', marginBottom: '2rem', lineHeight: 1.7, maxWidth: '450px' }}>{layer.desc}</p>
+                                    <div style={{ display: 'flex', gap: '0.8rem', flexWrap: 'wrap' }}>
                                         {layer.items.map((item, idx) => (
                                             <span
                                                 key={idx}
                                                 style={{
-                                                    fontSize: '0.8rem',
-                                                    padding: '0.7rem 1.6rem',
+                                                    fontSize: '0.75rem',
+                                                    padding: '0.6rem 1.4rem',
                                                     background: 'rgba(255,255,255,0.02)',
-                                                    border: '1px solid rgba(255,255,255,0.1)',
+                                                    border: '1px solid rgba(255,255,255,0.06)',
                                                     borderRadius: '100px',
-                                                    color: 'rgba(255,255,255,0.7)',
+                                                    color: 'rgba(255,255,255,0.6)',
                                                     letterSpacing: 1,
                                                     fontWeight: 700
                                                 }}
@@ -123,8 +123,8 @@ export default function Solution() {
                     {/* Right Column - Sticky Visual Container */}
                     <div className="solution-visual" style={{
                         position: 'sticky',
-                        top: '15vh',
-                        height: '70vh',
+                        top: '20vh',
+                        height: '60vh',
                         display: 'flex',
                         alignItems: 'center',
                         perspective: '3000px'
@@ -132,7 +132,7 @@ export default function Solution() {
                         <motion.div
                             style={{
                                 width: '100%',
-                                maxHeight: '600px',
+                                maxHeight: '500px',
                                 transformStyle: 'preserve-3d',
                                 rotateX,
                                 rotateZ,
@@ -146,7 +146,7 @@ export default function Solution() {
                                 // Content lifting based on scroll
                                 const yOffset = useTransform(smoothProgress,
                                     [(i - 1) * 0.33, i * 0.33, (i + 1) * 0.33],
-                                    [150, 0, -150]
+                                    [100, 0, -100]
                                 );
 
                                 return (
@@ -157,11 +157,11 @@ export default function Solution() {
                                             top: 0,
                                             left: 0,
                                             width: '100%',
-                                            height: '500px',
+                                            height: '450px',
                                             background: 'rgba(10, 10, 10, 0.98)',
-                                            border: `1px solid ${layer.color}66`,
-                                            borderRadius: '40px',
-                                            boxShadow: `0 40px 100px rgba(0,0,0,0.8), 0 0 60px ${layer.color}15`,
+                                            border: `1px solid ${layer.color}55`,
+                                            borderRadius: '32px',
+                                            boxShadow: `0 40px 100px rgba(0,0,0,0.8), 0 0 60px ${layer.color}10`,
                                             backdropFilter: 'blur(30px)',
                                             overflow: 'hidden',
                                             zIndex,
@@ -180,35 +180,35 @@ export default function Solution() {
                                             backgroundSize: '40px 40px'
                                         }} />
 
-                                        <div style={{ padding: '4.5rem', position: 'relative', zIndex: 1, height: '100%', display: 'flex', flexDirection: 'column' }}>
-                                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5rem' }}>
-                                                <div style={{ color: layer.color, display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
+                                        <div style={{ padding: '4rem', position: 'relative', zIndex: 1, height: '100%', display: 'flex', flexDirection: 'column' }}>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4rem' }}>
+                                                <div style={{ color: layer.color, display: 'flex', alignItems: 'center', gap: '1rem' }}>
                                                     {layer.icon}
-                                                    <span style={{ fontSize: '0.9rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: 4 }}>{layer.id}_INFRASTRUCTURE</span>
+                                                    <span style={{ fontSize: '0.8rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: 3 }}>{layer.id}_INFRASTRUCTURE</span>
                                                 </div>
                                                 <div style={{
-                                                    padding: '6px 14px',
+                                                    padding: '5px 12px',
                                                     background: `${layer.color}15`,
                                                     color: layer.color,
-                                                    fontSize: '0.65rem',
+                                                    fontSize: '0.6rem',
                                                     fontWeight: 900,
                                                     borderRadius: '4px',
                                                     letterSpacing: 2
                                                 }}>
-                                                    LIT_ACTIVE
+                                                    ACTIVE
                                                 </div>
                                             </div>
 
-                                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', flex: 1 }}>
+                                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', flex: 1 }}>
                                                 {[1, 2, 3, 4, 5, 6].map(n => (
                                                     <div key={n} style={{
                                                         background: 'rgba(255,255,255,0.01)',
-                                                        border: '1px solid rgba(255,255,255,0.04)',
-                                                        borderRadius: '20px',
+                                                        border: '1px solid rgba(255,255,255,0.03)',
+                                                        borderRadius: '16px',
                                                         position: 'relative'
                                                     }}>
                                                         <motion.div
-                                                            animate={{ opacity: [0.05, 0.2, 0.05] }}
+                                                            animate={{ opacity: [0.05, 0.15, 0.05] }}
                                                             transition={{ duration: 2.5, repeat: Infinity, delay: n * 0.4 }}
                                                             style={{ position: 'absolute', inset: 0, background: layer.color, borderRadius: 'inherit' }}
                                                         />
@@ -216,13 +216,29 @@ export default function Solution() {
                                                 ))}
                                             </div>
 
-                                            <div style={{ marginTop: '3rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                                <div style={{ width: '100%', height: '1px', background: `linear-gradient(90deg, ${layer.color}44, transparent)` }} />
+                                            <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                                <div style={{ width: '100%', height: '1px', background: `linear-gradient(90deg, ${layer.color}33, transparent)` }} />
                                             </div>
                                         </div>
                                     </motion.div>
                                 );
                             })}
+
+                            {/* Restored Connecting SVG Lines */}
+                            <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: -1 }}>
+                                {[0.3, 0.5, 0.7].map((x, idx) => (
+                                    <motion.path
+                                        key={idx}
+                                        d={`M ${x * 600} -500 L ${x * 600} 1500`}
+                                        stroke="rgba(191, 255, 0, 0.1)"
+                                        strokeWidth="1"
+                                        strokeDasharray="10,10"
+                                        initial={{ pathLength: 0 }}
+                                        whileInView={{ pathLength: 1 }}
+                                        transition={{ duration: 2, delay: idx * 0.2 }}
+                                    />
+                                ))}
+                            </svg>
                         </motion.div>
                     </div>
                 </div>
@@ -230,7 +246,8 @@ export default function Solution() {
 
             <style jsx>{`
                 .solution-section {
-                    min-height: 300vh;
+                    min-height: 180vh;
+                    padding: 10rem 0;
                 }
                 @media (max-width: 992px) {
                     .solution-section {
@@ -239,26 +256,26 @@ export default function Solution() {
                     }
                     .solution-grid {
                         grid-template-columns: 1fr !important;
-                        gap: 2rem !important;
+                        gap: 3rem !important;
                     }
                     .solution-visual {
                         display: none !important;
                     }
                     .solution-header {
-                        margin-bottom: 5rem !important;
+                        margin-bottom: 4rem !important;
                         text-align: center;
                     }
                     .solution-header p {
                         margin: 0 auto;
                     }
                     .layers-container {
-                        gap: 5rem !important;
+                        gap: 4rem !important;
                     }
                     .layer-card {
                         min-height: auto !important;
                         background: rgba(255,255,255,0.02);
-                        padding: 2.5rem;
-                        border-radius: 24px;
+                        padding: 2rem;
+                        border-radius: 20px;
                         border: 1px solid rgba(255,255,255,0.05);
                     }
                 }

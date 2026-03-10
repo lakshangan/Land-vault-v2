@@ -51,16 +51,11 @@ export default function Hero() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                         >
-                            <div className="hero-badge">
-                                <span className="badge-new">v1.0</span>
-                                <span className="badge-text">Modular Protocol Live</span>
-                            </div>
-
                             <h1 style={{
                                 fontSize: 'clamp(4rem, 10vw, 8rem)',
                                 lineHeight: 0.9,
                                 fontWeight: 900,
-                                marginBottom: '2rem',
+                                marginBottom: '2.5rem',
                                 letterSpacing: '-0.05em'
                             }}>
                                 Trade <br />
@@ -69,16 +64,17 @@ export default function Hero() {
 
                             <p style={{
                                 color: 'rgba(255,255,255,0.4)',
-                                fontSize: '1.25rem',
-                                maxWidth: '500px',
-                                marginBottom: '3.5rem',
-                                lineHeight: 1.5,
+                                fontSize: '1.4rem',
+                                maxWidth: '550px',
+                                marginBottom: '4rem',
+                                lineHeight: 1.4,
                                 fontWeight: 500
                             }}>
-                                The global protocol for modular land liquidity. Programmable, liquid, and institutional.
+                                The LandVault protocol bridges high-yield <span style={{ color: '#fff' }}>RWA</span> with modular <span style={{ color: '#fff' }}>DeFi</span>.
+                                Secure, liquid, and institutional.
                             </p>
 
-                            <div style={{ display: 'flex', gap: '2.5rem', alignItems: 'center', marginBottom: '8rem' }}>
+                            <div style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }}>
                                 <motion.button
                                     whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(255,255,255,0.2)' }}
                                     whileTap={{ scale: 0.98 }}
@@ -89,41 +85,18 @@ export default function Hero() {
                                         <ArrowRight size={20} />
                                     </div>
                                 </motion.button>
-
-                                <div style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '0.8rem',
-                                    cursor: 'pointer',
-                                    opacity: 0.5,
-                                    transition: 'opacity 0.3s'
-                                }}
-                                    className="whitepaper-link"
-                                >
-                                    <span style={{ fontWeight: 900, fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: 3 }}>Read Paper</span>
-                                    <ChevronRight size={14} />
-                                </div>
                             </div>
                         </motion.div>
                     </div>
 
                     <div className="hero-visual">
                         <div style={{ position: 'relative', width: '100%', height: '500px' }}>
-                            <Cube size={240} x="50%" y="50%" color="#a855f7" delay={0} z={0} />
-                            <Cube size={160} x="20%" y="30%" color="#bfff00" delay={0.5} z={40} />
-                            <Cube size={120} x="80%" y="20%" color="#6366f1" delay={1.2} z={-20} />
-                            <Cube size={180} x="85%" y="70%" color="#c5a059" delay={0.8} z={20} />
+                            <Cube size={260} x="50%" y="50%" color="#a855f7" delay={0} z={0} />
+                            <Cube size={180} x="20%" y="30%" color="#bfff00" delay={0.5} z={40} />
+                            <Cube size={140} x="80%" y="20%" color="#6366f1" delay={1.2} z={-20} />
+                            <Cube size={200} x="85%" y="75%" color="#c5a059" delay={0.8} z={20} />
                         </div>
                     </div>
-                </div>
-
-                <div className="hero-stats">
-                    {stats.map((s, i) => (
-                        <div key={i} className="stat-item">
-                            <div style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.65rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: 3, marginBottom: '0.5rem' }}>{s.label}</div>
-                            <div style={{ fontSize: '1.8rem', fontWeight: 900, color: '#fff', letterSpacing: '-0.02em' }}>{s.value}</div>
-                        </div>
-                    ))}
                 </div>
             </div>
 
