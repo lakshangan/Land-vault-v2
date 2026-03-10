@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { useState } from 'react';
-import { Network, ChevronRight } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 
 export default function Navbar() {
     const { scrollY } = useScroll();
@@ -37,38 +37,34 @@ export default function Navbar() {
                 animate={{ y: 0, opacity: 1 }}
                 style={{
                     height: '64px',
-                    padding: '0 8px',
+                    padding: '0 12px',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '1rem',
+                    gap: '1.2rem',
                     background: 'rgba(10, 10, 10, 0.6)',
-                    backdropFilter: 'blur(20px) saturate(180%)',
-                    borderRadius: '100px', // The "Cylinder" / Pill shape
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    backdropFilter: 'blur(24px) saturate(180%)',
+                    borderRadius: '100px',
+                    border: '1px solid aria(255, 255, 255, 0.08)',
                     boxShadow: scrolled ? '0 20px 40px rgba(0,0,0,0.4), inset 0 0 20px rgba(255,255,255,0.02)' : '0 10px 30px rgba(0,0,0,0.2)',
                     transition: 'all 0.4s cubic-bezier(0.19, 1, 0.22, 1)',
                     width: 'max-content'
                 }}
             >
-                {/* Brand Logo - Cylindrical Icon */}
-                <div style={{ paddingLeft: '1rem', display: 'flex', alignItems: 'center' }}>
+                {/* Brand Text - No Logo Icon */}
+                <div style={{ paddingLeft: '1.5rem', display: 'flex', alignItems: 'center' }}>
                     <div style={{
-                        width: '36px',
-                        height: '36px',
-                        background: 'linear-gradient(135deg, #ff2d55, #5856d6)',
-                        borderRadius: '50%',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                        fontWeight: 900,
+                        fontSize: '0.85rem',
+                        letterSpacing: '0.25em',
                         color: '#fff',
-                        boxShadow: '0 0 15px rgba(88,86,214,0.4)'
+                        textTransform: 'uppercase'
                     }}>
-                        <Network size={18} />
+                        LAND VAULT
                     </div>
                 </div>
 
-                {/* Separator */}
-                <div style={{ width: '1px', height: '24px', background: 'rgba(255,255,255,0.1)' }} />
+                {/* Dynamic Separator */}
+                <div style={{ width: '1px', height: '20px', background: 'rgba(255,255,255,0.1)', marginLeft: '0.5rem' }} />
 
                 {/* Navigation Links */}
                 <div style={{ display: 'flex', gap: '4px' }}>
@@ -80,8 +76,8 @@ export default function Navbar() {
                             onMouseLeave={() => setHovered(null)}
                             style={{
                                 position: 'relative',
-                                padding: '0.6rem 1.5rem',
-                                fontSize: '0.75rem',
+                                padding: '0.6rem 1.4rem',
+                                fontSize: '0.72rem',
                                 fontWeight: 700,
                                 color: hovered === item.name ? '#fff' : 'rgba(255,255,255,0.5)',
                                 textTransform: 'uppercase',
@@ -98,7 +94,7 @@ export default function Navbar() {
                                     style={{
                                         position: 'absolute',
                                         inset: 0,
-                                        background: 'rgba(255,255,255,0.05)',
+                                        background: 'rgba(255,255,255,0.04)',
                                         borderRadius: '100px',
                                         zIndex: -1,
                                         border: '1px solid rgba(255,255,255,0.1)'
@@ -111,7 +107,7 @@ export default function Navbar() {
                     ))}
                 </div>
 
-                {/* Launch Button - The Outer Pill */}
+                {/* Launch Button */}
                 <div style={{ paddingRight: '4px' }}>
                     <button style={{
                         background: '#fff',
@@ -137,7 +133,7 @@ export default function Navbar() {
 
             <style jsx>{`
         .nav-cta-pill:hover {
-          transform: scale(1.05);
+          transform: scale(1.04);
           box-shadow: 0 15px 30px rgba(255,255,255,0.2);
         }
       `}</style>

@@ -1,78 +1,87 @@
 'use client';
 
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Stars, Float, MeshDistortMaterial, MeshWobbleMaterial, Sphere } from '@react-three/drei';
+import { Stars, Float, MeshDistortMaterial, Grid } from '@react-three/drei';
 import { useRef, useMemo, useEffect } from 'react';
 import * as THREE from 'three';
 
 function Terrain() {
-    const meshRef = useRef<THREE.Mesh>(null!);
-
-    useFrame((state) => {
-        const time = state.clock.getElapsedTime();
-        meshRef.current.position.y = Math.sin(time * 0.2) * 0.5 - 2;
-    });
-
     return (
         <group rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]}>
-            <mesh ref={meshRef}>
-                <planeGeometry args={[100, 100, 50, 50]} />
-                <meshStandardMaterial
-                    color="#0a0a0a"
-                    wireframe
-                    transparent
-                    opacity={0.15}
-                />
-            </mesh>
-            {/* Primary Grid Accent */}
-            <gridHelper args={[100, 20, "#ff2d55", "#111"]} rotation={[Math.PI / 2, 0, 0]} position={[0, 0, 0.01]} />
+            <Grid
+                args={[100, 100]}
+                sectionSize={5}
+                sectionColor="#bfff00"
+                sectionThickness={1.5}
+                cellColor="#333"
+                cellThickness={0.5}
+                infiniteGrid
+                fadeDistance={50}
+                fadeStrength={5}
+            />
         </group>
     );
 }
 
-function FloatingOrbs() {
-    const count = 15;
-    const orbs = useMemo(() => {
-        return Array.from({ length: count }).map(() => ({
-            position: [(Math.random() - 0.5) * 30, (Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20] as [number, number, number],
-            color: ["#ff2d55", "#5856d6", "#007aff", "#ff9500"][Math.floor(Math.random() * 4)],
-            speed: Math.random() * 0.5 + 0.2
-        }));
-    }, []);
+function Particles() {
+    const count = 2000;
+    const positions = useMemo(() => {
+        const pos = new Float32Array(count * 3);
+        for (let i = 0; i < count; i++) {
+            pos[i * 3] = (Math.random() - 0.5) * 50;
+            pos[i * 3 + 1] = (Math.random() - 0.5) * 50;
+            pos[i * 3 + 2] = (Math.random() - 0.5) * 50;
+        }
+        return pos;
+    }, [count]);
+
+    const pointsRef = useRef<THREE.Points>(null!);
+
+    useFrame((state) => {
+        const time = state.clock.getElapsedTime();
+        pointsRef.current.rotation.y = time * 0.05;
+        pointsRef.current.rotation.x = time * 0.03;
+    });
 
     return (
-        <>
-            {orbs.map((orb, i) => (
-                <Float key={i} speed={orb.speed} rotationIntensity={2} floatIntensity={2}>
-                    <Sphere args={[0.2, 16, 16]} position={orb.position}>
-                        <meshStandardMaterial color={orb.color} emissive={orb.color} emissiveIntensity={2} />
-                    </Sphere>
-                </Float>
-            ))}
-        </>
+        <points ref={pointsRef}>
+            <bufferGeometry>
+                <bufferAttribute
+                    attach="attributes-position"
+                    count={count}
+                    array={positions}
+                    itemSize={3}
+                />
+            </bufferGeometry>
+            <pointsMaterial
+                size={0.05}
+                color="#bfff00"
+                transparent
+                opacity={0.4}
+                sizeAttenuation
+            />
+        </points>
     );
 }
 
-function CentralAsset() {
+function LandCube() {
     const meshRef = useRef<THREE.Mesh>(null!);
 
     useFrame((state) => {
         const time = state.clock.getElapsedTime();
-        meshRef.current.rotation.y = time * 0.3;
-        meshRef.current.rotation.x = time * 0.2;
+        meshRef.current.rotation.y = time * 0.2;
+        meshRef.current.rotation.z = time * 0.1;
     });
 
     return (
-        <Float speed={1.5} rotationIntensity={1} floatIntensity={1}>
-            <mesh ref={meshRef} position={[6, 2, -10]}>
-                <octahedronGeometry args={[3, 0]} />
+        <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
+            <mesh ref={meshRef} position={[4, 0, -5]}>
+                <boxGeometry args={[2, 2, 2]} />
                 <MeshDistortMaterial
-                    color="#5856d6"
-                    speed={3}
-                    distort={0.3}
+                    color="#bfff00"
+                    speed={2}
+                    distort={0.4}
                     radius={1}
-                    emissive="#5856d6"
-                    emissiveIntensity={0.5}
                     wireframe
                 />
             </mesh>
@@ -86,8 +95,10 @@ function SceneContent() {
     useEffect(() => {
         const handleScroll = () => {
             const scrollY = window.scrollY;
-            camera.position.z = 25 + scrollY * 0.005;
-            camera.position.x = Math.sin(scrollY * 0.001) * 2;
+            const targetZ = 20 + scrollY * 0.01;
+            const targetY = 5 - scrollY * 0.005;
+            camera.position.z = targetZ;
+            camera.position.y = targetY;
             camera.lookAt(0, 0, 0);
         };
 
@@ -98,18 +109,17 @@ function SceneContent() {
     return (
         <>
             <color attach="background" args={['#050505']} />
-            <fog attach="fog" args={['#050505', 10, 60]} />
+            <fog attach="fog" args={['#050505', 10, 50]} />
 
-            <ambientLight intensity={0.2} />
-            <pointLight position={[10, 10, 10]} color="#ff2d55" intensity={1.5} />
-            <pointLight position={[-10, -10, -10]} color="#007aff" intensity={1} />
-            <spotLight position={[0, 20, 0]} angle={0.3} penumbra={1} intensity={2} color="#5856d6" castShadow />
+            <ambientLight intensity={0.5} />
+            <pointLight position={[10, 10, 10]} color="#bfff00" intensity={2} />
+            <pointLight position={[-10, -10, -10]} color="#c5a059" intensity={1} />
 
             <Terrain />
-            <FloatingOrbs />
-            <CentralAsset />
+            <Particles />
+            <LandCube />
 
-            <Stars radius={100} depth={50} count={3000} factor={4} saturation={1} fade speed={1} />
+            <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
         </>
     );
 }
@@ -117,7 +127,7 @@ function SceneContent() {
 export default function ThreeBackground() {
     return (
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1, pointerEvents: 'none' }}>
-            <Canvas camera={{ position: [0, 5, 25], fov: 45 }}>
+            <Canvas camera={{ position: [0, 5, 20], fov: 45 }}>
                 <SceneContent />
             </Canvas>
         </div>
