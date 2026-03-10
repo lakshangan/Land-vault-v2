@@ -41,6 +41,12 @@ export default function Solution() {
     const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
     const smoothProgress = useSpring(scrollYProgress, springConfig);
 
+    // Reverting to scroll-linked 3D animations
+    const rotateX = useTransform(smoothProgress, [0, 1], [40, 20]);
+    const rotateZ = useTransform(smoothProgress, [0, 1], [-25, -10]);
+    const containerTranslateY = useTransform(smoothProgress, [0, 1], [50, -50]);
+    const scale = useTransform(smoothProgress, [0, 0.5, 1], [0.9, 1.05, 0.95]);
+
     return (
         <section ref={containerRef} className="section-spacing" style={{ position: 'relative', minHeight: '300vh' }}>
             <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '0 4rem' }}>
@@ -122,20 +128,14 @@ export default function Solution() {
                         perspective: '3000px'
                     }}>
                         <motion.div
-                            animate={{
-                                rotateX: [30, 35, 30],
-                                rotateZ: [-20, -18, -20],
-                                y: [0, -15, 0]
-                            }}
-                            transition={{
-                                duration: 6,
-                                repeat: Infinity,
-                                ease: "easeInOut"
-                            }}
                             style={{
                                 width: '100%',
                                 maxHeight: '600px',
                                 transformStyle: 'preserve-3d',
+                                rotateX,
+                                rotateZ,
+                                y: containerTranslateY,
+                                scale
                             }}
                         >
                             {stackLayers.map((layer, i) => {
