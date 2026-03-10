@@ -3,7 +3,9 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Problem from "@/components/Problem";
 import Solution from "@/components/Solution";
+import Ecosystem from "@/components/Ecosystem";
 import HowItWorks from "@/components/HowItWorks";
+
 import TechStack from "@/components/TechStack";
 import Features from "@/components/Features";
 import InteractiveMap from "@/components/Map";
@@ -23,7 +25,9 @@ export default function Home() {
         <Hero />
         <div id="protocol"><Problem /></div>
         <Solution />
+        <Ecosystem />
         <HowItWorks />
+
         <div id="assets"><InteractiveMap /></div>
         <Features />
         <TechStack />
