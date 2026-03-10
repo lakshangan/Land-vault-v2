@@ -24,43 +24,74 @@ export default function InteractiveMap() {
 
     const springProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 20 });
 
-    // Expansion Effect: Starts as a card, becomes full-width section
+    // Expansion Effect
     const width = useTransform(springProgress, [0, 1], ["80%", "100%"]);
-    const borderRadius = useTransform(springProgress, [0, 1], ["40px", "0px"]);
+    const borderRadius = useTransform(springProgress, [0, 1], ["48px", "0px"]);
     const scale = useTransform(springProgress, [0, 1], [0.95, 1]);
     const opacity = useTransform(springProgress, [0, 0.4], [0, 1]);
 
     return (
-        <section ref={containerRef} style={{ background: '#050505', minHeight: '120vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <section ref={containerRef} style={{
+            background: 'radial-gradient(circle at 50% 50%, #0a0a0f 0%, #050505 100%)', // Subtle deep blue-black gradient
+            minHeight: '140vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            position: 'relative',
+            overflow: 'hidden'
+        }}>
+            {/* Background Ambient Shades */}
+            <div style={{
+                position: 'absolute',
+                top: '20%',
+                left: '10%',
+                width: '600px',
+                height: '600px',
+                background: 'radial-gradient(circle, rgba(88, 86, 214, 0.05) 0%, transparent 70%)',
+                filter: 'blur(100px)',
+                pointerEvents: 'none'
+            }} />
+            <div style={{
+                position: 'absolute',
+                bottom: '10%',
+                right: '5%',
+                width: '500px',
+                height: '500px',
+                background: 'radial-gradient(circle, rgba(255, 45, 85, 0.03) 0%, transparent 70%)',
+                filter: 'blur(100px)',
+                pointerEvents: 'none'
+            }} />
+
             <motion.div
                 style={{
                     width,
                     borderRadius,
                     scale,
                     opacity,
-                    background: '#0a0a0a',
-                    border: '1px solid rgba(255,255,255,0.05)',
+                    background: 'linear-gradient(135deg, rgba(15, 15, 20, 0.95) 0%, rgba(5, 5, 5, 0.98) 100%)',
+                    border: '1px solid rgba(255,255,255,0.08)',
                     position: 'relative',
                     overflow: 'hidden',
-                    boxShadow: '0 40px 100px rgba(0,0,0,0.8)'
+                    boxShadow: '0 50px 150px rgba(0,0,0,0.9), inset 0 0 40px rgba(255,255,255,0.02)'
                 }}
             >
                 {/* Section Content */}
-                <div style={{ padding: '8rem 4rem' }}>
+                <div style={{ padding: '10rem 4rem' }}>
                     <div style={{ textAlign: 'center', marginBottom: '8rem' }}>
                         <motion.div
                             initial={{ opacity: 0, y: 10 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6 }}
                         >
-                            <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', lineHeight: 0.9, marginBottom: '2rem' }}>
+                            <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', lineHeight: 0.9, marginBottom: '2rem', fontWeight: 800 }}>
                                 Global <span style={{
-                                    background: 'linear-gradient(90deg, #ff2d55, #5856d6)',
+                                    background: 'linear-gradient(90deg, #5856d6, #007aff)',
                                     WebkitBackgroundClip: 'text',
-                                    WebkitTextFillColor: 'transparent'
+                                    WebkitTextFillColor: 'transparent',
+                                    textShadow: '0 0 30px rgba(88,86,214,0.1)'
                                 }}>Land Liquidity</span>
                             </h2>
-                            <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '1.2rem', maxWidth: '600px', margin: '0 auto' }}>
+                            <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '1.25rem', maxWidth: '650px', margin: '0 auto', lineHeight: 1.6 }}>
                                 Real-time visualization of tokenized land protocol nodes across global jurisdictions.
                             </p>
                         </motion.div>
@@ -83,24 +114,27 @@ export default function InteractiveMap() {
                                 padding: '1.5rem',
                                 border: '1px solid rgba(255,255,255,0.05)',
                                 backdropFilter: 'blur(20px)',
-                                borderRadius: '12px',
-                                background: 'rgba(255,255,255,0.02)'
+                                borderRadius: '16px',
+                                background: 'rgba(255,255,255,0.02)',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '0.5rem'
                             }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: '#5856d6', marginBottom: '0.8rem' }}>
-                                    <Globe size={16} />
-                                    <span style={{ fontSize: '0.65rem', fontWeight: 900, letterSpacing: 2, textTransform: 'uppercase' }}>Jurisdiction Mesh</span>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: '#5856d6', opacity: 0.8 }}>
+                                    <Globe size={14} />
+                                    <span style={{ fontSize: '0.6rem', fontWeight: 900, letterSpacing: 2, textTransform: 'uppercase' }}>Jurisdiction Mesh</span>
                                 </div>
-                                <div style={{ fontSize: '1.4rem', color: '#fff', fontWeight: 800 }}>42 ACTIVE REGIONS</div>
+                                <div style={{ fontSize: '1.6rem', color: '#fff', fontWeight: 900, letterSpacing: -0.5 }}>42_ACTIVE_NODES</div>
+                                <div style={{ width: '40px', height: '2px', background: '#5856d6' }} />
                             </div>
                         </div>
 
-                        {/* Map Background with Grid */}
+                        {/* Map Background with Enhanced Grid */}
                         <div style={{
                             position: 'absolute',
                             inset: 0,
-                            backgroundImage: `radial-gradient(circle at center, rgba(255,255,255,0.03) 1px, transparent 0)`,
+                            backgroundImage: `radial-gradient(circle at center, rgba(255,255,255,0.04) 1px, transparent 0)`,
                             backgroundSize: '40px 40px',
-                            borderRadius: '24px'
                         }} />
 
                         {/* Interactive Data Points */}
@@ -120,27 +154,28 @@ export default function InteractiveMap() {
                             >
                                 <div style={{ position: 'relative' }}>
                                     <motion.div
-                                        animate={{ scale: [1, 3], opacity: [0.4, 0] }}
-                                        transition={{ duration: 2, repeat: Infinity, delay: node.id * 0.3 }}
+                                        animate={{ scale: [1, 3.5], opacity: [0.5, 0] }}
+                                        transition={{ duration: 2.5, repeat: Infinity, delay: node.id * 0.4 }}
                                         style={{
                                             position: 'absolute',
                                             top: '50%',
                                             left: '50%',
                                             transform: 'translate(-50%, -50%)',
-                                            width: '20px',
-                                            height: '20px',
+                                            width: '18px',
+                                            height: '18px',
                                             background: node.color,
-                                            borderRadius: '50%'
+                                            borderRadius: '50%',
+                                            filter: 'blur(2px)'
                                         }}
                                     />
                                     <motion.div
-                                        whileHover={{ scale: 1.5 }}
+                                        whileHover={{ scale: 1.6 }}
                                         style={{
-                                            width: '10px',
-                                            height: '10px',
+                                            width: '12px',
+                                            height: '12px',
                                             background: node.color,
                                             borderRadius: '50%',
-                                            boxShadow: `0 0 20px ${node.color}`,
+                                            boxShadow: `0 0 25px ${node.color}`,
                                             border: '2px solid #000'
                                         }}
                                     />
@@ -152,32 +187,33 @@ export default function InteractiveMap() {
                                         animate={{ opacity: 1, scale: 1, y: 0 }}
                                         style={{
                                             position: 'absolute',
-                                            bottom: '30px',
+                                            bottom: '35px',
                                             left: '50%',
                                             transform: 'translateX(-50%)',
-                                            width: '280px',
-                                            padding: '2rem',
+                                            width: '300px',
+                                            padding: '2.5rem',
                                             background: 'rgba(5, 5, 5, 0.98)',
-                                            backdropFilter: 'blur(30px)',
-                                            border: `1px solid ${node.color}55`,
-                                            borderRadius: '24px',
+                                            backdropFilter: 'blur(40px)',
+                                            border: `1px solid ${node.color}66`,
+                                            borderRadius: '28px',
                                             zIndex: 100,
-                                            boxShadow: '0 30px 60px rgba(0,0,0,0.8)'
+                                            boxShadow: '0 40px 80px rgba(0,0,0,0.9)'
                                         }}
                                     >
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                                            <span style={{ fontSize: '0.65rem', color: node.color, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 2 }}>{node.country} NODE</span>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.8rem' }}>
+                                            <span style={{ fontSize: '0.65rem', color: node.color, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 3 }}>REGISTRY_NODE</span>
                                             <ShieldCheck size={14} color={node.color} />
                                         </div>
-                                        <div style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '1.5rem', color: '#fff' }}>{node.name}</div>
-                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-                                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                                <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.8rem', fontWeight: 600 }}>VALUATION:</span>
-                                                <span style={{ color: '#fff', fontSize: '0.8rem', fontWeight: 800 }}>{node.val}</span>
+                                        <div style={{ fontSize: '1.4rem', fontWeight: 900, marginBottom: '1.8rem', color: '#fff', letterSpacing: -0.5 }}>{node.name}</div>
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                                <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.75rem', fontWeight: 800 }}>VALUATION</span>
+                                                <span style={{ color: '#fff', fontSize: '0.85rem', fontWeight: 900 }}>{node.val}</span>
                                             </div>
-                                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                                <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.8rem', fontWeight: 600 }}>YIELD:</span>
-                                                <span style={{ color: node.color, fontSize: '0.8rem', fontWeight: 800 }}>{node.yield} APY</span>
+                                            <div style={{ height: '1px', background: 'rgba(255,255,255,0.05)' }} />
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                                <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.75rem', fontWeight: 800 }}>EST. YIELD</span>
+                                                <span style={{ color: node.color, fontSize: '0.85rem', fontWeight: 900 }}>{node.yield} APY</span>
                                             </div>
                                         </div>
                                     </motion.div>
@@ -186,30 +222,31 @@ export default function InteractiveMap() {
                         ))}
                     </div>
 
-                    <div style={{ textAlign: 'center', marginTop: '10rem' }}>
+                    <div style={{ textAlign: 'center', marginTop: '12rem' }}>
                         <button style={{
                             background: '#fff',
                             color: '#000',
-                            padding: '1.2rem 4rem',
+                            padding: '1.4rem 4.5rem',
                             borderRadius: '100px',
-                            fontWeight: 800,
-                            fontSize: '0.8rem',
+                            fontWeight: 900,
+                            fontSize: '0.85rem',
                             textTransform: 'uppercase',
-                            letterSpacing: 3,
-                            transition: 'all 0.3s ease'
+                            letterSpacing: 4,
+                            transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+                            boxShadow: '0 20px 40px rgba(255,255,255,0.1)'
                         }}
-                            className="map-action-btn"
+                            className="map-primary-btn"
                         >
-                            Explore Registry
+                            Open Protocol terminal
                         </button>
                     </div>
                 </div>
             </motion.div>
 
             <style jsx>{`
-                .map-action-btn:hover {
-                    transform: translateY(-5px);
-                    box-shadow: 0 20px 40px rgba(255,255,255,0.1);
+                .map-primary-btn:hover {
+                    transform: translateY(-8px) scale(1.02);
+                    box-shadow: 0 30px 60px rgba(255,255,255,0.2);
                 }
             `}</style>
         </section>
