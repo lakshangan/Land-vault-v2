@@ -41,11 +41,6 @@ export default function Solution() {
     const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
     const smoothProgress = useSpring(scrollYProgress, springConfig);
 
-    // Synchronized 3D animations
-    const rotateX = useTransform(smoothProgress, [0, 1], [40, 20]);
-    const rotateZ = useTransform(smoothProgress, [0, 1], [-25, -10]);
-    const scale = useTransform(smoothProgress, [0, 0.5, 1], [0.9, 1.1, 1]);
-
     return (
         <section ref={containerRef} className="section-spacing" style={{ position: 'relative', minHeight: '300vh' }}>
             <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '0 4rem' }}>
@@ -127,25 +122,26 @@ export default function Solution() {
                         perspective: '3000px'
                     }}>
                         <motion.div
+                            animate={{
+                                rotateX: [30, 35, 30],
+                                rotateZ: [-20, -18, -20],
+                                y: [0, -15, 0]
+                            }}
+                            transition={{
+                                duration: 6,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }}
                             style={{
                                 width: '100%',
                                 maxHeight: '600px',
                                 transformStyle: 'preserve-3d',
-                                rotateX,
-                                rotateZ,
-                                scale
                             }}
                         >
                             {stackLayers.map((layer, i) => {
                                 const zIndex = stackLayers.length - i;
 
-                                // Active calculation based on progress
-                                const isActive = useTransform(smoothProgress,
-                                    [i * 0.3, i * 0.3 + 0.3],
-                                    [1, 1]
-                                );
-
-                                // Lift effect for the active layer
+                                // Content lifting based on scroll
                                 const yOffset = useTransform(smoothProgress,
                                     [(i - 1) * 0.33, i * 0.33, (i + 1) * 0.33],
                                     [150, 0, -150]
@@ -178,7 +174,7 @@ export default function Solution() {
                                         <div style={{
                                             position: 'absolute',
                                             inset: 0,
-                                            backgroundImage: `radial-gradient(circle, ${layer.color}11 1px, transparent 1px)`,
+                                            backgroundImage: `radial-gradient(circle at center, ${layer.color}11 1px, transparent 1px)`,
                                             backgroundSize: '40px 40px'
                                         }} />
 
