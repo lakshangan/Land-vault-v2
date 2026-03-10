@@ -33,7 +33,11 @@ body {
   scroll-behavior: smooth;
 }
 
-h1, h2, h3, h4, .heading {
+h1,
+h2,
+h3,
+h4,
+.heading {
   font-family: 'Space Grotesk', sans-serif;
   letter-spacing: -0.02em;
 }
@@ -78,9 +82,17 @@ button {
 
 /* Animations */
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 .float {
@@ -102,6 +114,40 @@ button {
   color: var(--accent);
 }
 
-.section-spacing {
-  padding: 10rem 0;
+/* Cinematic Noise Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* Environmental Glows */
+.glow-blob {
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.3;
+}
+
+.glow-top-right {
+  top: -10%;
+  right: -10%;
+}
+
+.glow-bottom-left {
+  bottom: -10%;
+  left: -10%;
+  background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
 }

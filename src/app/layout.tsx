@@ -15,8 +15,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <div className="glow-blob glow-top-right" />
+        <div className="glow-blob glow-bottom-left" />
         {children}
       </body>
     </html>
   );
+
 }
