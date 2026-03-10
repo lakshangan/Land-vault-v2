@@ -1,7 +1,6 @@
 import Preloader from "@/components/Preloader";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import Vision from "@/components/Vision";
 import Solution from "@/components/Solution";
 import Ecosystem from "@/components/Ecosystem";
 import HowItWorks from "@/components/HowItWorks";
@@ -23,7 +22,6 @@ export default function Home() {
 
       <div style={{ position: 'relative', zIndex: 1 }}>
         <Hero />
-        <div id="protocol"><Vision /></div>
         <Solution />
         <Ecosystem />
         <HowItWorks />
