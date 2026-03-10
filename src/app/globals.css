@@ -162,3 +162,49 @@ body::before {
 .section-spacing {
   padding: 12rem 0;
 }
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 1024px) {
+  .section-spacing {
+    padding: 8rem 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+
+  .section-spacing {
+    padding: 6rem 0;
+  }
+
+  /* Adjust global typography for mobile */
+  h1 {
+    font-size: 2.8rem !important;
+    line-height: 1.1 !important;
+  }
+
+  h2 {
+    font-size: 2.2rem !important;
+    line-height: 1.2 !important;
+  }
+
+  p {
+    font-size: 1rem !important;
+  }
+
+  /* Remove section transitions/sticky and simplify for mobile performance/UI */
+  section {
+    min-height: auto !important;
+    height: auto !important;
+  }
+}
+
+/* Specific Grid Adjustments for Mobile */
+@media (max-width: 992px) {
+  .responsive-grid {
+    grid-template-columns: 1fr !important;
+    gap: 3rem !important;
+  }
+}

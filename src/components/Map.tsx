@@ -248,7 +248,29 @@ export default function InteractiveMap() {
                     transform: translateY(-8px) scale(1.02);
                     box-shadow: 0 30px 60px rgba(255,255,255,0.2);
                 }
+                @media (max-width: 992px) {
+                    section {
+                        min-height: 100vh !important;
+                    }
+                    div[style*="aspect-ratio"] {
+                        aspect-ratio: 1/1 !important;
+                        height: 400px !important;
+                    }
+                    div[style*="HUD Overlays"] {
+                        position: relative !important;
+                        top: 0 !important;
+                        left: 0 !important;
+                        margin-bottom: 2rem;
+                        align-items: center;
+                    }
+                    .map-primary-btn {
+                        padding: 1.2rem 3rem !important;
+                        font-size: 0.75rem !important;
+                        letter-spacing: 2px !important;
+                    }
+                }
             `}</style>
+
         </section>
     );
 }

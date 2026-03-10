@@ -75,7 +75,7 @@ export default function Tokenomics() {
                         </svg>
                     </div>
 
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative', zIndex: 2 }}>
+                    <div className="tokenomics-flow" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative', zIndex: 2 }}>
                         {flowSteps.map((step, i) => (
                             <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flex: 1, justifyContent: 'center' }}>
                                 <motion.div
@@ -118,6 +118,7 @@ export default function Tokenomics() {
                                     <motion.div
                                         initial={{ opacity: 0 }}
                                         whileInView={{ opacity: 1 }}
+                                        className="arrow-divider"
                                         style={{ flexShrink: 0 }}
                                     >
                                         <ArrowRight size={20} color="#333" />
@@ -128,7 +129,7 @@ export default function Tokenomics() {
                     </div>
                 </div>
 
-                <div style={{
+                <div className="tokenomics-info" style={{
                     marginTop: '10rem',
                     display: 'grid',
                     gridTemplateColumns: 'repeat(3, 1fr)',
@@ -148,6 +149,21 @@ export default function Tokenomics() {
                     </div>
                 </div>
             </div>
+            <style jsx>{`
+                @media (max-width: 1024px) {
+                    .tokenomics-flow {
+                        flex-direction: column !important;
+                        gap: 2rem !important;
+                    }
+                    .arrow-divider {
+                        transform: rotate(90deg) !important;
+                    }
+                    .tokenomics-info {
+                        grid-template-columns: 1fr !important;
+                    }
+                }
+            `}</style>
         </section>
     );
 }
+

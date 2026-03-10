@@ -149,7 +149,7 @@ export default function HowItWorks() {
                     </motion.div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))', gap: '2rem' }}>
+                <div className="lifecycle-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))', gap: '2rem' }}>
                     {lifecycleSteps.map((step, i) => (
                         <motion.div
                             key={step.title}
@@ -157,11 +157,11 @@ export default function HowItWorks() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: i * 0.1 }}
                             viewport={{ once: true }}
+                            className="lifecycle-card"
                             style={{
                                 background: 'rgba(255,255,255,0.01)',
                                 border: '1px solid rgba(255,255,255,0.05)',
                                 borderRadius: '40px',
-                                padding: '3.5rem',
                                 display: 'flex',
                                 flexDirection: 'column',
                                 overflow: 'hidden',
@@ -173,7 +173,7 @@ export default function HowItWorks() {
                                 translateY: -10
                             }}
                         >
-                            <div style={{ height: '240px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '2rem' }}>
+                            <div className="step-visual" style={{ height: '240px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
                                 <VisualIcon type={step.visual} color={step.color} />
                             </div>
 
@@ -209,6 +209,29 @@ export default function HowItWorks() {
                     ))}
                 </div>
             </div>
+
+            <style jsx>{`
+                .lifecycle-card {
+                    padding: 3.5rem;
+                }
+                @media (max-width: 992px) {
+                    .lifecycle-grid {
+                        grid-template-columns: 1fr !important;
+                    }
+                }
+                @media (max-width: 768px) {
+                    .lifecycle-card {
+                        padding: 2.5rem;
+                    }
+                    .step-visual {
+                        transform: scale(0.85);
+                        height: 200px !important;
+                    }
+                    h2 {
+                        text-align: center;
+                    }
+                }
+            `}</style>
         </section>
     );
 }
