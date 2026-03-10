@@ -1,225 +1,143 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Wallet, Building2, Scale, Users, LineChart, Globe } from 'lucide-react';
+import { Network, Cpu, Shield, Globe, Zap, Coins } from 'lucide-react';
 
-const nodes = [
-    { icon: <Wallet size={24} />, label: "Web3 Wallets" },
-    { icon: <Building2 size={24} />, label: "Real Estate Agencies" },
-    { icon: <Scale size={24} />, label: "Regulatory Bodies" },
-    { icon: <Users size={24} />, label: "Institutional Liquidity" },
-    { icon: <LineChart size={24} />, label: "DeFi Markets" },
-    { icon: <Globe size={24} />, label: "Global Exchanges" }
+const flowPoints = [
+    { text: "Protocol Entry", icon: <Cpu size={20} />, color: "#ff2d55", top: "20%" },
+    { text: "Validator Mesh", icon: <Shield size={20} />, color: "#5856d6", top: "60%" },
+    { text: "Yield Engine", icon: <Coins size={20} />, color: "#007aff", top: "30%" },
+    { text: "Market Distribution", icon: <Globe size={20} />, color: "#ff9500", top: "70%" },
+    { text: "Finality", icon: <Zap size={20} />, color: "#ffcc00", top: "40%" }
 ];
 
 export default function Ecosystem() {
     return (
-        <section className="section-spacing" style={{ position: 'relative', overflow: 'hidden' }}>
+        <section className="section-spacing" style={{ position: 'relative', overflow: 'hidden', background: '#050505' }}>
             <div className="container">
-                <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '4rem', alignItems: 'center' }}>
-                    <div>
+                <div style={{ textAlign: 'center', marginBottom: '8rem' }}>
+                    <motion.h2
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', lineHeight: 1 }}
+                    >
+                        Universal <span style={{ color: '#fff' }}>Asset</span> <br />
+                        <span className="accent-color">Intelligence</span>
+                    </motion.h2>
+                </div>
+
+                <div style={{ position: 'relative', height: '500px', width: '100%', display: 'flex', alignItems: 'center' }}>
+                    {/* Vibrant Wavy Paths */}
+                    <svg style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'visible' }}>
+                        <defs>
+                            <linearGradient id="vibrantGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stopColor="#ff2d55" />
+                                <stop offset="25%" stopColor="#5856d6" />
+                                <stop offset="50%" stopColor="#007aff" />
+                                <stop offset="75%" stopColor="#ff9500" />
+                                <stop offset="100%" stopColor="#ffcc00" />
+                            </linearGradient>
+
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="15" result="coloredBlur" />
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur" />
+                                    <feMergeNode in="SourceGraphic" />
+                                </feMerge>
+                            </filter>
+                        </defs>
+
+                        {/* Main Path */}
+                        <motion.path
+                            d="M 0,250 C 150,50 350,450 550,250 S 850,50 1200,250"
+                            stroke="url(#vibrantGradient)"
+                            strokeWidth="4"
+                            fill="none"
+                            filter="url(#glow)"
+                            initial={{ pathLength: 0, opacity: 0 }}
+                            whileInView={{ pathLength: 1, opacity: 1 }}
+                            transition={{ duration: 2.5, ease: "easeInOut" }}
+                        />
+
+                        {/* Ghost Paths */}
+                        <motion.path
+                            d="M 0,250 C 200,450 400,50 600,250 S 900,450 1200,250"
+                            stroke="url(#vibrantGradient)"
+                            strokeWidth="2"
+                            fill="none"
+                            opacity="0.2"
+                            initial={{ pathLength: 0 }}
+                            whileInView={{ pathLength: 1 }}
+                            transition={{ duration: 3, delay: 0.5 }}
+                        />
+                    </svg>
+
+                    {/* Interactive Floating Blobs */}
+                    {flowPoints.map((point, i) => (
                         <motion.div
-                            initial={{ opacity: 0, x: -30 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8 }}
-                        >
-                            <span style={{
-                                color: '#bfff00',
-                                fontSize: '0.8rem',
-                                fontWeight: 600,
-                                letterSpacing: 3,
-                                textTransform: 'uppercase',
-                                display: 'block',
-                                marginBottom: '1.5rem'
-                            }}>
-                                INTEGRATIONS UNLEASHED
-                            </span>
-                            <h2 style={{ fontSize: 'clamp(3rem, 6vw, 4.5rem)', lineHeight: 1, marginBottom: '2rem' }}>
-                                Universal <br /> <span style={{ color: '#fff', textShadow: '0 0 30px rgba(255,255,255,0.2)' }}>Liquidity Hub</span>
-                            </h2>
-                            <p style={{ color: '#666', fontSize: '1.2rem', lineHeight: 1.6, marginBottom: '3rem', maxWidth: '500px' }}>
-                                Automate land asset flows, sync with global investors, and keep your real estate portfolio on-chain — effortlessly.
-                            </p>
-
-                            <div style={{ display: 'flex', gap: '1.5rem' }}>
-                                <button style={{
-                                    background: '#fff',
-                                    color: '#000',
-                                    padding: '1rem 2rem',
-                                    borderRadius: '4px',
-                                    fontWeight: 600,
-                                    fontSize: '0.9rem'
-                                }}>
-                                    Explore Integrations
-                                </button>
-                                <button style={{
-                                    border: '1px solid var(--border)',
-                                    color: '#fff',
-                                    padding: '1rem 2rem',
-                                    borderRadius: '4px',
-                                    fontWeight: 600,
-                                    fontSize: '0.9rem'
-                                }}>
-                                    Contact →
-                                </button>
-                            </div>
-
-                            <div style={{ marginTop: '6rem' }}>
-                                <p style={{ color: '#444', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: 1, marginBottom: '2rem' }}>
-                                    Trusted by thousands of modern investors.
-                                </p>
-                                <div style={{ display: 'flex', gap: '3rem', opacity: 0.3, filter: 'grayscale(100%)' }}>
-                                    {/* Logo Placeholders */}
-                                    <div style={{ fontWeight: 800, fontSize: '1.2rem' }}>LOGOIPSUM</div>
-                                    <div style={{ fontWeight: 800, fontSize: '1.2rem' }}>LOGOIPSUM</div>
-                                    <div style={{ fontWeight: 800, fontSize: '1.2rem' }}>LOGOIPSUM</div>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </div>
-
-                    <div style={{ position: 'relative', height: '600px', width: '100%' }}>
-                        {/* Background Grid */}
-                        <div style={{
-                            position: 'absolute',
-                            inset: 0,
-                            backgroundImage: 'radial-gradient(circle, rgba(191,255,0,0.05) 1px, transparent 1px)',
-                            backgroundSize: '30px 30px',
-                            maskImage: 'radial-gradient(circle at center, black, transparent 80%)'
-                        }} />
-
-                        {/* Central Hub */}
-                        <motion.div
+                            key={i}
+                            initial={{ opacity: 0, scale: 0 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: i * 0.4 }}
                             style={{
                                 position: 'absolute',
-                                top: '50%',
-                                left: '50%',
-                                transform: 'translate(-50%, -50%)',
-                                width: '180px',
-                                height: '180px',
-                                borderRadius: '50%',
-                                background: '#0a0a0a',
-                                border: '2px solid rgba(191,255,0,0.2)',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                textAlign: 'center',
-                                zIndex: 10,
-                                boxShadow: '0 0 60px rgba(191, 255, 0, 0.1)'
+                                left: `${(i + 1) * 18}%`,
+                                top: point.top,
+                                zIndex: 5
                             }}
                         >
-                            <div style={{ fontSize: '0.7rem', fontWeight: 800, color: '#fff', letterSpacing: 1 }}>
-                                LAND VAULT <br /> HUB
-                            </div>
-
-                            {/* Pulsing ring */}
                             <motion.div
-                                animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.1, 0.3] }}
-                                transition={{ duration: 3, repeat: Infinity }}
+                                whileHover={{ scale: 1.2 }}
                                 style={{
-                                    position: 'absolute',
-                                    inset: -10,
-                                    border: '1px solid #bfff00',
-                                    borderRadius: '50%'
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    gap: '1rem',
+                                    cursor: 'pointer'
                                 }}
-                            />
-                        </motion.div>
-
-                        {/* Spokes and Nodes */}
-                        {nodes.map((node, i) => {
-                            const angle = (i * 360) / nodes.length;
-                            const radius = 220;
-                            const x = Math.cos((angle * Math.PI) / 180) * radius;
-                            const y = Math.sin((angle * Math.PI) / 180) * radius;
-
-                            return (
-                                <div key={i} style={{
-                                    position: 'absolute',
-                                    top: '50%',
-                                    left: '50%',
-                                    transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`
+                            >
+                                <div style={{
+                                    width: '50px',
+                                    height: '50px',
+                                    borderRadius: '50%',
+                                    background: point.color,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    color: '#fff',
+                                    boxShadow: `0 0 30px ${point.color}`,
                                 }}>
-                                    {/* Connecting Line (Path) */}
-                                    <svg style={{
-                                        position: 'absolute',
-                                        top: '50%',
-                                        left: '50%',
-                                        width: '300px',
-                                        height: '300px',
-                                        overflow: 'visible',
-                                        transform: `translate(-50%, -50%) rotate(${angle}deg)`,
-                                        pointerEvents: 'none'
-                                    }}>
-                                        <motion.path
-                                            d="M 150 150 L 50 150"
-                                            fill="none"
-                                            stroke="rgba(191,255,0,0.2)"
-                                            strokeWidth="1"
-                                            initial={{ pathLength: 0 }}
-                                            whileInView={{ pathLength: 1 }}
-                                            transition={{ duration: 1.5, delay: i * 0.1 }}
-                                        />
-                                        {/* Animated particle flow */}
-                                        <motion.circle
-                                            r="2"
-                                            fill="#bfff00"
-                                            animate={{ cx: [150, 50] }}
-                                            transition={{ duration: 2, repeat: Infinity, delay: i * 0.5 }}
-                                            cy="150"
-                                        />
-                                    </svg>
-
-                                    <motion.div
-                                        whileHover={{ scale: 1.1, borderColor: '#bfff00' }}
-                                        style={{
-                                            width: '60px',
-                                            height: '60px',
-                                            background: '#111',
-                                            border: '1px solid rgba(255,255,255,0.1)',
-                                            borderRadius: '12px',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            color: '#fff',
-                                            cursor: 'pointer',
-                                            zIndex: 5,
-                                            position: 'relative',
-                                            boxShadow: '0 10px 20px rgba(0,0,0,0.3)'
-                                        }}
-                                    >
-                                        {node.icon}
-
-                                        {/* Label on hover */}
-                                        <div className="node-label" style={{
-                                            position: 'absolute',
-                                            top: '70px',
-                                            left: '50%',
-                                            transform: 'translateX(-50%)',
-                                            whiteSpace: 'nowrap',
-                                            fontSize: '0.7rem',
-                                            color: '#888',
-                                            textTransform: 'uppercase',
-                                            letterSpacing: 1
-                                        }}>
-                                            {node.label}
-                                        </div>
-                                    </motion.div>
+                                    {point.icon}
                                 </div>
-                            );
-                        })}
-                    </div>
+                                <div style={{
+                                    color: '#fff',
+                                    fontSize: '0.7rem',
+                                    fontWeight: 800,
+                                    textTransform: 'uppercase',
+                                    letterSpacing: 1,
+                                    whiteSpace: 'nowrap',
+                                    background: 'rgba(0,0,0,0.8)',
+                                    padding: '4px 10px',
+                                    borderRadius: '4px'
+                                }}>
+                                    {point.text}
+                                </div>
+                            </motion.div>
+                        </motion.div>
+                    ))}
+
+                    {/* Ambient Glows mimicking the reference */}
+                    <div style={{
+                        position: 'absolute',
+                        right: '10%',
+                        width: '400px',
+                        height: '400px',
+                        background: 'radial-gradient(circle, #ff950033 0%, #ffcc0000 70%)',
+                        filter: 'blur(50px)',
+                        zIndex: -1
+                    }} />
                 </div>
             </div>
-
-            <style jsx>{`
-        .node-label {
-          opacity: 0;
-          transition: opacity 0.3s;
-        }
-        div:hover .node-label {
-          opacity: 1;
-        }
-      `}</style>
         </section>
     );
 }

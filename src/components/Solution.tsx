@@ -11,7 +11,7 @@ const stackLayers = [
         desc: "The interface layer where valuation models and investor dashboards live.",
         items: ["Valuation Engine", "Yield Tracker", "Investor Portal"],
         icon: <Cpu size={24} />,
-        color: "#bfff00"
+        color: "#ff2d55" // Vibrant Crimson
     },
     {
         id: "protocol",
@@ -19,7 +19,7 @@ const stackLayers = [
         desc: "The logic layer managing NFT minting, fractionalization, and legal logic.",
         items: ["ERC-721 Registry", "Fractional Vaults", "Governance"],
         icon: <Database size={24} />,
-        color: "#c5a059"
+        color: "#5856d6" // Electric Purple
     },
     {
         id: "data",
@@ -27,7 +27,7 @@ const stackLayers = [
         desc: "The base layer storing immutable geospatial records and ownership history.",
         items: ["IPFS Storage", "Geospatial Index", "Oracle Network"],
         icon: <Globe size={24} />,
-        color: "#00f2ff"
+        color: "#007aff" // Deep Azure
     }
 ];
 

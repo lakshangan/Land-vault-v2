@@ -9,7 +9,14 @@
   --accent-glow: rgba(191, 255, 0, 0.4);
   --gold: #c5a059;
   --gold-glow: rgba(197, 160, 89, 0.3);
+  --blue: #00f2ff;
+  --blue-glow: rgba(0, 242, 255, 0.3);
+  --purple: #bf00ff;
+  --purple-glow: rgba(191, 0, 255, 0.2);
+  --amber: #ffbf00;
+  --amber-glow: rgba(255, 191, 0, 0.25);
   --border: rgba(255, 255, 255, 0.08);
+
   --glass: rgba(255, 255, 255, 0.03);
   --glass-border: rgba(255, 255, 255, 0.1);
   --nav-height: 80px;
