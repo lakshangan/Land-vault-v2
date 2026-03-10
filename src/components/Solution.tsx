@@ -51,7 +51,6 @@ export default function Solution() {
             <div className="container">
                 <div style={{ display: 'grid', gridTemplateColumns: 'minmax(400px, 1fr) 1.5fr', gap: '4rem', alignItems: 'center' }}>
 
-                    {/* Left Text Column */}
                     <div style={{ paddingRight: '2rem' }}>
                         <motion.h2
                             initial={{ opacity: 0, y: 20 }}
@@ -60,8 +59,9 @@ export default function Solution() {
                             style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', lineHeight: 1, marginBottom: '2rem' }}
                         >
                             The Land Vault <br />
-                            <span className="accent-color">Protocol Stack</span>
-                        </h2>
+                            <span style={{ color: '#bfff00' }}>Protocol Stack</span>
+                        </motion.h2>
+
                         <p style={{ color: '#888', fontSize: '1.1rem', marginBottom: '4rem', maxWidth: '500px' }}>
                             An institutional-grade architecture bridging real asset complexity with blockchain efficiency.
                         </p>
@@ -76,12 +76,21 @@ export default function Solution() {
                                 >
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
                                         <div style={{ color: layer.color }}>{layer.icon}</div>
-                                        <h3 style={{ fontSize: '0.9rem', letterSpacing: 2, textTransform: 'uppercase', fontWeight: 700 }}>{layer.title}</h3>
+                                        <h3 style={{ fontSize: '0.9rem', letterSpacing: 2, textTransform: 'uppercase', fontWeight: 700 }}>
+                                            {layer.title}
+                                        </h3>
                                     </div>
                                     <p style={{ color: '#555', fontSize: '0.9rem', marginBottom: '1.5rem' }}>{layer.desc}</p>
                                     <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
                                         {layer.items.map((item, idx) => (
-                                            <span key={idx} style={{ fontSize: '0.7rem', padding: '0.4rem 0.8rem', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '100px', color: '#666' }}>
+                                            <span key={idx} style={{
+                                                fontSize: '0.7rem',
+                                                padding: '0.4rem 0.8rem',
+                                                background: 'rgba(255,255,255,0.03)',
+                                                border: '1px solid rgba(255,255,255,0.05)',
+                                                borderRadius: '100px',
+                                                color: '#666'
+                                            }}>
                                                 {item}
                                             </span>
                                         ))}
@@ -91,7 +100,6 @@ export default function Solution() {
                         </div>
                     </div>
 
-                    {/* Right 3D Visual Column */}
                     <div style={{ position: 'relative', height: '800px', perspective: '2000px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <motion.div
                             style={{
