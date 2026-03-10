@@ -2,34 +2,123 @@
 
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useRef } from 'react';
-import { Database, Cpu, Globe } from 'lucide-react';
+import { Database, Cpu, Globe, ArrowRight } from 'lucide-react';
 
 const stackLayers = [
     {
         id: "app",
         title: "AI-Powered Applications",
-        desc: "The interface layer where valuation models and investor dashboards live. High-fidelity dashboards for institutional monitoring.",
-        items: ["Valuation Engine", "Yield Tracker", "Investor Portal"],
-        icon: <Cpu size={24} />,
-        color: "#ff2d55"
+        subtitle: "Interface [+] Valuations",
+        desc: "The interface layer where high-fidelity valuation models and investor dashboards live. Orchestrated via Land Vault's proprietary AI engine for institutional monitoring.",
+        capabilities: [
+            { label: "ANY ASSET", desc: "Maximize context for AI-driven automations with complete flexibility in land data types." },
+            { label: "ANY YIELD", desc: "Utilize high-precision engines to forecast and execute rental distributions." },
+            { label: "ANY MARKET", desc: "Integrate with global liquidity pools via our multimodal bridging architecture." }
+        ],
+        color: "#ff2d55",
+        visual: "app"
     },
     {
         id: "protocol",
         title: "Land Vault Ontology",
-        desc: "The logic layer managing NFT minting, fractionalization, and regulatory logic via smart contract clusters. Ensures full compliance and immutability.",
-        items: ["ERC-721 Registry", "Fractional Vaults", "Governance"],
-        icon: <Database size={24} />,
-        color: "#5856d6"
+        subtitle: "Protocol [+] Governance",
+        desc: "The logic layer managing NFT minting, fractionalization, and regulatory logic via smart contract clusters. Ensures full compliance and cryptographic immutability.",
+        capabilities: [
+            { label: "COMPLIANCE", desc: "Native legal-wrapping of digital deeds with instant multi-jurisdictional finality." },
+            { label: "FRACTIONAL", desc: "Granular asset ownership enabled by secure, audited vault architecture." },
+            { label: "SECURITY", desc: "Multi-node verification ensuring $10B+ worth of land records remain untampered." }
+        ],
+        color: "#5856d6",
+        visual: "protocol"
     },
     {
         id: "data",
-        title: "Multi-modal Data Plane",
-        desc: "The base layer storing immutable geospatial records, ownership history, and high-res satellite telemetry on decentralized storage.",
-        items: ["IPFS Storage", "Geospatial Index", "Oracle Network"],
-        icon: <Globe size={24} />,
-        color: "#007aff"
+        title: "Multimodal Data Plane",
+        subtitle: "Registry [+] Satellite",
+        desc: "The foundation layer storing immutable geospatial records, ownership history, and high-res satellite telemetry. Leverages decentralized storage for global resilience.",
+        capabilities: [
+            { label: "STORAGE", desc: "Decentralized IPFS pinning and geospatial indexing for 100% data uptime." },
+            { label: "TELEMETRY", desc: "Integration with orbital satellite data for real-time asset monitoring." },
+            { label: "HISTORY", desc: "Cryptographic chain of custody for every square meter of tokenized land." }
+        ],
+        color: "#007aff",
+        visual: "data"
     }
 ];
+
+const TechnicalVisual = ({ type, color, isActive }: { type: string, color: string, isActive: boolean }) => {
+    return (
+        <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <motion.div
+                animate={{
+                    opacity: isActive ? 1 : 0.2,
+                    scale: isActive ? 1 : 0.9,
+                    y: isActive ? 0 : 20
+                }}
+                transition={{ duration: 0.8 }}
+                style={{ width: '100%', height: '100%', position: 'relative' }}
+            >
+                {/* Isometric Base Grid */}
+                <div style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    width: '600px',
+                    height: '400px',
+                    border: `1px solid ${color}33`,
+                    background: `linear-gradient(135deg, ${color}08 0%, transparent 100%)`,
+                    transform: 'translate(-50%, -50%) rotateX(60deg) rotateZ(45deg)',
+                    borderRadius: '20px',
+                    boxShadow: isActive ? `0 0 80px ${color}11` : 'none'
+                }}>
+                    <div style={{ position: 'absolute', inset: 0, backgroundImage: `linear-gradient(${color}11 1px, transparent 1px), linear-gradient(90deg, ${color}11 1px, transparent 1px)`, backgroundSize: '40px 40px' }} />
+                </div>
+
+                {/* Animated Inner Visuals */}
+                <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 2 }}>
+                    {type === 'app' && (
+                        <div style={{ position: 'relative' }}>
+                            <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity }} style={{ width: '120px', height: '120px', background: 'rgba(255,255,255,0.03)', backdropFilter: 'blur(20px)', border: `2px solid ${color}`, borderRadius: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <Cpu size={48} color={color} />
+                            </motion.div>
+                            <motion.div animate={{ rotate: 360 }} transition={{ duration: 10, repeat: Infinity, ease: 'linear' }} style={{ position: 'absolute', top: '-40px', left: '-40px', width: '200px', height: '200px', border: `1px dashed ${color}44`, borderRadius: '50%' }} />
+                        </div>
+                    )}
+                    {type === 'protocol' && (
+                        <div style={{ display: 'flex', gap: '20px' }}>
+                            {[1, 2, 3].map(i => (
+                                <motion.div key={i} animate={{ y: [0, -15, 0] }} transition={{ duration: 3, delay: i * 0.5, repeat: Infinity }} style={{ width: '60px', height: '80px', background: `${color}11`, border: `1px solid ${color}`, borderRadius: '8px', position: 'relative' }}>
+                                    <div style={{ position: 'absolute', bottom: '10px', left: '10px', right: '10px', height: '4px', background: color, borderRadius: '2px' }} />
+                                </motion.div>
+                            ))}
+                        </div>
+                    )}
+                    {type === 'data' && (
+                        <div style={{ position: 'relative' }}>
+                            <div style={{ width: '180px', height: '100px', background: `linear-gradient(to bottom, ${color}33, transparent)`, clipPath: 'polygon(50% 0%, 100% 100%, 0% 100%)' }} />
+                            <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 2, repeat: Infinity }} style={{ position: 'absolute', top: '20px', left: '40px', right: '40px', height: '2px', background: color, boxShadow: `0 0 20px ${color}` }} />
+                        </div>
+                    )}
+                </div>
+
+                {/* HUD Label */}
+                <div style={{
+                    position: 'absolute',
+                    top: '15%',
+                    right: '15%',
+                    background: 'rgba(5, 5, 5, 0.8)',
+                    padding: '1rem 2rem',
+                    borderRadius: '4px',
+                    borderLeft: `3px solid ${color}`,
+                    backdropFilter: 'blur(10px)'
+                }}>
+                    <div style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.4)', letterSpacing: 3, fontWeight: 900, marginBottom: '0.4rem' }}>STATUS_O_VAL</div>
+                    <div style={{ fontSize: '1rem', color: '#fff', fontWeight: 900 }}>LIT_ACTIVE</div>
+                </div>
+            </motion.div>
+        </div>
+    );
+}
 
 export default function Solution() {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -38,192 +127,92 @@ export default function Solution() {
         offset: ["start start", "end end"]
     });
 
-    const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
-    const smoothProgress = useSpring(scrollYProgress, springConfig);
-
-    // Reverting to scroll-linked 3D animations
-    const rotateX = useTransform(smoothProgress, [0, 1], [40, 20]);
-    const rotateZ = useTransform(smoothProgress, [0, 1], [-25, -10]);
-    const containerTranslateY = useTransform(smoothProgress, [0, 1], [50, -50]);
-    const scale = useTransform(smoothProgress, [0, 0.5, 1], [0.9, 1.05, 0.95]);
+    const springProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
     return (
-        <section ref={containerRef} className="section-spacing" style={{ position: 'relative', minHeight: '300vh' }}>
-            <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '0 4rem' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: 'minmax(400px, 1fr) 1.2fr', gap: '8rem', alignItems: 'flex-start' }}>
+        <section ref={containerRef} style={{ background: '#050505', position: 'relative', minHeight: '300vh' }}>
+            <div className="container">
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8rem' }}>
 
-                    {/* Left Text Column - Scrolls Naturally */}
-                    <div style={{ paddingBottom: '20vh' }}>
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8 }}
-                            style={{ marginBottom: '10rem' }}
-                        >
-                            <h2 style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', lineHeight: 1, marginBottom: '2.5rem' }}>
-                                The Land Vault <br />
-                                <span className="accent-color">Protocol Stack</span>
-                            </h2>
-                            <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '1.25rem', lineHeight: 1.6, maxWidth: '500px' }}>
-                                A multi-layered, institutional-grade architecture designed for high-velocity real estate liquidity.
-                            </p>
-                        </motion.div>
+                    {/* Left Sticky Content */}
+                    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'sticky', top: 0 }}>
+                        <div style={{ marginBottom: '4rem' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
+                                <div style={{ background: '#fff', color: '#000', padding: '4px 12px', fontSize: '0.65rem', fontWeight: 900, borderRadius: '4px' }}>Q3 Update</div>
+                                <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.7rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: 2 }}>Protocol Infrastructure</span>
+                            </div>
 
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '15rem' }}>
-                            {stackLayers.map((layer, i) => (
-                                <motion.div
-                                    key={layer.id}
-                                    initial={{ opacity: 0, x: -30 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.8 }}
-                                    viewport={{ margin: "-20%" }}
-                                    style={{ minHeight: '400px' }}
-                                >
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '2rem' }}>
-                                        <div style={{
-                                            color: layer.color,
-                                            background: `${layer.color}15`,
-                                            padding: '16px',
-                                            borderRadius: '16px',
-                                            boxShadow: `0 0 40px ${layer.color}22`
-                                        }}>
-                                            {layer.icon}
-                                        </div>
-                                        <h3 style={{ fontSize: '1.5rem', letterSpacing: 4, textTransform: 'uppercase', fontWeight: 900 }}>
-                                            {layer.title}
-                                        </h3>
-                                    </div>
-                                    <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '1.15rem', marginBottom: '3rem', lineHeight: 1.8, maxWidth: '500px' }}>{layer.desc}</p>
-                                    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-                                        {layer.items.map((item, idx) => (
-                                            <span
-                                                key={idx}
-                                                style={{
-                                                    fontSize: '0.8rem',
-                                                    padding: '0.7rem 1.6rem',
-                                                    background: 'rgba(255,255,255,0.02)',
-                                                    border: '1px solid rgba(255,255,255,0.1)',
-                                                    borderRadius: '100px',
-                                                    color: 'rgba(255,255,255,0.7)',
-                                                    letterSpacing: 1,
-                                                    fontWeight: 700
-                                                }}
-                                            >
-                                                {item}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Right Column - Sticky Visual Container */}
-                    <div style={{
-                        position: 'sticky',
-                        top: '15vh',
-                        height: '70vh',
-                        display: 'flex',
-                        alignItems: 'center',
-                        perspective: '3000px'
-                    }}>
-                        <motion.div
-                            style={{
-                                width: '100%',
-                                maxHeight: '600px',
-                                transformStyle: 'preserve-3d',
-                                rotateX,
-                                rotateZ,
-                                y: containerTranslateY,
-                                scale
-                            }}
-                        >
                             {stackLayers.map((layer, i) => {
-                                const zIndex = stackLayers.length - i;
-
-                                // Content lifting based on scroll
-                                const yOffset = useTransform(smoothProgress,
-                                    [(i - 1) * 0.33, i * 0.33, (i + 1) * 0.33],
-                                    [150, 0, -150]
+                                const opacity = useTransform(springProgress,
+                                    [i * 0.33, (i + 0.1) * 0.33, (i + 0.23) * 0.33, (i + 0.33) * 0.33],
+                                    [0, 1, 1, 0]
+                                );
+                                const y = useTransform(springProgress,
+                                    [i * 0.33, (i + 0.1) * 0.33, (i + 0.23) * 0.33, (i + 0.33) * 0.33],
+                                    [20, 0, 0, -20]
                                 );
 
                                 return (
-                                    <motion.div
-                                        key={layer.id}
-                                        style={{
-                                            position: 'absolute',
-                                            top: 0,
-                                            left: 0,
-                                            width: '100%',
-                                            height: '500px',
-                                            background: 'rgba(10, 10, 10, 0.98)',
-                                            border: `1px solid ${layer.color}66`,
-                                            borderRadius: '40px',
-                                            boxShadow: `0 40px 100px rgba(0,0,0,0.8), 0 0 60px ${layer.color}15`,
-                                            backdropFilter: 'blur(30px)',
-                                            overflow: 'hidden',
-                                            zIndex,
-                                            y: yOffset,
-                                            opacity: useTransform(smoothProgress,
-                                                [(i - 1) * 0.33, i * 0.33, (i + 1) * 0.33],
-                                                [0.1, 1, 0.1]
-                                            )
-                                        }}
-                                    >
-                                        {/* Inner HUD Grid */}
-                                        <div style={{
-                                            position: 'absolute',
-                                            inset: 0,
-                                            backgroundImage: `radial-gradient(circle at center, ${layer.color}11 1px, transparent 1px)`,
-                                            backgroundSize: '40px 40px'
-                                        }} />
+                                    <motion.div key={layer.id} style={{ position: 'absolute', width: '100%', opacity, y }}>
+                                        <h2 style={{ fontSize: '3rem', fontWeight: 900, lineHeight: 1.1, marginBottom: '2rem', letterSpacing: '-0.02em' }}>
+                                            Introducing Next-Gen <br />
+                                            Interoperability: <span style={{ color: 'rgba(255,255,255,0.4)' }}>{layer.id} Plane</span>
+                                        </h2>
 
-                                        <div style={{ padding: '4.5rem', position: 'relative', zIndex: 1, height: '100%', display: 'flex', flexDirection: 'column' }}>
-                                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5rem' }}>
-                                                <div style={{ color: layer.color, display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
-                                                    {layer.icon}
-                                                    <span style={{ fontSize: '0.9rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: 4 }}>{layer.id}_INFRASTRUCTURE</span>
-                                                </div>
-                                                <div style={{
-                                                    padding: '6px 14px',
-                                                    background: `${layer.color}15`,
-                                                    color: layer.color,
-                                                    fontSize: '0.65rem',
-                                                    fontWeight: 900,
-                                                    borderRadius: '4px',
-                                                    letterSpacing: 2
-                                                }}>
-                                                    LIT_ACTIVE
-                                                </div>
-                                            </div>
+                                        <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '1.2rem', lineHeight: 1.6, marginBottom: '3rem', maxWidth: '500px' }}>
+                                            Leverage AI across the enterprise with:
+                                        </p>
 
-                                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', flex: 1 }}>
-                                                {[1, 2, 3, 4, 5, 6].map(n => (
-                                                    <div key={n} style={{
-                                                        background: 'rgba(255,255,255,0.01)',
-                                                        border: '1px solid rgba(255,255,255,0.04)',
-                                                        borderRadius: '20px',
-                                                        position: 'relative'
-                                                    }}>
-                                                        <motion.div
-                                                            animate={{ opacity: [0.05, 0.2, 0.05] }}
-                                                            transition={{ duration: 2.5, repeat: Infinity, delay: n * 0.4 }}
-                                                            style={{ position: 'absolute', inset: 0, background: layer.color, borderRadius: 'inherit' }}
-                                                        />
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+                                            {layer.capabilities.map((cap, idx) => (
+                                                <div key={idx} style={{ display: 'grid', gridTemplateColumns: '150px 1fr', alignItems: 'flex-start', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1.5rem' }}>
+                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.7rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: 1 }}>
+                                                        {cap.label} <ArrowRight size={12} color={layer.color} />
                                                     </div>
-                                                ))}
-                                            </div>
+                                                    <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.9rem', lineHeight: 1.5 }}>
+                                                        {cap.desc}
+                                                    </p>
+                                                </div>
+                                            ))}
+                                        </div>
 
-                                            <div style={{ marginTop: '3rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                                <div style={{ width: '100%', height: '1px', background: `linear-gradient(90deg, ${layer.color}44, transparent)` }} />
-                                            </div>
+                                        <div style={{ marginTop: '4rem', display: 'flex', alignItems: 'center', gap: '1rem', cursor: 'pointer' }}>
+                                            <span style={{ fontWeight: 800, borderBottom: '1px solid #fff', paddingBottom: '2px' }}>Learn More</span>
                                         </div>
                                     </motion.div>
                                 );
                             })}
-                        </motion.div>
+                        </div>
                     </div>
+
+                    {/* Right Sticky Visual */}
+                    <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'sticky', top: 0 }}>
+                        <div style={{ width: '100%', height: '600px', position: 'relative' }}>
+                            {stackLayers.map((layer, i) => {
+                                const isActive = useTransform(springProgress,
+                                    [i * 0.33, (i + 0.16) * 0.33, (i + 0.33) * 0.33],
+                                    [0, 1, 0]
+                                );
+
+                                // We need a way to pass the active state to the component
+                                // Using a wrapper motion.div to handle the opacity transition
+                                return (
+                                    <motion.div
+                                        key={layer.id}
+                                        style={{ position: 'absolute', inset: 0, opacity: isActive }}
+                                    >
+                                        <TechnicalVisual type={layer.visual} color={layer.color} isActive={true} />
+                                    </motion.div>
+                                );
+                            })}
+                        </div>
+                    </div>
+
                 </div>
+            </div>
+
+            <div style={{ position: 'absolute', bottom: '2rem', left: '4rem', fontSize: '0.6rem', color: 'rgba(255,255,255,0.2)', fontWeight: 800 }}>
+                © 2025 LAND VAULT PROTOCOL INC.
             </div>
         </section>
     );
