@@ -65,21 +65,49 @@ export default function Hero() {
                                 maxWidth: '800px',
                                 color: '#fff'
                             }}>
-                                A universal infrastructure <br />
-                                for <span className="gradient-text">tokenizing</span> real-world <span style={{ color: '#fff' }}>assets.</span>
+                                Infrastructure for Tokenizing <br />
+                                <span className="gradient-text">Real-World</span> <span style={{ color: '#fff' }}>Assets.</span>
                             </h1>
 
+                            <p style={{
+                                color: 'rgba(255,255,255,0.5)',
+                                fontSize: '1.25rem',
+                                lineHeight: 1.6,
+                                maxWidth: '600px',
+                                marginBottom: '3.5rem',
+                                fontWeight: 500
+                            }}>
+                                Land Vault is a decentralized protocol that transforms real estate, renewable energy, and infrastructure assets into on-chain investment opportunities. By combining verification, tokenization, and fractional ownership, the protocol unlocks global access to traditionally illiquid assets.
+                            </p>
+
                             <div style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }}>
-                                <motion.button
-                                    whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(255,255,255,0.2)' }}
-                                    whileTap={{ scale: 0.98 }}
-                                    className="cta-button"
-                                >
-                                    Enter Protocol
-                                    <div className="cta-icon">
-                                        <ArrowRight size={20} />
-                                    </div>
-                                </motion.button>
+                                    <motion.button
+                                        whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(255,255,255,0.2)' }}
+                                        whileTap={{ scale: 0.98 }}
+                                        className="cta-button"
+                                    >
+                                        Explore Protocol
+                                        <div className="cta-icon">
+                                            <ArrowRight size={20} />
+                                        </div>
+                                    </motion.button>
+                                    <motion.button
+                                        whileHover={{ scale: 1.05, background: 'rgba(255,255,255,0.05)' }}
+                                        whileTap={{ scale: 0.98 }}
+                                        style={{
+                                            background: 'transparent',
+                                            border: '1px solid rgba(255,255,255,0.1)',
+                                            color: '#fff',
+                                            padding: '1.2rem 2.8rem',
+                                            borderRadius: '100px',
+                                            fontSize: '0.9rem',
+                                            fontWeight: 800,
+                                            cursor: 'pointer',
+                                            transition: 'all 0.3s ease'
+                                        }}
+                                    >
+                                        View Demo
+                                    </motion.button>
                             </div>
                         </motion.div>
                     </div>

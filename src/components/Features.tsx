@@ -1,17 +1,17 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Shield, Share2, Brain, ShoppingCart, Percent, History, Map as MapIcon } from 'lucide-react';
+import { Shield, Share2, Brain, ShoppingCart, Percent, Zap, Building2, LandPlot } from 'lucide-react';
 
 const features = [
-    { title: "Ownership Registry", desc: "Immutable on-chain record of land titles.", icon: <Shield size={22} /> },
-    { title: "Fractional Investment", desc: "Buy shares of prime land from $100.", icon: <Share2 size={22} /> },
-    { title: "AI Valuation", desc: "Predictive pricing models for land assets.", icon: <Brain size={22} /> },
-    { title: "Global Marketplace", desc: "24/7 liquidity for real estate investors.", icon: <ShoppingCart size={22} /> },
-    { title: "Yield Distribution", desc: "Native smart contract rental income.", icon: <Percent size={22} /> },
-    { title: "Immutable History", desc: "Complete chain of custody transparency.", icon: <History size={22} /> },
-    { title: "Geospatial Data", desc: "Interactive satellite-linked visualization.", icon: <MapIcon size={22} /> },
-    { title: "Regulatory Tech", desc: "Embedded compliance for global jurisdictions.", icon: <Shield size={22} /> }
+    { title: "Real Estate Tokenization", desc: "Tokenize land, buildings, and property assets into on-chain investment instruments.", icon: <Building2 size={22} /> },
+    { title: "Renewable Energy Assets", desc: "Invest in solar farms, wind energy, and infrastructure producing real-world yield.", icon: <Zap size={22} /> },
+    { title: "Infrastructure Investments", desc: "Access logistics facilities, telecom towers, and industrial assets.", icon: <LandPlot size={22} /> },
+    { title: "Fractional Ownership", desc: "Divide large assets into smaller tokens accessible to global investors.", icon: <Share2 size={22} /> },
+    { title: "Global Asset Marketplace", desc: "Buy, sell, and manage tokenized assets across blockchain networks.", icon: <ShoppingCart size={22} /> },
+    { title: "AI Asset Valuation", desc: "Advanced analytics provide valuation insights and investment intelligence.", icon: <Brain size={22} /> },
+    { title: "On-Chain Ownership Registry", desc: "Transparent ownership records secured through blockchain technology.", icon: <Shield size={22} /> },
+    { title: "Automated Yield Distribution", desc: "Smart contracts distribute income from assets directly to token holders.", icon: <Percent size={22} /> }
 ];
 
 export default function Features() {
@@ -25,8 +25,8 @@ export default function Features() {
                         transition={{ duration: 0.8 }}
                     >
                         <h2 style={{ fontSize: 'clamp(3rem, 5vw, 4rem)', lineHeight: 1, fontWeight: 900 }}>
-                            Everything you need to <br />
-                            <span style={{ color: '#bfff00' }}>Master Land Investing</span>.
+                            Infrastructure for the <br />
+                            <span style={{ color: '#bfff00' }}>Tokenized Economy</span>
                         </h2>
                     </motion.div>
                 </div>

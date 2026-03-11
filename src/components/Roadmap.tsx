@@ -4,26 +4,26 @@ import { motion } from 'framer-motion';
 
 const phases = [
     {
-        title: "Phase 1: Genesis",
+        title: "Phase 1: Protocol Infrastructure",
         desc: "Core protocol deployment and land tokenization infrastructure launch. Initial pilot plots in US/UK.",
         status: "Completed",
         date: "Q4 2025"
     },
     {
-        title: "Phase 2: Liquidity",
-        desc: "Fractional investment marketplace launch. Integration with top-tier wallet providers and DEXs.",
+        title: "Phase 2: Asset Tokenization",
+        desc: "Scaling tokenization across real estate and renewable energy assets. Integration with institutional asset managers.",
         status: "Active",
         date: "Q1 2026"
     },
     {
-        title: "Phase 3: Intelligence",
-        desc: "AI land valuation engine going live. Automated Geospatial data integration for all parcels.",
+        title: "Phase 3: Fractional Investment",
+        desc: "Launch of the global fractional investment marketplace. Automated yield distribution and asset monitoring.",
         status: "Upcoming",
         date: "Q3 2026"
     },
     {
-        title: "Phase 4: Expansion",
-        desc: "Global land asset expansion into emerging markets. Institutional partnership program launch.",
+        title: "Phase 4: Global RWA Marketplace",
+        desc: "Expansion into emerging infrastructure markets. Universal liquidity layer connecting on-chain investors with physical assets.",
         status: "Planning",
         date: "2027"
     }

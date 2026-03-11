@@ -3,22 +3,29 @@
 import { motion } from 'framer-motion';
 
 const techs = [
-    { name: "BNB Chain", type: "Settlement Layer", color: "#F3BA2F" },
-    { name: "ERC-721/20", type: "Token Standards", color: "#bfff00" },
-    { name: "IPFS", type: "Decentralized Storage", color: "#6ACAD1" },
-    { name: "AI Vision", type: "Valuation Engine", color: "#c5a059" },
-    { name: "Next.js", type: "Frontend Library", color: "#fff" },
-    { name: "Node.js", type: "Backend Services", color: "#339933" },
-    { name: "Ethers.js", type: "Wallet Provider", color: "#2535a0" }
+    { name: "BNB Chain", type: "Smart Contract Infrastructure", color: "#F3BA2F" },
+    { name: "ERC-721", type: "Asset NFT Standard", color: "#bfff00" },
+    { name: "ERC-20", type: "Fractional Ownership Tokens", color: "#00f2ff" },
+    { name: "IPFS", type: "Decentralized Document Storage", color: "#6ACAD1" },
+    { name: "Solidity", type: "Smart Contract Logic", color: "#363636" },
+    { name: "Node.js", type: "Backend Infrastructure", color: "#339933" },
+    { name: "React / Next.js", type: "Web Interface", color: "#61DAFB" },
+    { name: "Ethers.js", type: "Blockchain Interaction Layer", color: "#2535a0" }
 ];
 
 export default function TechStack() {
     return (
         <section className="section-spacing" style={{ background: '#050505', overflow: 'hidden' }}>
-            <div className="container">
+            <div className="container" style={{ position: 'relative', zIndex: 1 }}>
                 <div style={{ textAlign: 'center', marginBottom: '6rem' }}>
-                    <h2 style={{ fontSize: '3rem' }}>Powering the <span style={{ color: '#bfff00' }}>Infrastructure</span></h2>
-                    <p style={{ color: '#666', marginTop: '1rem' }}>Enterprise-grade technology for global land ownership.</p>
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 900 }}>Powered by <span style={{ color: '#bfff00' }}>Web3 Infrastructure</span></h2>
+                        <p style={{ color: 'rgba(255,255,255,0.4)', marginTop: '1.5rem', fontSize: '1.1rem' }}>Built on a scalable stack designed for real-world asset tokenization.</p>
+                    </motion.div>
                 </div>
 
                 <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '2rem' }}>

@@ -2,32 +2,24 @@
 
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useRef } from 'react';
-import { Database, Cpu, Globe } from 'lucide-react';
+import { Database, Cpu, Globe, Lock } from 'lucide-react';
 
 const stackLayers = [
     {
-        id: "app",
-        title: "AI-Powered Applications",
-        desc: "The interface layer where valuation models and investor dashboards live. High-fidelity dashboards for institutional monitoring.",
-        items: ["Valuation Engine", "Yield Tracker", "Investor Portal"],
-        icon: <Cpu size={24} />,
-        color: "#ff2d55"
+        id: "intelligence",
+        title: "Asset Intelligence Layer",
+        desc: "AI-powered analytics evaluate asset value, market trends, and yield potential across real estate, energy infrastructure, and physical assets.",
+        items: ["Valuation Engine", "Yield Analytics", "Market Trends"],
+        get icon() { return <Cpu size={24} /> },
+        color: "#bfff00"
     },
     {
-        id: "protocol",
-        title: "Land Vault Ontology",
-        desc: "The logic layer managing NFT minting, fractionalization, and regulatory logic via smart contract clusters. Ensures full compliance and immutability.",
-        items: ["ERC-721 Registry", "Fractional Vaults", "Governance"],
-        icon: <Database size={24} />,
+        id: "tokenization",
+        title: "RWA Tokenization Layer",
+        desc: "Verified assets are minted as NFTs representing digital ownership certificates secured on blockchain networks.",
+        items: ["NFT Minting", "Digital Certificates", "Security Layer"],
+        get icon() { return <Lock size={24} /> },
         color: "#5856d6"
-    },
-    {
-        id: "data",
-        title: "Multi-modal Data Plane",
-        desc: "The base layer storing immutable geospatial records, ownership history, and high-res satellite telemetry on decentralized storage.",
-        items: ["IPFS Storage", "Geospatial Index", "Oracle Network"],
-        icon: <Globe size={24} />,
-        color: "#007aff"
     }
 ];
 
@@ -63,10 +55,10 @@ export default function Solution() {
                         >
                             <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: 1, marginBottom: '2rem' }}>
                                 The Land Vault <br />
-                                <span className="accent-color">Protocol Stack</span>
+                                <span className="accent-color">RWA Protocol</span>
                             </h2>
                             <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '1.1rem', lineHeight: 1.6, maxWidth: '450px' }}>
-                                A multi-layered, institutional-grade architecture designed for high-velocity real estate liquidity.
+                                A modular infrastructure designed to verify, tokenize, and distribute real-world assets on-chain.
                             </p>
                         </motion.div>
 
@@ -145,7 +137,7 @@ export default function Solution() {
 
                                 // Content lifting based on scroll
                                 const yOffset = useTransform(smoothProgress,
-                                    [(i - 1) * 0.33, i * 0.33, (i + 1) * 0.33],
+                                    [(i - 1) * 0.5, i * 0.5, (i + 1) * 0.5],
                                     [100, 0, -100]
                                 );
 
@@ -167,7 +159,7 @@ export default function Solution() {
                                             zIndex,
                                             y: yOffset,
                                             opacity: useTransform(smoothProgress,
-                                                [(i - 1) * 0.33, i * 0.33, (i + 1) * 0.33],
+                                                [(i - 1) * 0.5, i * 0.5, (i + 1) * 0.5],
                                                 [0.1, 1, 0.1]
                                             )
                                         }}

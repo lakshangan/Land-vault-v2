@@ -4,11 +4,11 @@ import { motion } from 'framer-motion';
 import { Network, Cpu, Shield, Globe, Zap, Coins } from 'lucide-react';
 
 const flowPoints = [
-    { text: "Protocol Entry", icon: <Cpu size={20} />, color: "#ff2d55", top: "20%" },
-    { text: "Validator Mesh", icon: <Shield size={20} />, color: "#5856d6", top: "60%" },
-    { text: "Yield Engine", icon: <Coins size={20} />, color: "#007aff", top: "30%" },
-    { text: "Market Distribution", icon: <Globe size={20} />, color: "#ff9500", top: "70%" },
-    { text: "Finality", icon: <Zap size={20} />, color: "#ffcc00", top: "40%" }
+    { text: "Asset Verification", icon: <Shield size={20} />, color: "#ff2d55", top: "20%" },
+    { text: "Tokenization Engine", icon: <Cpu size={20} />, color: "#5856d6", top: "60%" },
+    { text: "Market Intelligence", icon: <Globe size={20} />, color: "#007aff", top: "30%" },
+    { text: "Yield Analytics", icon: <Zap size={20} />, color: "#ff9500", top: "70%" },
+    { text: "Liquidity Layer", icon: <Coins size={20} />, color: "#ffcc00", top: "40%" }
 ];
 
 export default function Ecosystem() {
@@ -16,14 +16,19 @@ export default function Ecosystem() {
         <section className="section-spacing" style={{ position: 'relative', overflow: 'hidden', background: '#050505' }}>
             <div className="container">
                 <div style={{ textAlign: 'center', marginBottom: '8rem' }}>
-                    <motion.h2
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', lineHeight: 1 }}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
                     >
-                        Universal <span style={{ color: '#fff' }}>Asset</span> <br />
-                        <span className="accent-color">Intelligence</span>
-                    </motion.h2>
+                        <h2 style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', lineHeight: 1, marginBottom: '2rem' }}>
+                            Universal <span style={{ color: '#fff' }}>Asset</span> <br />
+                            <span className="accent-color">Intelligence</span>
+                        </h2>
+                        <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '1.2rem', maxWidth: '600px', margin: '0 auto' }}>
+                            A unified data engine connecting verification, tokenization, and liquidity layers.
+                        </p>
+                    </motion.div>
                 </div>
 
                 <div className="ecosystem-container" style={{ position: 'relative', height: '500px', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

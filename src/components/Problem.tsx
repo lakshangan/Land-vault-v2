@@ -1,27 +1,27 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { AlertTriangle, Lock, Globe, EyeOff } from 'lucide-react';
+import { AlertTriangle, Lock, Globe, EyeOff, Users } from 'lucide-react';
 
 const problems = [
     {
-        title: "Document Fraud",
-        desc: "Land fraud and tampered records cost billions annually in legal disputes.",
-        icon: <AlertTriangle size={32} color="#bfff00" />
+        title: "Fragmented Ownership",
+        desc: "Real estate and infrastructure assets are locked within local markets and controlled by complex regulatory systems.",
+        icon: <Users size={32} color="#bfff00" />
     },
     {
-        title: "Illiquidity",
-        desc: "Real estate is famously illiquid, with exit timelines often taking months or years.",
+        title: "Illiquid Investments",
+        desc: "Investing in physical assets requires large capital commitments and long holding periods.",
         icon: <Lock size={32} color="#bfff00" />
     },
     {
-        title: "Market Barriers",
-        desc: "Limited global investment access prevents small investors from high-yield land beta.",
+        title: "Limited Global Access",
+        desc: "Most investors cannot access international asset markets due to legal and financial barriers.",
         icon: <Globe size={32} color="#bfff00" />
     },
     {
-        title: "Opaque",
-        desc: "Lack of transparency in ownership and valuations leads to high risk for institutional buyers.",
+        title: "Lack of Transparency",
+        desc: "Ownership records, asset performance, and valuation data are often opaque and difficult to verify.",
         icon: <EyeOff size={32} color="#bfff00" />
     }
 ];
@@ -49,11 +49,14 @@ export default function Problem() {
                         transition={{ duration: 0.6 }}
                     >
                         <span style={{ color: '#c5a059', letterSpacing: 5, fontSize: '0.7rem', fontWeight: 900, textTransform: 'uppercase' }}>
-                            Critical Infrastructure Gaps
+                            The Challenge
                         </span>
                         <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', marginTop: '1.5rem', fontWeight: 900, letterSpacing: '-0.03em' }}>
-                            The Land System is <span style={{ color: '#bfff00' }}>Broken</span>.
+                            Real-World Asset Markets Are <span style={{ color: '#bfff00' }}>Broken</span>
                         </h2>
+                        <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '1.2rem', marginTop: '1.5rem', maxWidth: '700px', margin: '1.5rem auto 0' }}>
+                            Traditional asset markets are fragmented, illiquid, and inaccessible to global investors.
+                        </p>
                     </motion.div>
                 </div>
 
@@ -109,28 +112,15 @@ export default function Problem() {
                             </h3>
 
                             <p style={{
-                                color: p.title === "Opaque" ? '#ffffff' : 'rgba(255, 255, 255, 0.4)',
+                                color: 'rgba(255, 255, 255, 0.4)',
                                 lineHeight: 1.8,
                                 fontSize: '1.1rem',
-                                fontWeight: p.title === "Opaque" ? 600 : 400,
+                                fontWeight: 400,
                                 maxWidth: '90%'
                             }}>
                                 {p.desc}
                             </p>
 
-                            {/* Corner Glow for the Opaque card */}
-                            {p.title === 'Opaque' && (
-                                <div style={{
-                                    position: 'absolute',
-                                    top: 0,
-                                    right: 0,
-                                    width: '100px',
-                                    height: '100px',
-                                    background: 'radial-gradient(circle at 100% 0%, rgba(191, 255, 0, 0.1) 0%, transparent 70%)',
-                                    borderRadius: '0 40px 0 0',
-                                    pointerEvents: 'none'
-                                }} />
-                            )}
 
                             <div className="card-shine" />
                         </motion.div>

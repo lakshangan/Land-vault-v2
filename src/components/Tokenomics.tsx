@@ -1,10 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, LandPlot, Database, Wallet, Users, RefreshCw } from 'lucide-react';
+import { ArrowRight, LandPlot, Database, Wallet, Users, RefreshCw, Shield } from 'lucide-react';
 
 const flowSteps = [
-    { icon: <LandPlot size={32} />, text: "Land Asset", color: "#bfff00" },
+    { icon: <Shield size={32} />, text: "Asset Verification", color: "#bfff00" },
     { icon: <Database size={32} />, text: "NFT Tokenization", color: "#c5a059" },
     { icon: <Wallet size={32} />, text: "Fractional Tokens", color: "#00f2ff" },
     { icon: <Users size={32} />, text: "Global Investors", color: "#fff" },
@@ -21,11 +21,11 @@ export default function Tokenomics() {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: 1.1, marginBottom: '2rem' }}>
-                            The Land Vault <span style={{ color: '#bfff00' }}>Tokenomics</span> Engine
+                        <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: 1.1, marginBottom: '2rem', fontWeight: 900 }}>
+                            The Land Vault <span style={{ color: '#bfff00' }}>Tokenization Engine</span>
                         </h2>
-                        <p style={{ color: '#666', fontSize: '1.2rem', maxWidth: '600px', margin: '0 auto' }}>
-                            A high-velocity economic flywheel powered by fractional liquidity and automated smart contract yields.
+                        <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '1.25rem', maxWidth: '750px', margin: '0 auto', lineHeight: 1.6 }}>
+                            A programmable economic layer powering asset tokenization and liquidity.
                         </p>
                     </motion.div>
                 </div>

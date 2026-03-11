@@ -85,14 +85,15 @@ export default function InteractiveMap() {
                             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                         >
                             <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', lineHeight: 0.9, marginBottom: '2rem', fontWeight: 900, color: '#000', letterSpacing: '-0.03em' }}>
-                                Global <span style={{
+                                Global RWA <br />
+                                <span style={{
                                     background: 'linear-gradient(90deg, #5856d6, #007aff)',
                                     WebkitBackgroundClip: 'text',
                                     WebkitTextFillColor: 'transparent',
-                                }}>Land Liquidity</span>
+                                }}>Liquidity Network</span>
                             </h2>
                             <p style={{ color: 'rgba(0,0,0,0.45)', fontSize: '1.25rem', maxWidth: '650px', margin: '0 auto', lineHeight: 1.6, fontWeight: 500 }}>
-                                Real-time visualization of tokenized land protocol nodes across global jurisdictions.
+                                Land Vault connects real estate, energy infrastructure, and physical assets with global on-chain investors.
                             </p>
                         </motion.div>
                     </div>
@@ -244,7 +245,7 @@ export default function InteractiveMap() {
                             }}
                             className="map-primary-btn"
                         >
-                            Open Protocol terminal
+                            Explore Asset Network
                         </motion.button>
                     </div>
                 </div>
