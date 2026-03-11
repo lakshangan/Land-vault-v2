@@ -116,8 +116,18 @@ export default function Hero() {
 
                     {/* ── Right: Visual ── */}
                     <div className="hero-visual">
-                        <div style={{ position: 'relative', width: '100%', height: '600px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <IsometricIllustration />
+                        <div style={{
+                            position: 'relative',
+                            width: '100%',
+                            height: '600px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            overflow: 'visible',
+                        }}>
+                            <div style={{ transform: 'scale(0.9) translateX(5%)', transformOrigin: 'center center' }}>
+                                <IsometricIllustration />
+                            </div>
                         </div>
                     </div>
 
@@ -139,6 +149,7 @@ export default function Hero() {
                 .hero-visual {
                     position: relative;
                     z-index: 1;
+                    overflow: visible;
                 }
 
                 @media (max-width: 992px) {
@@ -321,7 +332,7 @@ function IsometricIllustration() {
                     style={{
                         position: 'absolute',
                         top: '60%',
-                        right: '-15%',
+                        right: '-2%',
                         width: '240px',
                         height: '200px',
                         background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(240,240,240,0.9) 100%)',
