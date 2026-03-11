@@ -1,8 +1,8 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Shield, Zap, Globe, Cpu, ChevronRight } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Shield, Zap, Globe, Cpu } from 'lucide-react';
+import { useState } from 'react';
 
 export default function Hero() {
     return (
@@ -48,134 +48,110 @@ export default function Hero() {
                 zIndex: 0
             }} />
 
-            <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+            <div style={{ position: 'relative', zIndex: 1, width: '100%', padding: '0 5%' }}>
                 <div className="hero-layout">
+
+                    {/* ── Left: Text Content ── */}
                     <div className="hero-content">
                         <motion.div
-                            initial={{ opacity: 0, x: -30 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                            initial={{ opacity: 0, y: 32 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
                         >
+                            {/* Eyebrow badge */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.15, duration: 0.8 }}
+                                style={{
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '8px',
+                                    background: 'rgba(191,255,0,0.06)',
+                                    border: '1px solid rgba(191,255,0,0.2)',
+                                    borderRadius: '100px',
+                                    padding: '7px 18px',
+                                    marginBottom: '2rem'
+                                }}
+                            >
+                                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#bfff00', display: 'inline-block', boxShadow: '0 0 8px #bfff00' }} />
+                                <span style={{ fontSize: '0.68rem', fontWeight: 800, color: '#bfff00', textTransform: 'uppercase', letterSpacing: '0.15em' }}>RWA Protocol · On-chain Now</span>
+                            </motion.div>
+
+                            {/* Headline */}
                             <h1 style={{
-                                fontSize: 'clamp(2.5rem, 5vw, 4.2rem)',
-                                lineHeight: 1.1,
+                                fontSize: 'clamp(3rem, 5.5vw, 5.2rem)',
+                                lineHeight: 1.02,
                                 fontWeight: 900,
-                                marginBottom: '2.5rem',
-                                letterSpacing: '-0.03em',
-                                maxWidth: '800px',
+                                marginBottom: '0',
+                                letterSpacing: '-0.04em',
                                 color: '#fff'
                             }}>
-                                Infrastructure for Tokenizing <br />
-                                <span className="gradient-text">Real-World</span> <span style={{ color: '#fff' }}>Assets.</span>
+                                Infrastructure<br />
+                                for Tokenizing<br />
+                                <span style={{
+                                    background: 'linear-gradient(90deg, #bfff00 0%, rgba(191,255,0,0.5) 100%)',
+                                    WebkitBackgroundClip: 'text',
+                                    WebkitTextFillColor: 'transparent'
+                                }}>Real-World</span>{' '}
+                                <span style={{ color: '#fff' }}>Assets.</span>
                             </h1>
 
-                            <p style={{
-                                color: 'rgba(255,255,255,0.5)',
-                                fontSize: '1.25rem',
-                                lineHeight: 1.6,
-                                maxWidth: '600px',
-                                marginBottom: '3.5rem',
-                                fontWeight: 500
-                            }}>
-                                Land Vault is a decentralized protocol that transforms real estate, renewable energy, and infrastructure assets into on-chain investment opportunities. By combining verification, tokenization, and fractional ownership, the protocol unlocks global access to traditionally illiquid assets.
-                            </p>
-
-                            <div style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }}>
-                                    <motion.button
-                                        whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(255,255,255,0.2)' }}
-                                        whileTap={{ scale: 0.98 }}
-                                        className="cta-button"
-                                    >
-                                        Explore Protocol
-                                        <div className="cta-icon">
-                                            <ArrowRight size={20} />
-                                        </div>
-                                    </motion.button>
-                                    <motion.button
-                                        whileHover={{ scale: 1.05, background: 'rgba(255,255,255,0.05)' }}
-                                        whileTap={{ scale: 0.98 }}
-                                        style={{
-                                            background: 'transparent',
-                                            border: '1px solid rgba(255,255,255,0.1)',
-                                            color: '#fff',
-                                            padding: '1.2rem 2.8rem',
-                                            borderRadius: '100px',
-                                            fontSize: '0.9rem',
-                                            fontWeight: 800,
-                                            cursor: 'pointer',
-                                            transition: 'all 0.3s ease'
-                                        }}
-                                    >
-                                        View Demo
-                                    </motion.button>
+                            {/* Divider + Subtext */}
+                            <div style={{ display: 'flex', gap: '1.4rem', alignItems: 'flex-start', marginTop: '2.5rem' }}>
+                                <div style={{ width: '2px', flexShrink: 0, alignSelf: 'stretch', background: 'linear-gradient(to bottom, #bfff00, transparent)', borderRadius: '4px' }} />
+                                <p style={{
+                                    color: 'rgba(255,255,255,0.45)',
+                                    fontSize: '1.05rem',
+                                    lineHeight: 1.7,
+                                    fontWeight: 400,
+                                    margin: 0
+                                }}>
+                                    A decentralized protocol unlocking global access to real estate, energy, and infrastructure through tokenization and fractional ownership.
+                                </p>
                             </div>
+
                         </motion.div>
                     </div>
 
+                    {/* ── Right: Visual ── */}
                     <div className="hero-visual">
                         <div style={{ position: 'relative', width: '100%', height: '600px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <IsometricIllustration />
                         </div>
                     </div>
+
                 </div>
             </div>
 
             <style jsx>{`
                 .hero-layout {
                     display: grid;
-                    grid-template-columns: 1.2fr 0.8fr;
-                    gap: 4rem;
+                    grid-template-columns: 1.1fr 0.9fr;
+                    gap: 3rem;
                     align-items: center;
+                    min-height: calc(100vh - 80px);
+                    padding: 4rem 0;
                 }
                 .hero-content {
-                    padding-right: 2rem;
                     z-index: 2;
                 }
                 .hero-visual {
                     position: relative;
                     z-index: 1;
                 }
-                .cta-button {
-                    background: #fff;
-                    color: #000;
-                    padding: 0.8rem 0.8rem 0.8rem 2.8rem;
-                    border-radius: 100px;
-                    font-weight: 900;
-                    font-size: 0.9rem;
-                    display: flex;
-                    align-items: center;
-                    gap: 2rem;
-                    border: none;
-                    cursor: pointer;
-                    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-                }
-                .cta-icon {
-                    width: 52px;
-                    height: 52px;
-                    background: #000;
-                    color: #fff;
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-                .gradient-text {
-                    background: linear-gradient(90deg, #fff, rgba(255,255,255,0.4));
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                }
 
                 @media (max-width: 992px) {
                     .hero-layout {
                         grid-template-columns: 1fr;
                         text-align: center;
-                        padding-top: 4rem;
-                        gap: 4rem;
+                        padding: 4rem 0;
+                        gap: 3rem;
+                        min-height: auto;
                     }
-                    .hero-visual { 
-                        display: block; 
+                    .hero-visual {
                         width: 100%;
-                        height: 450px;
+                        height: 420px;
                         order: 2;
                         overflow: hidden;
                     }
@@ -187,33 +163,12 @@ export default function Hero() {
                         display: flex;
                         flex-direction: column;
                         align-items: center;
-                        padding-right: 0;
                         order: 1;
                     }
                 }
                 @media (max-width: 480px) {
-                    .hero-visual {
-                        height: 350px;
-                    }
-                    .hero-visual > div {
-                        transform: scale(0.5);
-                    }
-                }
-
-                @media (max-width: 768px) {
-                    .hero-layout {
-                        gap: 3rem;
-                        padding-top: 2rem;
-                    }
-                    .cta-button {
-                        padding: 0.6rem 0.6rem 0.6rem 1.8rem;
-                        gap: 1.2rem;
-                        font-size: 0.8rem;
-                    }
-                    .cta-icon {
-                        width: 42px;
-                        height: 42px;
-                    }
+                    .hero-visual { height: 300px; }
+                    .hero-visual > div { transform: scale(0.5); }
                 }
             `}</style>
         </section>
