@@ -37,6 +37,12 @@ function Particles() {
         return pos;
     }, [count]);
 
+    const geometry = useMemo(() => {
+        const geo = new THREE.BufferGeometry();
+        geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        return geo;
+    }, [positions]);
+
     const pointsRef = useRef<THREE.Points>(null!);
 
     useFrame((state) => {
@@ -46,16 +52,7 @@ function Particles() {
     });
 
     return (
-        <points ref={pointsRef}>
-            <bufferGeometry>
-                <bufferAttribute
-                    attach="attributes-position"
-                    count={count}
-                    array={positions}
-                    itemSize={3}
-                    args={[positions, 3]}
-                />
-            </bufferGeometry>
+        <points ref={pointsRef} geometry={geometry}>
             <pointsMaterial
                 size={0.05}
                 color="#bfff00"
