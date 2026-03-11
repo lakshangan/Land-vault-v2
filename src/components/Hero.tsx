@@ -30,15 +30,100 @@ export default function Hero() {
             position: 'relative',
             overflow: 'hidden',
         }}>
-            {/* Ambient Background Glow */}
+            {/* Ambient Base Layer with Richer Dark Depth */}
             <div style={{
                 position: 'absolute',
-                top: '50%',
+                inset: 0,
+                background: 'radial-gradient(circle at 50% 50%, #0a0a0c 0%, #050505 100%)',
+                zIndex: -2
+            }} />
+
+            {/* Subtle Dot Grid Pattern */}
+            <div style={{
+                position: 'absolute',
+                inset: 0,
+                backgroundImage: `radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px)`,
+                backgroundSize: '60px 60px',
+                zIndex: -1
+            }} />
+
+            {/* Background Watermark Typography - Slightly more visible */}
+            <div style={{
+                position: 'absolute',
+                top: '45%',
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
-                width: '120vw',
-                height: '120vh',
-                background: 'radial-gradient(circle, rgba(139, 92, 246, 0.05) 0%, transparent 70%)',
+                fontSize: '28vw',
+                fontWeight: 900,
+                color: 'rgba(255, 255, 255, 0.02)',
+                userSelect: 'none',
+                pointerEvents: 'none',
+                letterSpacing: '-0.06em',
+                zIndex: -1,
+                whiteSpace: 'nowrap'
+            }}>
+                LANDVAULT
+            </div>
+
+            {/* Drifting Data Particles - More active */}
+            {Array.from({ length: 30 }).map((_, i) => (
+                <motion.div
+                    key={i}
+                    initial={{ 
+                        x: Math.random() * 2000 - 1000, 
+                        y: Math.random() * 1000, 
+                        opacity: 0 
+                    }}
+                    animate={{ 
+                        x: [null, Math.random() * 2000 - 1000],
+                        y: [null, Math.random() * 1000],
+                        opacity: [0, 0.15, 0]
+                    }}
+                    transition={{ 
+                        duration: 10 + Math.random() * 15, 
+                        repeat: Infinity, 
+                        ease: "linear" 
+                    }}
+                    style={{
+                        position: 'absolute',
+                        width: Math.random() * 3 + 'px',
+                        height: Math.random() * 3 + 'px',
+                        background: i % 2 === 0 ? '#bfff00' : '#ffffff',
+                        borderRadius: '50%',
+                        filter: 'blur(1px)',
+                        zIndex: 0
+                    }}
+                />
+            ))}
+
+            {/* Vivid Ambient Background Glows */}
+            <div style={{
+                position: 'absolute',
+                top: '0%',
+                right: '5%',
+                width: '1200px',
+                height: '1200px',
+                background: 'radial-gradient(circle, rgba(191, 255, 0, 0.12) 0%, transparent 70%)',
+                filter: 'blur(150px)',
+                zIndex: 0
+            }} />
+            <div style={{
+                position: 'absolute',
+                bottom: '-10%',
+                left: '0%',
+                width: '1000px',
+                height: '1000px',
+                background: 'radial-gradient(circle, rgba(88, 86, 214, 0.15) 0%, transparent 70%)',
+                filter: 'blur(130px)',
+                zIndex: 0
+            }} />
+            <div style={{
+                position: 'absolute',
+                top: '40%',
+                left: '20%',
+                width: '600px',
+                height: '600px',
+                background: 'radial-gradient(circle, rgba(0, 122, 255, 0.1) 0%, transparent 70%)',
                 filter: 'blur(100px)',
                 zIndex: 0
             }} />
@@ -337,35 +422,80 @@ function IsometricIllustration() {
                     </div>
                 </motion.div>
 
-                {/* Tokenized Asset Fragments - Elevated Glowing Nodes */}
+                {/* Tokenized Asset Fragments - High-Fidelity RWA Tokens */}
                 {[1, 2, 3].map(i => (
                     <motion.div
                         key={i}
                         animate={{
-                            z: [60 + i * 30, 90 + i * 30, 60 + i * 30],
-                            y: [0, -40, 0],
-                            rotateY: [0, 180, 360]
+                            z: [80 + i * 40, 120 + i * 40, 80 + i * 40],
+                            y: [0, -60, 0],
+                            rotateZ: [0, 5, -5, 0]
                         }}
-                        transition={{ duration: 8 + i, repeat: Infinity, ease: "linear" }}
+                        transition={{ duration: 10 + i, repeat: Infinity, ease: "easeInOut" }}
                         style={{
                             position: 'absolute',
-                            top: `${15 + i * 20}%`,
-                            left: `${80 - i * 15}%`,
-                            width: '40px',
-                            height: '40px',
-                            background: 'rgba(191,255,0,0.1)',
-                            backdropFilter: 'blur(12px)',
-                            border: '2px solid #bfff00',
-                            borderRadius: '10px',
+                            top: `${10 + i * 25}%`,
+                            left: `${85 - i * 20}%`,
+                            width: '80px',
+                            height: '80px',
+                            transformStyle: 'preserve-3d'
+                        }}
+                    >
+                        <div style={{
+                            position: 'relative',
+                            width: '100%',
+                            height: '100%',
+                            background: 'rgba(191,255,0,0.05)',
+                            backdropFilter: 'blur(15px)',
+                            border: '1px solid rgba(191,255,0,0.3)',
+                            borderRadius: '20px',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            boxShadow: '0 0 30px rgba(191,255,0,0.3), inset 0 0 15px rgba(191,255,0,0.2)',
-                        }}
-                    >
-                        <div style={{ width: '12px', height: '12px', background: '#bfff00', borderRadius: '2px', filter: 'blur(1px)' }} />
-                        <div style={{ position: 'absolute', top: '-25px', color: '#bfff00', fontSize: '0.5rem', fontWeight: 900, whiteSpace: 'nowrap', letterSpacing: 2 }}>
-                            FRAG_{i * 12}
+                            boxShadow: '0 20px 40px rgba(0,0,0,0.3), inset 0 0 20px rgba(191,255,0,0.1)'
+                        }}>
+                            {/* Inner SVG Detail */}
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <rect x="10" y="10" width="20" height="20" rx="4" stroke="#bfff00" strokeWidth="2" strokeDasharray="4 2" />
+                                <circle cx="20" cy="20" r="5" fill="#bfff00" filter="blur(2px)" />
+                                <path d="M5 20 H10 M30 20 H35 M20 5 V10 M20 30 V35" stroke="#bfff00" strokeWidth="1" opacity="0.5" />
+                            </svg>
+                            
+                            {/* Orbiting Ring */}
+                            <motion.div
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                                style={{
+                                    position: 'absolute',
+                                    width: '120%',
+                                    height: '120%',
+                                    border: '1px dashed rgba(191,255,0,0.2)',
+                                    borderRadius: '50%'
+                                }}
+                            />
+                            
+                            {/* Label */}
+                            <div style={{
+                                position: 'absolute',
+                                bottom: '-30px',
+                                left: '50%',
+                                transform: 'translateX(-50%)',
+                                whiteSpace: 'nowrap'
+                            }}>
+                                <span style={{
+                                    fontSize: '0.6rem',
+                                    fontWeight: 900,
+                                    color: '#bfff00',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: 2,
+                                    background: 'rgba(0,0,0,0.6)',
+                                    padding: '2px 8px',
+                                    borderRadius: '4px',
+                                    border: '1px solid rgba(191,255,0,0.2)'
+                                }}>
+                                    FRAG_{i * 42}
+                                </span>
+                            </div>
                         </div>
                     </motion.div>
                 ))}

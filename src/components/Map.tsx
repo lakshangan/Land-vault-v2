@@ -26,7 +26,7 @@ export default function InteractiveMap() {
 
     // Expansion Effect
     const width = useTransform(springProgress, [0, 1], ["80%", "100%"]);
-    const borderRadius = useTransform(springProgress, [0, 1], ["48px", "0px"]);
+    const borderRadius = useTransform(springProgress, [0, 1], ["100px", "100px"]); // Maintain 100px rounded corners at all times
     const scale = useTransform(springProgress, [0, 1], [0.95, 1]);
     const opacity = useTransform(springProgress, [0, 0.4], [0, 1]);
 
