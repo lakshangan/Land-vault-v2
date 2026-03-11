@@ -161,8 +161,13 @@ export default function Tokenomics() {
                         flex-direction: column !important;
                         gap: 2rem !important;
                     }
+                    div[style*="min-height: 300px"] {
+                        height: 200px !important;
+                        min-height: auto !important;
+                    }
                     div[style*="min-height: 300px"] svg {
-                        display: none !important;
+                        display: block !important;
+                        width: 100% !important;
                     }
                     .arrow-divider {
                         transform: rotate(90deg) !important;

@@ -101,7 +101,6 @@ export default function Navbar() {
                             layout
                             className="desktop-links"
                             style={{
-                                display: 'flex',
                                 gap: isScrolled ? '4px' : '4rem',
                                 alignItems: 'center'
                             }}
@@ -254,11 +253,13 @@ export default function Navbar() {
             </AnimatePresence>
 
             <style jsx>{`
+        .desktop-links { display: flex; }
         @media (min-width: 969px) {
           .mobile-toggle { display: none; }
         }
         @media (max-width: 968px) {
           .desktop-links { display: none !important; }
+          .mobile-toggle { display: block !important; }
         }
         @media (max-width: 768px) {
             .mobile-menu-container {

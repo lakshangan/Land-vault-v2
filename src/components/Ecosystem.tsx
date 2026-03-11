@@ -49,6 +49,7 @@ export default function Ecosystem() {
                             </defs>
 
                             <motion.path
+                                className="desktop-only-path"
                                 d="M 0,250 C 150,50 350,450 550,250 S 850,50 1200,250"
                                 stroke="url(#vibrantGradient)"
                                 strokeWidth="4"
@@ -58,8 +59,22 @@ export default function Ecosystem() {
                                 whileInView={{ pathLength: 1, opacity: 1 }}
                                 transition={{ duration: 2.5, ease: "easeInOut" }}
                             />
+                            {/* Mobile Path */}
+                            <motion.path
+                                className="mobile-only-path"
+                                d="M 600,0 C 200,200 1000,400 600,600 S 200,800 600,1000"
+                                stroke="url(#vibrantGradient)"
+                                strokeWidth="4"
+                                fill="none"
+                                filter="url(#glow)"
+                                initial={{ pathLength: 0, opacity: 0 }}
+                                whileInView={{ pathLength: 1, opacity: 1 }}
+                                transition={{ duration: 2.5, ease: "easeInOut" }}
+                                style={{ display: 'none' }}
+                            />
                             {/* Ghost Paths */}
                             <motion.path
+                                className="desktop-only-path"
                                 d="M 0,250 C 200,450 400,50 600,250 S 900,450 1200,250"
                                 stroke="url(#vibrantGradient)"
                                 strokeWidth="2"
@@ -68,6 +83,18 @@ export default function Ecosystem() {
                                 initial={{ pathLength: 0 }}
                                 whileInView={{ pathLength: 1 }}
                                 transition={{ duration: 3, delay: 0.5 }}
+                            />
+                            <motion.path
+                                className="mobile-only-path"
+                                d="M 600,0 C 1000,200 200,400 600,600 S 1000,800 600,1000"
+                                stroke="url(#vibrantGradient)"
+                                strokeWidth="2"
+                                fill="none"
+                                opacity="0.2"
+                                initial={{ pathLength: 0 }}
+                                whileInView={{ pathLength: 1 }}
+                                transition={{ duration: 3, delay: 0.5 }}
+                                style={{ display: 'none' }}
                             />
                         </svg>
                     </div>
@@ -144,17 +171,31 @@ export default function Ecosystem() {
                 @media (max-width: 968px) {
                     .ecosystem-container {
                         height: auto !important;
-                        padding: 4rem 0;
+                        padding: 3rem 0;
+                        min-height: 800px;
                     }
                     .desktop-visual {
-                        display: none !important;
+                        display: block !important;
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        opacity: 0.5 !important;
+                    }
+                    .desktop-only-path { display: none !important; }
+                    .mobile-only-path { display: block !important; }
+                    .desktop-visual svg {
+                        width: 100%;
+                        height: 1000px;
+                        left: 0;
                     }
                     .blobs-wrapper {
                         display: flex !important;
                         flex-direction: column !important;
                         align-items: center !important;
-                        gap: 3rem !important;
+                        gap: 5rem !important;
                         height: auto !important;
+                        position: relative;
+                        z-index: 2;
                     }
                     div[class^="flow-point"] {
                         position: relative !important;

@@ -212,11 +212,16 @@ export default function Vision() {
                         text-align: center;
                     }
                     div[style*="height: 700px"] {
-                        display: none !important;
+                        display: block !important;
+                        height: 400px !important;
+                        width: 100% !important;
+                        order: 2;
+                        margin-top: 3rem;
                     }
                     p {
                         margin-left: auto !important;
                         margin-right: auto !important;
+                        order: 1;
                     }
                     div[style*="display: flex; gap: 2rem"] {
                         justify-content: center !important;

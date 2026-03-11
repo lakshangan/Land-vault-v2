@@ -227,13 +227,34 @@ export default function Hero() {
                         grid-template-columns: 1fr;
                         text-align: center;
                         padding-top: 4rem;
+                        gap: 4rem;
                     }
-                    .hero-visual { display: none; }
+                    .hero-visual { 
+                        display: block; 
+                        width: 100%;
+                        height: 450px;
+                        order: 2;
+                        overflow: hidden;
+                    }
+                    .hero-visual > div {
+                        transform: scale(0.6);
+                        transform-origin: center center;
+                    }
+                }
+                @media (max-width: 480px) {
+                    .hero-visual {
+                        height: 350px;
+                    }
+                    .hero-visual > div {
+                        transform: scale(0.5);
+                    }
+                }
                     .hero-content {
                         display: flex;
                         flex-direction: column;
                         align-items: center;
                         padding-right: 0;
+                        order: 1;
                     }
                 }
 
