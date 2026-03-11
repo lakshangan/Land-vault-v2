@@ -168,7 +168,7 @@ export default function Navbar() {
                                     gap: '0.5rem',
                                     transition: 'all 0.3s ease'
                                 }}>
-                                    Terminal <ChevronRight size={14} />
+                                    Lanuch App  <ChevronRight size={14} />
                                 </button>
                             </motion.div>
 
