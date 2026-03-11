@@ -155,8 +155,7 @@ export default function Hero() {
                                 lineHeight: 1.4,
                                 fontWeight: 500
                             }}>
-                                The LandVault protocol bridges high-yield <span style={{ color: '#fff' }}>RWA</span> with modular <span style={{ color: '#fff' }}>DeFi</span>.
-                                Secure, liquid, and institutional.
+                                A universal infrastructure for <span style={{ color: '#fff' }}>tokenizing</span> real-world <span style={{ color: '#fff' }}>assets.</span>
                             </p>
 
                             <div style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }}>
