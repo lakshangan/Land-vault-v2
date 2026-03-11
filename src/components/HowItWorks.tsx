@@ -149,7 +149,7 @@ export default function HowItWorks() {
                     </motion.div>
                 </div>
 
-                <div className="lifecycle-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))', gap: '2rem' }}>
+                <div className="lifecycle-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2.5rem' }}>
                     {lifecycleSteps.map((step, i) => (
                         <motion.div
                             key={step.title}
@@ -159,52 +159,85 @@ export default function HowItWorks() {
                             viewport={{ once: true }}
                             className="lifecycle-card"
                             style={{
-                                background: 'rgba(255,255,255,0.01)',
+                                background: 'rgba(255,255,255,0.015)',
                                 border: '1px solid rgba(255,255,255,0.05)',
-                                borderRadius: '40px',
+                                borderRadius: '48px',
                                 display: 'flex',
                                 flexDirection: 'column',
                                 overflow: 'hidden',
-                                position: 'relative'
+                                position: 'relative',
+                                minHeight: '520px',
+                                backdropFilter: 'blur(20px)'
                             }}
                             whileHover={{
                                 background: 'rgba(255,255,255,0.03)',
-                                borderColor: `${step.color}33`,
-                                translateY: -10
+                                borderColor: `${step.color}44`,
+                                translateY: -15
                             }}
                         >
-                            <div className="step-visual" style={{ height: '240px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
+                            {/* Scanning HUD line effect on hover */}
+                            <motion.div
+                                initial={{ top: '-100%' }}
+                                whileHover={{ top: '200%' }}
+                                transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                                style={{
+                                    position: 'absolute',
+                                    left: 0,
+                                    right: 0,
+                                    height: '2px',
+                                    background: `linear-gradient(90deg, transparent, ${step.color}, transparent)`,
+                                    zIndex: 10,
+                                    opacity: 0.3
+                                }}
+                            />
+
+                            <div className="step-visual" style={{ 
+                                height: '280px', 
+                                display: 'flex', 
+                                alignItems: 'center', 
+                                justifyContent: 'center',
+                                position: 'relative',
+                                background: `radial-gradient(circle at center, ${step.color}05 0%, transparent 70%)`
+                            }}>
                                 <VisualIcon type={step.visual} color={step.color} />
                             </div>
 
-                            <div style={{ position: 'relative', zIndex: 2 }}>
-                                <h3 style={{ fontSize: '1.6rem', fontWeight: 700, marginBottom: '1.5rem', color: '#fff' }}>
+                            <div style={{ padding: '0 4rem 4rem', position: 'relative', zIndex: 2 }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
+                                    <div style={{ 
+                                        color: step.color, 
+                                        background: `${step.color}15`, 
+                                        padding: '12px', 
+                                        borderRadius: '16px',
+                                        boxShadow: `0 10px 30px ${step.color}10`
+                                    }}>
+                                        {step.icon}
+                                    </div>
+                                    <span style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: 4, color: step.color }}>
+                                        Step_0{i + 1}
+                                    </span>
+                                </div>
+
+                                <h3 style={{ fontSize: '2.2rem', fontWeight: 900, marginBottom: '1.5rem', color: '#fff', letterSpacing: '-0.02em' }}>
                                     {step.title}
                                 </h3>
-                                <p style={{ color: 'rgba(255,255,255,0.4)', lineHeight: 1.8, fontSize: '1.1rem', marginBottom: '2.5rem' }}>
+                                <p style={{ color: 'rgba(255,255,255,0.4)', lineHeight: 1.6, fontSize: '1.15rem', marginBottom: '2rem', maxWidth: '90%' }}>
                                     {step.desc}
                                 </p>
 
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: step.color }}>
-                                    <div style={{ background: `${step.color}15`, padding: '10px', borderRadius: '12px' }}>
-                                        {step.icon}
-                                    </div>
-                                    <span style={{ fontSize: '0.7rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: 2 }}>
-                                        System Active
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+                                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: step.color, boxShadow: `0 0 15px ${step.color}` }} />
+                                    <span style={{ fontSize: '0.65rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: 2, color: 'rgba(255,255,255,0.6)' }}>
+                                        SYSTEM_ACTIVE
                                     </span>
                                 </div>
                             </div>
 
-                            {/* Corner Glow */}
-                            <div style={{
-                                position: 'absolute',
-                                top: '-20%',
-                                right: '-20%',
-                                width: '200px',
-                                height: '200px',
-                                background: `radial-gradient(circle, ${step.color}11 0%, transparent 70%)`,
-                                pointerEvents: 'none'
-                            }} />
+                            {/* Decorative Corner Details */}
+                            <div style={{ position: 'absolute', top: '24px', right: '24px', opacity: 0.1 }}>
+                                <div style={{ width: '40px', height: '2px', background: step.color, marginBottom: '8px' }} />
+                                <div style={{ width: '20px', height: '2px', background: step.color, marginLeft: 'auto' }} />
+                            </div>
                         </motion.div>
                     ))}
                 </div>
@@ -212,23 +245,22 @@ export default function HowItWorks() {
 
             <style jsx>{`
                 .lifecycle-card {
-                    padding: 3.5rem;
+                    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
                 }
-                @media (max-width: 992px) {
+                @media (max-width: 1200px) {
                     .lifecycle-grid {
                         grid-template-columns: 1fr !important;
                     }
                 }
                 @media (max-width: 768px) {
                     .lifecycle-card {
-                        padding: 2.5rem;
+                        min-height: auto !important;
                     }
-                    .step-visual {
-                        transform: scale(0.85);
-                        height: 200px !important;
+                    div[style*="padding: 0 4rem 4rem"] {
+                        padding: 0 2rem 3rem !important;
                     }
-                    h2 {
-                        text-align: center;
+                    h3 {
+                        font-size: 1.8rem !important;
                     }
                 }
             `}</style>
