@@ -226,6 +226,7 @@ export default function Hero() {
                     .hero-layout {
                         grid-template-columns: 1fr;
                         text-align: center;
+                        padding-top: 4rem;
                     }
                     .hero-visual { display: none; }
                     .hero-content {
@@ -233,6 +234,22 @@ export default function Hero() {
                         flex-direction: column;
                         align-items: center;
                         padding-right: 0;
+                    }
+                }
+
+                @media (max-width: 768px) {
+                    .hero-layout {
+                        gap: 3rem;
+                        padding-top: 2rem;
+                    }
+                    .cta-button {
+                        padding: 0.6rem 0.6rem 0.6rem 1.8rem;
+                        gap: 1.2rem;
+                        font-size: 0.8rem;
+                    }
+                    .cta-icon {
+                        width: 42px;
+                        height: 42px;
                     }
                 }
             `}</style>

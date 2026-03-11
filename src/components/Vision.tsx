@@ -206,6 +206,24 @@ export default function Vision() {
                     transform-style: preserve-3d;
                     perspective: 1000px;
                 }
+                @media (max-width: 992px) {
+                    div[style*="grid-template-columns"] {
+                        grid-template-columns: 1fr !important;
+                        text-align: center;
+                    }
+                    div[style*="height: 700px"] {
+                        display: none !important;
+                    }
+                    p {
+                        margin-left: auto !important;
+                        margin-right: auto !important;
+                    }
+                    div[style*="display: flex; gap: 2rem"] {
+                        justify-content: center !important;
+                        flex-direction: column !important;
+                        align-items: center !important;
+                    }
+                }
             `}</style>
         </section>
     );

@@ -103,6 +103,27 @@ export default function Roadmap() {
                     ))}
                 </div>
             </div>
+            <style jsx>{`
+                @media (max-width: 768px) {
+                    div[style*="width: 1px"] {
+                        left: 20px !important;
+                        transform: none !important;
+                    }
+                    div[style*="width: 50%"] {
+                        width: 100% !important;
+                        margin-left: 0 !important;
+                        padding: 1.5rem 0 1.5rem 50px !important;
+                        justify-content: flex-start !important;
+                    }
+                    div[style*="text-align: right"] {
+                        text-align: left !important;
+                    }
+                    div[style*="left: -5px"], div[style*="right: -5px"] {
+                        left: 15px !important;
+                        right: auto !important;
+                    }
+                }
+            `}</style>
         </section>
     );
 }

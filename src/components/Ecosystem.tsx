@@ -26,107 +26,97 @@ export default function Ecosystem() {
                     </motion.h2>
                 </div>
 
-                <div style={{ position: 'relative', height: '500px', width: '100%', display: 'flex', alignItems: 'center' }}>
-                    {/* Vibrant Wavy Paths */}
-                    <svg style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'visible' }}>
-                        <defs>
-                            <linearGradient id="vibrantGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" stopColor="#ff2d55" />
-                                <stop offset="25%" stopColor="#5856d6" />
-                                <stop offset="50%" stopColor="#007aff" />
-                                <stop offset="75%" stopColor="#ff9500" />
-                                <stop offset="100%" stopColor="#ffcc00" />
-                            </linearGradient>
+                <div className="ecosystem-container" style={{ position: 'relative', height: '500px', width: '100%', display: 'flex', alignItems: 'center' }}>
+                    {/* Vibrant Wavy Paths - Desktop Only */}
+                    <div className="desktop-visual" style={{ width: '100%', height: '100%', position: 'absolute' }}>
+                        <svg style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'visible' }}>
+                            <defs>
+                                <linearGradient id="vibrantGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stopColor="#ff2d55" />
+                                    <stop offset="25%" stopColor="#5856d6" />
+                                    <stop offset="50%" stopColor="#007aff" />
+                                    <stop offset="75%" stopColor="#ff9500" />
+                                    <stop offset="100%" stopColor="#ffcc00" />
+                                </linearGradient>
 
-                            <filter id="glow">
-                                <feGaussianBlur stdDeviation="15" result="coloredBlur" />
-                                <feMerge>
-                                    <feMergeNode in="coloredBlur" />
-                                    <feMergeNode in="SourceGraphic" />
-                                </feMerge>
-                            </filter>
-                        </defs>
+                                <filter id="glow">
+                                    <feGaussianBlur stdDeviation="15" result="coloredBlur" />
+                                    <feMerge>
+                                        <feMergeNode in="coloredBlur" />
+                                        <feMergeNode in="SourceGraphic" />
+                                    </feMerge>
+                                </filter>
+                            </defs>
 
-                        {/* Main Path */}
-                        <motion.path
-                            d="M 0,250 C 150,50 350,450 550,250 S 850,50 1200,250"
-                            stroke="url(#vibrantGradient)"
-                            strokeWidth="4"
-                            fill="none"
-                            filter="url(#glow)"
-                            initial={{ pathLength: 0, opacity: 0 }}
-                            whileInView={{ pathLength: 1, opacity: 1 }}
-                            transition={{ duration: 2.5, ease: "easeInOut" }}
-                        />
+                            <motion.path
+                                d="M 0,250 C 150,50 350,450 550,250 S 850,50 1200,250"
+                                stroke="url(#vibrantGradient)"
+                                strokeWidth="4"
+                                fill="none"
+                                filter="url(#glow)"
+                                initial={{ pathLength: 0, opacity: 0 }}
+                                whileInView={{ pathLength: 1, opacity: 1 }}
+                                transition={{ duration: 2.5, ease: "easeInOut" }}
+                            />
+                        </svg>
+                    </div>
 
-                        {/* Ghost Paths */}
-                        <motion.path
-                            d="M 0,250 C 200,450 400,50 600,250 S 900,450 1200,250"
-                            stroke="url(#vibrantGradient)"
-                            strokeWidth="2"
-                            fill="none"
-                            opacity="0.2"
-                            initial={{ pathLength: 0 }}
-                            whileInView={{ pathLength: 1 }}
-                            transition={{ duration: 3, delay: 0.5 }}
-                        />
-                    </svg>
-
-                    {/* Interactive Floating Blobs */}
-                    {flowPoints.map((point, i) => (
-                        <motion.div
-                            key={i}
-                            initial={{ opacity: 0, scale: 0 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: i * 0.4 }}
-                            style={{
-                                position: 'absolute',
-                                left: `${(i + 1) * 18}%`,
-                                top: point.top,
-                                zIndex: 5
-                            }}
-                        >
+                    <div className="blobs-wrapper" style={{ position: 'relative', width: '100%', height: '100%' }}>
+                        {flowPoints.map((point, i) => (
                             <motion.div
-                                whileHover={{ scale: 1.2 }}
+                                key={i}
+                                initial={{ opacity: 0, scale: 0 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: i * 0.4 }}
+                                className={`flow-point-${i}`}
                                 style={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
-                                    gap: '1rem',
-                                    cursor: 'pointer'
+                                    position: 'absolute',
+                                    left: `${(i + 1) * 18}%`,
+                                    top: point.top,
+                                    zIndex: 5
                                 }}
                             >
-                                <div style={{
-                                    width: '50px',
-                                    height: '50px',
-                                    borderRadius: '50%',
-                                    background: point.color,
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    color: '#fff',
-                                    boxShadow: `0 0 30px ${point.color}`,
-                                }}>
-                                    {point.icon}
-                                </div>
-                                <div style={{
-                                    color: '#fff',
-                                    fontSize: '0.7rem',
-                                    fontWeight: 800,
-                                    textTransform: 'uppercase',
-                                    letterSpacing: 1,
-                                    whiteSpace: 'nowrap',
-                                    background: 'rgba(0,0,0,0.8)',
-                                    padding: '4px 10px',
-                                    borderRadius: '4px'
-                                }}>
-                                    {point.text}
-                                </div>
+                                <motion.div
+                                    whileHover={{ scale: 1.2 }}
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center',
+                                        gap: '1rem',
+                                        cursor: 'pointer'
+                                    }}
+                                >
+                                    <div style={{
+                                        width: '50px',
+                                        height: '50px',
+                                        borderRadius: '50%',
+                                        background: point.color,
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        color: '#fff',
+                                        boxShadow: `0 0 30px ${point.color}`,
+                                    }}>
+                                        {point.icon}
+                                    </div>
+                                    <div style={{
+                                        color: '#fff',
+                                        fontSize: '0.7rem',
+                                        fontWeight: 800,
+                                        textTransform: 'uppercase',
+                                        letterSpacing: 1,
+                                        whiteSpace: 'nowrap',
+                                        background: 'rgba(0,0,0,0.8)',
+                                        padding: '4px 10px',
+                                        borderRadius: '4px'
+                                    }}>
+                                        {point.text}
+                                    </div>
+                                </motion.div>
                             </motion.div>
-                        </motion.div>
-                    ))}
+                        ))}
+                    </div>
 
-                    {/* Ambient Glows mimicking the reference */}
                     <div style={{
                         position: 'absolute',
                         right: '10%',
@@ -138,6 +128,30 @@ export default function Ecosystem() {
                     }} />
                 </div>
             </div>
+
+            <style jsx>{`
+                @media (max-width: 968px) {
+                    .ecosystem-container {
+                        height: auto !important;
+                        padding: 4rem 0;
+                    }
+                    .desktop-visual {
+                        display: none !important;
+                    }
+                    .blobs-wrapper {
+                        display: flex !important;
+                        flex-direction: column !important;
+                        align-items: center !important;
+                        gap: 3rem !important;
+                        height: auto !important;
+                    }
+                    div[class^="flow-point"] {
+                        position: relative !important;
+                        left: 0 !important;
+                        top: 0 !important;
+                    }
+                }
+            `}</style>
         </section>
     );
 }

@@ -206,26 +206,29 @@ export default function Navbar() {
 
                         <div style={{ fontWeight: 900, letterSpacing: '0.4em', color: 'rgba(255,255,255,0.2)', fontSize: '0.8rem', marginBottom: '2rem' }}>NAVIGATION_MENU</div>
 
-                        {navItems.map((item, i) => (
-                            <motion.a
-                                key={item.name}
-                                href={item.href}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: i * 0.1 }}
-                                onClick={() => setMobileMenuOpen(false)}
-                                style={{
-                                    fontSize: '1.5rem',
-                                    color: '#fff',
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '0.3em',
-                                    fontWeight: 800,
-                                    textDecoration: 'none'
-                                }}
-                            >
-                                {item.name}
-                            </motion.a>
-                        ))}
+                        <div className="mobile-menu-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3rem' }}>
+                            {navItems.map((item, i) => (
+                                <motion.a
+                                    key={item.name}
+                                    href={item.href}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: i * 0.1 }}
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className="mobile-menu-link"
+                                    style={{
+                                        fontSize: '1.5rem',
+                                        color: '#fff',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.3em',
+                                        fontWeight: 800,
+                                        textDecoration: 'none'
+                                    }}
+                                >
+                                    {item.name}
+                                </motion.a>
+                            ))}
+                        </div>
 
                         <motion.button
                             initial={{ opacity: 0, y: 20 }}
@@ -256,6 +259,15 @@ export default function Navbar() {
         }
         @media (max-width: 968px) {
           .desktop-links { display: none !important; }
+        }
+        @media (max-width: 768px) {
+            .mobile-menu-container {
+                gap: 2rem !important;
+            }
+            .mobile-menu-link {
+                font-size: 1.2rem !important;
+                letter-spacing: 0.2rem !important;
+            }
         }
       `}</style>
         </>

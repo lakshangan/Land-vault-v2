@@ -90,8 +90,10 @@ export default function Features() {
                     .features-grid {
                         grid-template-columns: repeat(2, 1fr);
                     }
-                }
                 @media (max-width: 768px) {
+                    div[style*="margin-bottom: 8rem"] {
+                        margin-bottom: 4rem !important;
+                    }
                     .features-grid {
                         grid-template-columns: 1fr;
                         padding: 0 1rem;

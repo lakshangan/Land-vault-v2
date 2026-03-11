@@ -151,15 +151,25 @@ export default function Tokenomics() {
             </div>
             <style jsx>{`
                 @media (max-width: 1024px) {
+                    div[style*="margin-bottom: 10rem"] {
+                        margin-bottom: 4rem !important;
+                    }
+                    div[style*="margin-top: 10rem"] {
+                        margin-top: 4rem !important;
+                    }
                     .tokenomics-flow {
                         flex-direction: column !important;
                         gap: 2rem !important;
+                    }
+                    div[style*="min-height: 300px"] svg {
+                        display: none !important;
                     }
                     .arrow-divider {
                         transform: rotate(90deg) !important;
                     }
                     .tokenomics-info {
                         grid-template-columns: 1fr !important;
+                        gap: 1.5rem !important;
                     }
                 }
             `}</style>
