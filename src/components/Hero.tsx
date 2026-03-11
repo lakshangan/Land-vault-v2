@@ -48,7 +48,7 @@ export default function Hero() {
                 zIndex: 0
             }} />
 
-            <div style={{ position: 'relative', zIndex: 1, width: '100%', padding: '0 5%' }}>
+            <div className="container" style={{ position: 'relative', zIndex: 1, width: '100%', paddingLeft: '5%', paddingRight: 0 }}>
                 <div className="hero-layout">
 
                     {/* ── Left: Text Content ── */}
