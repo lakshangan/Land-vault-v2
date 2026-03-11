@@ -12,12 +12,13 @@ export default function Preloader() {
             setProgress((prev) => {
                 if (prev >= 100) {
                     clearInterval(timer);
-                    setTimeout(() => setLoading(false), 1000);
+                    setTimeout(() => setLoading(false), 800);
                     return 100;
                 }
-                return prev + Math.random() * 5;
+                const increment = Math.random() * 8 + 2;
+                return Math.min(prev + increment, 100);
             });
-        }, 100);
+        }, 80);
 
         return () => clearInterval(timer);
     }, []);
@@ -27,70 +28,152 @@ export default function Preloader() {
             {loading && (
                 <motion.div
                     initial={{ opacity: 1 }}
-                    exit={{ opacity: 0, transition: { duration: 1, ease: "easeInOut" } }}
+                    exit={{ 
+                        opacity: 0, 
+                        scale: 1.05,
+                        transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } 
+                    }}
                     style={{
                         position: 'fixed',
                         inset: 0,
-                        zIndex: 1000,
-                        background: '#050505',
+                        zIndex: 9999,
+                        background: '#000',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'center',
+                        overflow: 'hidden'
                     }}
                 >
-                    {/* Animated Cube Placeholder / Logo */}
-                    <div style={{ position: 'relative', width: 200, height: 200 }}>
-                        <motion.div
-                            animate={{
-                                rotateX: [0, 180, 360],
-                                rotateY: [0, 180, 360],
-                            }}
-                            transition={{
-                                duration: 4,
-                                repeat: Infinity,
-                                ease: "linear",
-                            }}
+                    {/* Background Ambient Glows */}
+                    <motion.div 
+                        animate={{ 
+                            opacity: [0.1, 0.2, 0.1],
+                            scale: [1, 1.2, 1]
+                        }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                        style={{
+                            position: 'absolute',
+                            width: '800px',
+                            height: '800px',
+                            background: 'radial-gradient(circle, rgba(191, 255, 0, 0.08) 0%, transparent 70%)',
+                            filter: 'blur(100px)',
+                            zIndex: 0
+                        }} 
+                    />
+
+                    <div style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
+                        {/* Logo / Text Section */}
+                        <div style={{ position: 'relative', marginBottom: '1.5rem' }}>
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                style={{
+                                    fontSize: 'clamp(2.5rem, 8vw, 5rem)',
+                                    fontWeight: 900,
+                                    letterSpacing: '-0.04em',
+                                    fontFamily: '"Space Grotesk", sans-serif',
+                                    color: '#fff',
+                                    display: 'flex',
+                                    gap: '0.2em',
+                                    lineHeight: 1
+                                }}
+                            >
+                                <span style={{ opacity: 0.2 }}>LAND</span>
+                                <span style={{ opacity: 0.2 }}>VAULT</span>
+
+                                {/* Filling Overlay */}
+                                <div style={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    width: '100%',
+                                    height: '100%',
+                                    display: 'flex',
+                                    gap: '0.2em',
+                                    pointerEvents: 'none',
+                                    overflow: 'hidden',
+                                    clipPath: `inset(0 ${100 - progress}% 0 0)`
+                                }}>
+                                    <span style={{ color: '#bfff00' }}>LAND</span>
+                                    <span style={{ color: '#bfff00' }}>VAULT</span>
+                                </div>
+                            </motion.div>
+                        </div>
+
+                        {/* Tagline */}
+                        <motion.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 0.4 }}
+                            transition={{ delay: 0.5 }}
                             style={{
-                                width: '100%',
-                                height: '100%',
-                                border: '2px solid #bfff00',
-                                boxShadow: '0 0 40px rgba(191, 255, 0, 0.3)',
+                                color: '#fff',
+                                fontSize: '0.85rem',
+                                fontWeight: 500,
+                                letterSpacing: '0.4em',
+                                textTransform: 'uppercase',
+                                marginBottom: '4rem'
                             }}
-                        />
-                        {/* Inner particles effect could go here */}
+                        >
+                            Infrastructure for RWAs
+                        </motion.p>
+
+                        {/* Minimal Progress Indicator */}
+                        <div style={{ 
+                            width: '240px', 
+                            height: '2px', 
+                            background: 'rgba(255,255,255,0.05)', 
+                            margin: '0 auto',
+                            position: 'relative',
+                            borderRadius: '10px',
+                            overflow: 'hidden'
+                        }}>
+                            <motion.div
+                                style={{
+                                    height: '100%',
+                                    background: '#bfff00',
+                                    width: `${progress}%`,
+                                    boxShadow: '0 0 15px rgba(191, 255, 0, 0.5)',
+                                }}
+                            />
+                        </div>
+
+                        {/* Percentage */}
+                        <motion.div
+                            style={{
+                                marginTop: '1.5rem',
+                                color: '#fff',
+                                opacity: 0.2,
+                                fontSize: '0.75rem',
+                                fontWeight: 700,
+                                fontFamily: 'monospace',
+                                letterSpacing: '0.1em'
+                            }}
+                        >
+                            {Math.round(progress)}%
+                        </motion.div>
                     </div>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5 }}
-                        style={{ marginTop: 40, textAlign: 'center' }}
-                    >
-                        <h2 style={{ fontSize: '1.5rem', fontWeight: 300, color: '#bfff00', letterSpacing: 4 }}>
-                            LAND VAULT
-                        </h2>
-                        <p style={{ marginTop: 10, color: '#666', fontSize: '0.9rem', fontStyle: 'italic' }}>
-                            “Tokenizing the World’s Land Assets”
-                        </p>
-                    </motion.div>
-
-                    <div style={{ width: 200, height: 2, background: '#111', marginTop: 30, position: 'relative' }}>
-                        <motion.div
-                            style={{
-                                height: '100%',
-                                background: '#bfff00',
-                                width: `${progress}%`,
-                                boxShadow: '0 0 10px #bfff00',
-                            }}
-                        />
+                    {/* Bottom Indicator */}
+                    <div style={{
+                        position: 'absolute',
+                        bottom: '40px',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px',
+                        opacity: 0.15
+                    }}>
+                        <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#fff' }} />
+                        <span style={{ fontSize: '0.65rem', fontWeight: 900, letterSpacing: '0.3em', textTransform: 'uppercase' }}>
+                            Decentralized Protocol
+                        </span>
+                        <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#fff' }} />
                     </div>
-
-                    <p style={{ marginTop: 10, color: '#bfff00', fontSize: '0.8rem', fontFamily: 'monospace' }}>
-                        {Math.round(progress)}%
-                    </p>
                 </motion.div>
             )}
         </AnimatePresence>
     );
 }
+
