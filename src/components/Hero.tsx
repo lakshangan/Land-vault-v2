@@ -1,102 +1,21 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
-import { ArrowRight, ChevronRight, ShieldCheck } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, Shield, Zap, Globe, Cpu, ChevronRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 export default function Hero() {
-    const containerRef = useRef(null);
-
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ['start end', 'end start']
-    });
-
-    const yVal = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
-
-    const stats = [
-        { label: 'Total Value Locked', value: '$1.2B+' },
-        { label: 'Land Fragments', value: '150K+' },
-        { label: 'Active Users', value: '25K+' },
-        { label: 'Supported Chains', value: '5+' },
-    ];
-
     return (
-        <section ref={containerRef} className="hero-section" style={{
-            height: '100vh',
+        <section style={{ 
+            minHeight: '100vh', 
+            background: '#000', 
+            position: 'relative', 
+            overflow: 'hidden',
             display: 'flex',
             alignItems: 'center',
-            background: '#050505',
-            position: 'relative',
-            overflow: 'hidden',
+            paddingTop: '80px'
         }}>
-            {/* Ambient Base Layer with Richer Dark Depth */}
-            <div style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'radial-gradient(circle at 50% 50%, #0a0a0c 0%, #050505 100%)',
-                zIndex: -2
-            }} />
-
-            {/* Subtle Dot Grid Pattern */}
-            <div style={{
-                position: 'absolute',
-                inset: 0,
-                backgroundImage: `radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px)`,
-                backgroundSize: '60px 60px',
-                zIndex: -1
-            }} />
-
-            {/* Background Watermark Typography - Slightly more visible */}
-            <div style={{
-                position: 'absolute',
-                top: '45%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                fontSize: '28vw',
-                fontWeight: 900,
-                color: 'rgba(255, 255, 255, 0.02)',
-                userSelect: 'none',
-                pointerEvents: 'none',
-                letterSpacing: '-0.06em',
-                zIndex: -1,
-                whiteSpace: 'nowrap'
-            }}>
-                LANDVAULT
-            </div>
-
-            {/* Drifting Data Particles - More active */}
-            {Array.from({ length: 30 }).map((_, i) => (
-                <motion.div
-                    key={i}
-                    initial={{ 
-                        x: Math.random() * 2000 - 1000, 
-                        y: Math.random() * 1000, 
-                        opacity: 0 
-                    }}
-                    animate={{ 
-                        x: [null, Math.random() * 2000 - 1000],
-                        y: [null, Math.random() * 1000],
-                        opacity: [0, 0.15, 0]
-                    }}
-                    transition={{ 
-                        duration: 10 + Math.random() * 15, 
-                        repeat: Infinity, 
-                        ease: "linear" 
-                    }}
-                    style={{
-                        position: 'absolute',
-                        width: Math.random() * 3 + 'px',
-                        height: Math.random() * 3 + 'px',
-                        background: i % 2 === 0 ? '#bfff00' : '#ffffff',
-                        borderRadius: '50%',
-                        filter: 'blur(1px)',
-                        zIndex: 0
-                    }}
-                />
-            ))}
-
-            {/* Vivid Ambient Background Glows */}
+            {/* Background Ambient Effects */}
             <div style={{
                 position: 'absolute',
                 top: '0%',
@@ -117,6 +36,7 @@ export default function Hero() {
                 filter: 'blur(130px)',
                 zIndex: 0
             }} />
+            
             <div style={{
                 position: 'absolute',
                 top: '40%',
@@ -132,31 +52,22 @@ export default function Hero() {
                 <div className="hero-layout">
                     <div className="hero-content">
                         <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
+                            initial={{ opacity: 0, x: -30 }}
+                            animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                         >
                             <h1 style={{
-                                fontSize: 'clamp(4rem, 10vw, 8rem)',
-                                lineHeight: 0.9,
+                                fontSize: 'clamp(2.5rem, 5vw, 4.2rem)',
+                                lineHeight: 1.1,
                                 fontWeight: 900,
                                 marginBottom: '2.5rem',
-                                letterSpacing: '-0.05em'
+                                letterSpacing: '-0.03em',
+                                maxWidth: '800px',
+                                color: '#fff'
                             }}>
-                                Trade <br />
-                                <span className="gradient-text">the Earth.</span>
+                                A universal infrastructure <br />
+                                for <span className="gradient-text">tokenizing</span> real-world <span style={{ color: '#fff' }}>assets.</span>
                             </h1>
-
-                            <p style={{
-                                color: 'rgba(255,255,255,0.4)',
-                                fontSize: '1.4rem',
-                                maxWidth: '550px',
-                                marginBottom: '4rem',
-                                lineHeight: 1.4,
-                                fontWeight: 500
-                            }}>
-                                A universal infrastructure for <span style={{ color: '#fff' }}>tokenizing</span> real-world <span style={{ color: '#fff' }}>assets.</span>
-                            </p>
 
                             <div style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }}>
                                 <motion.button
@@ -184,12 +95,17 @@ export default function Hero() {
             <style jsx>{`
                 .hero-layout {
                     display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    gap: 6rem;
+                    grid-template-columns: 1.2fr 0.8fr;
+                    gap: 4rem;
                     align-items: center;
                 }
                 .hero-content {
                     padding-right: 2rem;
+                    z-index: 2;
+                }
+                .hero-visual {
+                    position: relative;
+                    z-index: 1;
                 }
                 .cta-button {
                     background: #fff;
@@ -239,6 +155,13 @@ export default function Hero() {
                         transform: scale(0.6);
                         transform-origin: center center;
                     }
+                    .hero-content {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        padding-right: 0;
+                        order: 1;
+                    }
                 }
                 @media (max-width: 480px) {
                     .hero-visual {
@@ -246,14 +169,6 @@ export default function Hero() {
                     }
                     .hero-visual > div {
                         transform: scale(0.5);
-                    }
-                }
-                    .hero-content {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        padding-right: 0;
-                        order: 1;
                     }
                 }
 
@@ -311,22 +226,21 @@ function IsometricIllustration() {
                     backgroundSize: '40px 40px'
                 }} />
 
-                {/* Data Flow Lines & Particles */}
-                <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible' }}>
+                {/* Vertical Data Lines */}
+                <svg width="500" height="500" style={{ position: 'absolute', top: 0, left: 0, overflow: 'visible' }}>
                     <defs>
                         <filter id="glow">
-                            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                            <feGaussianBlur stdDeviation="3" result="coloredBlur" />
                             <feMerge>
-                                <feMergeNode in="coloredBlur"/>
-                                <feMergeNode in="SourceGraphic"/>
+                                <feMergeNode in="coloredBlur" />
+                                <feMergeNode in="SourceGraphic" />
                             </feMerge>
                         </filter>
                     </defs>
                     
-                    {/* Primary Connection Paths */}
                     <motion.path
                         d="M 100,100 Q 250,50 400,100 T 500,400"
-                        stroke="rgba(191,255,0,0.15)"
+                        stroke="rgba(191, 255, 0, 0.2)"
                         strokeWidth="1.5"
                         fill="none"
                         initial={{ pathLength: 0 }}
@@ -460,96 +374,48 @@ function IsometricIllustration() {
                     </div>
                 </motion.div>
 
-                {/* Tokenized Asset Fragments - High-Fidelity RWA Tokens */}
-                {[1, 2, 3].map(i => (
+                {/* Floating Elements: RWA Tokens */}
+                {[
+                    { top: '10%', right: '10%', size: 40, delay: 0 },
+                    { bottom: '15%', left: '15%', size: 30, delay: 2 },
+                    { top: '40%', left: '-10%', size: 45, delay: 1.5 }
+                ].map((token, i) => (
                     <motion.div
                         key={i}
-                        animate={{
-                            z: [100 + i * 30, 130 + i * 30, 100 + i * 30],
-                            y: [0, -40, 0],
-                            rotateZ: [0, 5, -5, 0]
+                        animate={{ 
+                            y: [0, -20, 0],
+                            rotate: [0, 360],
+                            z: [100, 150, 100]
                         }}
-                        transition={{ duration: 12 + i, repeat: Infinity, ease: "easeInOut" }}
+                        transition={{ 
+                            duration: 10, 
+                            repeat: Infinity, 
+                            delay: token.delay 
+                        }}
                         style={{
                             position: 'absolute',
-                            top: i === 1 ? '0%' : i === 2 ? '40%' : '80%',
-                            left: i === 1 ? '70%' : i === 2 ? '-10%' : '100%',
-                            width: '70px',
-                            height: '70px',
-                            transformStyle: 'preserve-3d'
-                        }}
-                    >
-                        <div style={{
-                            position: 'relative',
-                            width: '100%',
-                            height: '100%',
-                            background: 'rgba(191,255,0,0.05)',
-                            backdropFilter: 'blur(15px)',
-                            border: '1px solid rgba(191,255,0,0.3)',
-                            borderRadius: '20px',
+                            top: token.top,
+                            bottom: token.bottom,
+                            left: token.left,
+                            right: token.right,
+                            width: token.size,
+                            height: token.size,
+                            background: 'rgba(255,255,255,0.1)',
+                            border: '1px solid rgba(255,255,255,0.2)',
+                            borderRadius: '12px',
+                            backdropFilter: 'blur(5px)',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            boxShadow: '0 20px 40px rgba(0,0,0,0.3), inset 0 0 20px rgba(191,255,0,0.1)'
-                        }}>
-                            {/* Inner SVG Detail */}
-                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                                <rect x="10" y="10" width="20" height="20" rx="4" stroke="#bfff00" strokeWidth="2" strokeDasharray="4 2" />
-                                <circle cx="20" cy="20" r="5" fill="#bfff00" filter="blur(2px)" />
-                                <path d="M5 20 H10 M30 20 H35 M20 5 V10 M20 30 V35" stroke="#bfff00" strokeWidth="1" opacity="0.5" />
-                            </svg>
-                            
-                            {/* Orbiting Ring */}
-                            <motion.div
-                                animate={{ rotate: 360 }}
-                                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                                style={{
-                                    position: 'absolute',
-                                    width: '120%',
-                                    height: '120%',
-                                    border: '1px dashed rgba(191,255,0,0.2)',
-                                    borderRadius: '50%'
-                                }}
-                            />
-                            
-                            {/* Label */}
-                            <div style={{
-                                position: 'absolute',
-                                bottom: '-30px',
-                                left: '50%',
-                                transform: 'translateX(-50%)',
-                                whiteSpace: 'nowrap'
-                            }}>
-                                <span style={{
-                                    fontSize: '0.6rem',
-                                    fontWeight: 900,
-                                    color: '#bfff00',
-                                    textTransform: 'uppercase',
-                                    letterSpacing: 2,
-                                    background: 'rgba(0,0,0,0.6)',
-                                    padding: '2px 8px',
-                                    borderRadius: '4px',
-                                    border: '1px solid rgba(191,255,0,0.2)'
-                                }}>
-                                    FRAG_{i * 42}
-                                </span>
-                            </div>
-                        </div>
+                            fontSize: '0.6rem',
+                            fontWeight: 900,
+                            color: '#fff',
+                            transformStyle: 'preserve-3d'
+                        }}
+                    >
+                        RWA
                     </motion.div>
                 ))}
-
-                {/* Ambient Floor Glow */}
-                <div style={{
-                    position: 'absolute',
-                    bottom: '-50px',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    width: '300px',
-                    height: '100px',
-                    background: 'radial-gradient(ellipse at center, rgba(191, 255, 0, 0.1) 0%, transparent 70%)',
-                    filter: 'blur(40px)',
-                    zIndex: -1
-                }} />
             </motion.div>
         </div>
     );

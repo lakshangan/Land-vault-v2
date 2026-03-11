@@ -79,7 +79,7 @@ export default function Navbar() {
                         alignItems: 'center',
                         width: '100%',
                         justifyContent: 'space-between',
-                        gap: isScrolled ? '2.5rem' : '0'
+                        gap: '2rem'
                     }}>
                         {/* Branding */}
                         <motion.div
@@ -150,7 +150,7 @@ export default function Navbar() {
                         </motion.div>
 
                         {/* Launch Button / Mobile Toggle */}
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flexShrink: 0 }}>
                             <motion.div layout className="desktop-links">
                                 <button style={{
                                     background: isScrolled ? '#fff' : 'transparent',
@@ -167,7 +167,7 @@ export default function Navbar() {
                                     gap: '0.5rem',
                                     transition: 'all 0.3s ease'
                                 }}>
-                                    Lanuch App  <ChevronRight size={14} />
+                                    Launch App  <ChevronRight size={14} />
                                 </button>
                             </motion.div>
 
