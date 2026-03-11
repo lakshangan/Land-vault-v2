@@ -32,7 +32,7 @@ export default function InteractiveMap() {
 
     return (
         <section ref={containerRef} style={{
-            background: '#0a0a0c', // Dark black for the main section
+            background: '#000', // Pure black
             minHeight: '140vh',
             display: 'flex',
             alignItems: 'center',

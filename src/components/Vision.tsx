@@ -17,7 +17,7 @@ export default function Vision() {
     const rotate = useTransform(scrollYProgress, [0, 1], [0, 20]);
 
     return (
-        <section ref={containerRef} className="section-spacing" style={{ background: '#050505', position: 'relative', overflow: 'hidden' }}>
+        <section ref={containerRef} className="section-spacing" style={{ background: '#000', position: 'relative', overflow: 'hidden' }}>
             {/* Ambient Background Glows */}
             <div style={{
                 position: 'absolute',

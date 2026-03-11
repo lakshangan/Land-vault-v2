@@ -331,20 +331,20 @@ function IsometricIllustration() {
 
                 {/* Floating Card 1: Asset Registry */}
                 <motion.div
-                    animate={{ z: [40, 60, 40], rotateY: [-5, 5, -5] }}
+                    animate={{ z: [30, 50, 30], rotateY: [-3, 3, -3] }}
                     transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                     style={{
                         position: 'absolute',
-                        top: '10%',
-                        left: '10%',
-                        width: '320px',
-                        height: '400px',
+                        top: '5%',
+                        left: '5%',
+                        width: '300px',
+                        height: '380px',
                         background: 'radial-gradient(circle at 0% 0%, rgba(30, 30, 35, 0.98), rgba(15, 15, 15, 1))',
                         backdropFilter: 'blur(20px)',
                         border: '1px solid rgba(255, 255, 255, 0.15)',
                         borderRadius: '32px',
-                        padding: '2rem',
-                        boxShadow: '0 60px 120px rgba(0,0,0,0.7), inset 0 0 40px rgba(255,255,255,0.02)',
+                        padding: '1.8rem',
+                        boxShadow: '0 40px 80px rgba(0,0,0,0.7), inset 0 0 40px rgba(255,255,255,0.02)',
                         transformStyle: 'preserve-3d'
                     }}
                 >
@@ -399,18 +399,19 @@ function IsometricIllustration() {
 
                 {/* Floating Card 2: Yield Intelligence */}
                 <motion.div
-                    animate={{ z: [80, 100, 80], x: [10, 25, 10] }}
+                    animate={{ z: [60, 80, 60], x: [10, 30, 10] }}
                     transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
                     style={{
                         position: 'absolute',
-                        top: '50%',
-                        right: '-5%',
-                        width: '260px',
-                        height: '220px',
-                        background: 'linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%)',
+                        top: '60%',
+                        right: '-15%',
+                        width: '240px',
+                        height: '200px',
+                        background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(240,240,240,0.9) 100%)',
+                        backdropFilter: 'blur(10px)',
                         borderRadius: '32px',
-                        padding: '2rem',
-                        boxShadow: '0 50px 100px rgba(0,0,0,0.5)',
+                        padding: '1.5rem',
+                        boxShadow: '0 30px 60px rgba(0,0,0,0.4)',
                         transformStyle: 'preserve-3d',
                         display: 'flex',
                         flexDirection: 'column',
@@ -444,17 +445,17 @@ function IsometricIllustration() {
                     <motion.div
                         key={i}
                         animate={{
-                            z: [80 + i * 40, 120 + i * 40, 80 + i * 40],
-                            y: [0, -60, 0],
+                            z: [100 + i * 30, 130 + i * 30, 100 + i * 30],
+                            y: [0, -40, 0],
                             rotateZ: [0, 5, -5, 0]
                         }}
-                        transition={{ duration: 10 + i, repeat: Infinity, ease: "easeInOut" }}
+                        transition={{ duration: 12 + i, repeat: Infinity, ease: "easeInOut" }}
                         style={{
                             position: 'absolute',
-                            top: `${10 + i * 25}%`,
-                            left: `${85 - i * 20}%`,
-                            width: '80px',
-                            height: '80px',
+                            top: i === 1 ? '0%' : i === 2 ? '40%' : '80%',
+                            left: i === 1 ? '70%' : i === 2 ? '-10%' : '100%',
+                            width: '70px',
+                            height: '70px',
                             transformStyle: 'preserve-3d'
                         }}
                     >

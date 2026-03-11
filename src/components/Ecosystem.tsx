@@ -26,10 +26,10 @@ export default function Ecosystem() {
                     </motion.h2>
                 </div>
 
-                <div className="ecosystem-container" style={{ position: 'relative', height: '500px', width: '100%', display: 'flex', alignItems: 'center' }}>
+                <div className="ecosystem-container" style={{ position: 'relative', height: '500px', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     {/* Vibrant Wavy Paths - Desktop Only */}
-                    <div className="desktop-visual" style={{ width: '100%', height: '100%', position: 'absolute' }}>
-                        <svg style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'visible' }}>
+                    <div className="desktop-visual" style={{ width: '100%', height: '100%', position: 'absolute', right: 0, overflow: 'visible' }}>
+                        <svg viewBox="0 0 1200 500" preserveAspectRatio="xMaxYMid meet" style={{ position: 'absolute', width: '100%', height: '100%', right: 0, overflow: 'visible' }}>
                             <defs>
                                 <linearGradient id="vibrantGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                                     <stop offset="0%" stopColor="#ff2d55" />
@@ -58,10 +58,21 @@ export default function Ecosystem() {
                                 whileInView={{ pathLength: 1, opacity: 1 }}
                                 transition={{ duration: 2.5, ease: "easeInOut" }}
                             />
+                            {/* Ghost Paths */}
+                            <motion.path
+                                d="M 0,250 C 200,450 400,50 600,250 S 900,450 1200,250"
+                                stroke="url(#vibrantGradient)"
+                                strokeWidth="2"
+                                fill="none"
+                                opacity="0.2"
+                                initial={{ pathLength: 0 }}
+                                whileInView={{ pathLength: 1 }}
+                                transition={{ duration: 3, delay: 0.5 }}
+                            />
                         </svg>
                     </div>
 
-                    <div className="blobs-wrapper" style={{ position: 'relative', width: '100%', height: '100%' }}>
+                    <div className="blobs-wrapper" style={{ position: 'relative', width: '100%', maxWidth: '1200px', height: '100%' }}>
                         {flowPoints.map((point, i) => (
                             <motion.div
                                 key={i}
@@ -71,7 +82,7 @@ export default function Ecosystem() {
                                 className={`flow-point-${i}`}
                                 style={{
                                     position: 'absolute',
-                                    left: `${(i + 1) * 18}%`,
+                                    left: `${(i + 1) * 16}%`,
                                     top: point.top,
                                     zIndex: 5
                                 }}

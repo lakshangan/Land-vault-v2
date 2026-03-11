@@ -28,7 +28,7 @@ const problems = [
 
 export default function Problem() {
     return (
-        <section className="section-spacing" style={{ background: '#050505', position: 'relative', overflow: 'hidden' }}>
+        <section className="section-spacing" style={{ background: '#000', position: 'relative', overflow: 'hidden' }}>
             {/* High-end decorative ambient glow */}
             <div style={{
                 position: 'absolute',

@@ -132,7 +132,7 @@ const VisualIcon = ({ type, color }: { type: string, color: string }) => {
 
 export default function HowItWorks() {
     return (
-        <section className="section-spacing" style={{ background: '#050505', position: 'relative' }}>
+        <section className="section-spacing" style={{ background: '#000', position: 'relative' }}>
             <div className="container">
                 <div style={{ textAlign: 'center', marginBottom: '10rem' }}>
                     <motion.div
