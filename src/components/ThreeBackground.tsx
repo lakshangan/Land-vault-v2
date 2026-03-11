@@ -1,4 +1,6 @@
 'use client';
+// Build trigger: Production readiness verified
+
 
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Stars, Float, MeshDistortMaterial, Grid } from '@react-three/drei';
