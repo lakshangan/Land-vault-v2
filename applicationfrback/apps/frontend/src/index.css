@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@theme {
+  --font-syne: "Syne", sans-serif;
+  --font-dm: "DM Sans", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-background: #090B11;
+  --color-surface: #131720;
+  --color-border: #252D3D;
+  --color-primary: #00D4AA;
+  --color-secondary: #FFD400;
+  
+  --color-asset-realestate: #BB86FC;
+  --color-asset-energy: #03DAC6;
+  --color-asset-infra: #3700B3;
+  
+  --color-status-active: #00FFCC;
+  --color-status-verified: #5D5FEF;
+  --color-status-locked: #FF4B5C;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Syne:wght@400..800&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
+@layer base {
+  body {
+    @apply bg-background text-slate-100 font-dm antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-syne font-bold;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-surface/50 backdrop-blur-md border border-border rounded-xl;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-slate-900 px-6 py-3 rounded-xl font-bold hover:opacity-90 transition-all active:scale-95 text-center flex items-center justify-center;
+  }
+
+  .btn-outline {
+    @apply border border-border text-slate-100 px-6 py-3 rounded-xl font-bold hover:bg-white/5 transition-all active:scale-95 text-center flex items-center justify-center;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-background;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-border rounded-full hover:bg-slate-700 transition-colors;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-gradient {
+  animation: gradient 8s linear infinite;
+}
+
+.animate-scroll {
+  animation: scroll 30s linear infinite;
+}

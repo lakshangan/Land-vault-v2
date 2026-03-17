@@ -1,0 +1,1554 @@
+
+
+LAND VAULT PROTOCOL
+Full-Stack Product Requirements Document
+Production-Grade Web3 RWA Tokenization Platform
+
+
+Version
+v1.0.0
+Date
+March 2026
+Status
+Active Development
+Chain
+BNB Chain
+
+Project
+Land Vault — Real World Asset Tokenization Protocol
+Platform
+Web3 DeFi + RWA (Real World Assets)
+Frontend
+React 18 + TypeScript + Vite + TailwindCSS + Ethers.js v6
+Backend
+Node.js 20 + Express + PostgreSQL + Redis + Prisma ORM
+Blockchain
+BNB Chain (BEP-20/BEP-721) + Solidity 0.8.x + Hardhat
+Target
+RWA Demo Day — Hong Kong Web3 Festival (March 31, 2026)
+Prize Pool
+USD $100,000
+
+Table of Contents
+
+
+
+1. Project Overview
+Land Vault is a production-grade, full-stack Web3 protocol for tokenizing Real World Assets (RWA) across five asset categories: Land, Renewable Energy, Infrastructure, Timber/Forestry, and Real Estate. The platform enables fractional ownership, on-chain yield distribution, DeFi lending/borrowing, an asset-backed stablecoin, liquidity pools, yield farming, and DAO governance — all deployed on BNB Chain.
+1.1 Core Platform Capabilities
+Asset Tokenization
+Convert any RWA (land, solar farm, telecom tower, forest, REIT) into ERC-721 NFTs + ERC-20 fractional ownership tokens.
+Fractional Investment
+Global investors buy fractional tokens from as little as $10, gaining proportional yield rights.
+DeFi Yield Engine
+Asset-generated income (rent, energy revenue, toll fees, timber sales) is auto-distributed to token holders via ERC-4626 vaults.
+Lending & Borrowing
+Token holders collateralize their RWA tokens to borrow stablecoins, with protocol-managed liquidation.
+AMM Liquidity Pools
+Native DEX with asset-specific liquidity pools enabling token trading without centralized exchanges.
+Land-Backed Stablecoin
+LVT — a stablecoin minted against RWA collateral, over-collateralized for price stability.
+DAO Governance
+Token holders vote on protocol parameters, new asset onboarding, fee structures, and geographic expansion.
+AI Valuation Engine
+On-chain oracle + off-chain ML model providing real-time asset valuations, yield forecasts, and risk scores.
+Document Registry
+Legal documents stored on IPFS/Arweave with on-chain content-hash verification.
+
+2. Technology Stack
+2.1 Frontend Stack
+Framework
+React 18 with TypeScript (strict mode)
+Build Tool
+Vite 5 with HMR and tree-shaking
+Styling
+TailwindCSS 3.x + shadcn/ui component library
+State Management
+Zustand (global) + React Query v5 (server state/caching)
+Blockchain
+Ethers.js v6 + wagmi v2 + viem for wallet/chain interaction
+Wallet Support
+MetaMask, WalletConnect v2, Coinbase Wallet, Binance Wallet
+Charts
+Recharts (yield charts, TVL graphs) + D3.js (asset maps)
+Forms
+React Hook Form v7 + Zod for validation
+Animations
+Framer Motion v11 (page transitions, micro-interactions)
+Routing
+React Router v6 with protected routes
+Icons
+Lucide React
+i18n
+react-i18next (English as default, extendable)
+Testing
+Vitest + React Testing Library + Playwright (E2E)
+2.2 Backend Stack
+Runtime
+Node.js 20 LTS
+Framework
+Express 5 + TypeScript
+ORM
+Prisma 5 with PostgreSQL 15
+Cache
+Redis 7 (session, rate-limiting, price feed caching)
+Queue
+BullMQ with Redis (async jobs: KYC, IPFS upload, notifications)
+Auth
+JWT (access + refresh tokens) + wallet signature verification (EIP-191)
+File Storage
+IPFS via Pinata SDK + Arweave for permanent doc storage
+Oracle
+Chainlink Price Feeds + custom oracle for asset valuations
+Email
+SendGrid (transactional emails, KYC updates, yield alerts)
+Validation
+Zod (shared schema with frontend)
+Testing
+Jest + Supertest
+API Docs
+Swagger/OpenAPI 3.1 auto-generated from route schemas
+2.3 Blockchain / Smart Contract Stack
+Network
+BNB Chain Mainnet + BSC Testnet (development/demo)
+Language
+Solidity 0.8.24
+Dev Framework
+Hardhat 2.x + Hardhat Ignition (deployment)
+Standards
+BEP-721 (NFT), BEP-20 (tokens), ERC-4626 (vaults)
+Libraries
+OpenZeppelin Contracts v5 (security, access control, standards)
+Testing
+Hardhat + Chai + Waffle
+Verification
+BscScan contract verification
+Oracles
+Chainlink Data Feeds on BSC
+IPFS Client
+ipfs-http-client via Pinata gateway
+2.4 DevOps & Infrastructure
+Monorepo
+Turborepo with pnpm workspaces (apps/frontend, apps/backend, packages/contracts, packages/shared)
+CI/CD
+GitHub Actions (lint → test → build → deploy)
+Frontend Host
+Vercel (auto-deploy on main branch)
+Backend Host
+Railway or Render (Docker container)
+DB Host
+Supabase (managed PostgreSQL + realtime subscriptions)
+Monitoring
+Sentry (error tracking) + Datadog (APM)
+Env Management
+dotenv-vault for secrets
+
+3. Frontend Application Structure
+3.1 Folder Structure
+frontend/
+├── public/
+│   └── assets/, fonts/, favicon.ico
+├── src/
+│   ├── app/
+│   │   ├── App.tsx                   # Root with providers + router
+│   │   ├── providers.tsx             # Wagmi, QueryClient, Zustand hydration
+│   │   └── router.tsx                # All route definitions
+│   ├── pages/
+│   │   ├── Landing/                  # Public landing page
+│   │   ├── Marketplace/              # Browse all assets
+│   │   ├── AssetDetail/              # Individual asset page + invest
+│   │   ├── Tokenize/                 # Multi-step asset submission wizard
+│   │   ├── Dashboard/                # User portfolio & yield dashboard
+│   │   ├── DeFi/                     # Lending, borrowing, liquidity
+│   │   ├── Stablecoin/               # LVT mint/redeem/dashboard
+│   │   ├── Governance/               # DAO proposals + voting
+│   │   ├── Analytics/                # Protocol-wide TVL, stats
+│   │   └── Admin/                    # Asset verification admin (role-gated)
+│   ├── components/
+│   │   ├── ui/                       # shadcn/ui base components
+│   │   ├── layout/                   # Navbar, Sidebar, Footer, PageShell
+│   │   ├── wallet/                   # ConnectButton, WalletModal, ChainGuard
+│   │   ├── assets/                   # AssetCard, AssetBadge, AssetFilters
+│   │   ├── defi/                     # LendingPanel, BorrowForm, PoolCard
+│   │   ├── charts/                   # YieldChart, TVLChart, PriceChart
+│   │   ├── forms/                    # StepWizard, FieldGroups per asset type
+│   │   └── modals/                   # TxModal, KYCModal, ConfirmModal
+│   ├── hooks/
+│   │   ├── useWallet.ts              # Wallet state, connect, disconnect
+│   │   ├── useAssets.ts              # Fetch + filter assets (React Query)
+│   │   ├── useDefi.ts                # Lending, borrowing hooks
+│   │   ├── useVault.ts               # ERC-4626 vault interactions
+│   │   ├── useGovernance.ts          # Proposal fetch + vote
+│   │   └── useToast.ts               # Global toast notifications
+│   ├── store/
+│   │   ├── walletStore.ts            # Zustand: address, chain, balance
+│   │   ├── portfolioStore.ts         # Zustand: holdings, yield cache
+│   │   └── uiStore.ts                # Zustand: modals, sidebar state
+│   ├── services/
+│   │   ├── api.ts                    # Axios instance + interceptors
+│   │   ├── contracts.ts              # Contract instances + ABI imports
+│   │   ├── ipfs.ts                   # IPFS upload/fetch helpers
+│   │   └── analytics.ts             # Event tracking helpers
+│   ├── types/
+│   │   ├── asset.ts                  # Asset, AssetType, AssetStatus enums
+│   │   ├── defi.ts                   # LendingPosition, Pool, Vault types
+│   │   └── user.ts                   # User, KYCStatus, Portfolio types
+│   ├── utils/
+│   │   ├── formatters.ts             # Currency, percentage, address format
+│   │   ├── validators.ts             # Shared Zod schemas
+│   │   └── constants.ts              # Contract addresses, chain config
+│   └── styles/
+│       ├── globals.css               # Tailwind base + custom properties
+│       └── animations.css            # Keyframes + motion utilities
+
+4. UI Design System
+4.1 Visual Identity
+Theme
+Dark-first with light mode toggle. Deep navy/charcoal background, sharp teal/emerald accent. Institutional + modern Web3 feel.
+Primary Font
+Syne (display headings) + DM Sans (body, UI). Both via Google Fonts.
+Mono Font
+JetBrains Mono (addresses, numbers, code)
+Base Colors
+Background: #0B0E14, Surface: #131720, Card: #1A1F2E, Border: #252D3D
+Accent Colors
+Primary: #00D4AA (teal), Secondary: #4F8EF7 (blue), Yield: #F5C518 (gold)
+Status Colors
+Active: #22C55E, Locked: #F59E0B, Verified: #3B82F6, Pending: #A855F7
+Asset Colors
+Land: #4ADE80, Energy: #FACC15, Infrastructure: #818CF8, Timber: #A16207, Real Estate: #F472B6
+Border Radius
+8px (cards, inputs), 12px (panels), 24px (badges/pills), 50% (avatars)
+Shadow System
+0 1px 3px rgba(0,0,0,.4) (card), 0 0 0 2px accent (focus ring)
+4.2 Component Library
+All UI components are built with shadcn/ui as the base and extended with custom tokens. The following are the core reusable components:
+Component
+File Path
+Responsibility
+AssetCard
+components/assets/AssetCard.tsx
+Displays asset in marketplace grid with type badge, yield, status, progress bar
+AssetTypeBadge
+components/assets/AssetBadge.tsx
+Color-coded pill badge per asset type (Land/Energy/Infra/Timber/RE)
+StatusBadge
+components/assets/StatusBadge.tsx
+Active / Locked / Verified / Pending with animated dot
+InvestPanel
+components/assets/InvestPanel.tsx
+Token amount input + USD calc + buy CTA, sticky on asset detail page
+YieldChart
+components/charts/YieldChart.tsx
+Recharts area chart for yield over time, supports multiple assets
+TVLChart
+components/charts/TVLChart.tsx
+Protocol-wide TVL bar chart by sector
+PortfolioDonut
+components/charts/PortfolioDonut.tsx
+Pie chart breakdown of user holdings by asset type
+PriceChart
+components/charts/PriceChart.tsx
+Token price history candlestick/line (Recharts ComposedChart)
+LendingPanel
+components/defi/LendingPanel.tsx
+Collateral input + LTV slider + borrow output + Health Factor meter
+PoolCard
+components/defi/PoolCard.tsx
+Liquidity pool info: TVL, APR, your position, Add/Remove buttons
+VaultCard
+components/defi/VaultCard.tsx
+ERC-4626 vault: APY, shares, deposit/withdraw interface
+StablecoinPanel
+components/defi/StablecoinPanel.tsx
+Mint/Redeem LVT stablecoin with collateral ratio meter
+StepWizard
+components/forms/StepWizard.tsx
+Multi-step form shell with progress indicator, prev/next, validation
+LandFields
+components/forms/LandFields.tsx
+All land-specific input fields with validation
+EnergyFields
+components/forms/EnergyFields.tsx
+Energy sub-type toggler + conditional fields per energy type
+InfraFields
+components/forms/InfraFields.tsx
+Infrastructure sub-type selector + type-specific fields
+TimberFields
+components/forms/TimberFields.tsx
+Forestry + mining fields with certification checkboxes
+RealEstateFields
+components/forms/RealEstateFields.tsx
+Property type selector + occupancy/income fields
+FileUploadZone
+components/forms/FileUploadZone.tsx
+Drag & drop IPFS uploader with preview and hash display
+WalletButton
+components/wallet/ConnectButton.tsx
+Connect / disconnect with chain indicator
+TxModal
+components/modals/TxModal.tsx
+Transaction status modal: pending / success / error with explorer link
+GovernanceCard
+components/governance/ProposalCard.tsx
+Proposal title, vote bars, deadline, vote action buttons
+Navbar
+components/layout/Navbar.tsx
+Top nav with logo, links, wallet button, theme toggle
+Sidebar
+components/layout/Sidebar.tsx
+Collapsible left sidebar for dashboard pages
+StatCard
+components/ui/StatCard.tsx
+Metric display: label + large number + delta badge
+AlertBanner
+components/ui/AlertBanner.tsx
+Info/warning/error banner with icon and dismiss
+
+5. Frontend Pages — Detailed UI Requirements
+PAGE 1 — Landing Page  |  Route: /  |  Public (No wallet required)
+
+5.1 Landing Page
+The landing page is the primary marketing and conversion surface. It must communicate the protocol's value proposition, build investor trust through live protocol data, and drive two core CTAs: "Launch App" and "Read Whitepaper". All sections should animate in on scroll using Framer Motion.
+Section A — Hero
+Full-viewport hero section with animated dark background (subtle floating mesh of connection lines using Canvas API or CSS grid animation)
+Primary headline: "Infrastructure for Tokenizing Real-World Assets" in Syne font, large display size
+Subtitle: "A decentralized protocol unlocking global access to real estate, energy, and infrastructure through tokenization and fractional ownership."
+Two CTA buttons: "Launch App" (primary, teal) → navigates to /marketplace, "Read Whitepaper" (ghost/outlined)
+Animated Live Asset Registry ticker below the headline — a horizontally scrolling strip showing: LONDON_PRIME_01 VERIFIED 84.2% | DUBAI_SQUARE_04 LOCKED 92.8% | NY_CENTRAL_09 ACTIVE 76.1% — each as a styled pill with colored status dot
+Below ticker: five animated stat counters that count up on page load — $35.8B Market Cap | 127+ Active Protocols | $16T Projected 2030 | 12.8% Est. Annual Yield | 24.8ms Network Load
+Section B — The Challenge (Problem Section)
+Dark background section with heading: "Real-World Asset Markets Are Broken"
+Four problem cards in a 2x2 grid: Fragmented Ownership, Illiquid Investments, Limited Global Access, Lack of Transparency
+Each card: icon (Lucide), bold title, 2-line description, subtle border with hover glow effect
+Section C — RWA Investment Lifecycle (4-Step Flow)
+Horizontal step indicator with connector lines between 4 steps
+Step 1: Asset Verification — legal documents verified by trusted validators
+Step 2: RWA Tokenization — verified assets minted as blockchain NFTs
+Step 3: Fractional Ownership — assets divided into ERC-20 tokens
+Step 4: Yield Distribution — revenue auto-distributed to token holders
+Each step has a number badge, icon, title, and description. On mobile this becomes a vertical stepper.
+Section D — The $16 Trillion RWA Revolution (Market Size)
++260% YoY stat prominently displayed
+TVL by Sector horizontal bar chart (Recharts) with live-looking data: Private Credit $14.2B, US Treasuries $8.9B, Commodities/Gold $6.5B, Real Estate $5.1B, Trade Finance $1.1B
+Each bar shows sector name, USD value, and YoY growth percentage
+McKinsey $16T estimate sourced credit caption below chart
+Section E — Asset Categories
+5 feature cards in horizontal scroll on mobile, grid on desktop
+Cards: Real Estate Tokenization | Renewable Energy Assets | Infrastructure Investments | Fractional Ownership | Global Asset Marketplace
+Each with icon, title, one-line description, and "Learn More" link
+Section F — Full Feature Grid
+8-item grid listing all platform capabilities: Asset Tokenization, AI Valuation, On-chain Registry, Automated Yield, Lending/Borrowing, Liquidity Pools, Stablecoin, DAO Governance
+Each with Lucide icon + title + short description
+Section G — Tech Stack Banner
+Horizontal strip of technology badges: BNB Chain, ERC-721, ERC-20, ERC-4626, IPFS, Solidity, Node.js, React/Next.js, Ethers.js
+Each badge is a pill with logo icon and name
+Section H — Roadmap
+4-phase horizontal timeline: Q4 2025 (Completed), Q1 2026 (Active), Q3 2026 (Upcoming), 2027 (Planning)
+Each phase: quarter label, phase name, bullet-point list of deliverables, colored status dot
+Active phase has a pulsing ring animation on its dot
+Section I — Final CTA
+"The Future of Real-World Assets is On-Chain" headline
+"Launch App" and "Read Whitepaper" CTAs repeated
+Footer with logo, navigation links, social links, legal disclaimer
+
+PAGE 2 — Marketplace  |  Route: /marketplace  |  Public (wallet optional for investing)
+
+5.2 Marketplace Page
+The central asset discovery hub. Users browse, filter, and search all tokenized RWAs across all categories. This is the highest-traffic page and must load fast (React Query caching + skeleton loaders).
+Layout
+Top bar: page title "Marketplace", live count "127 Assets", sort dropdown, grid/list view toggle
+Left sidebar (collapsible, 280px): all filter controls
+Right content area: asset card grid (3 columns desktop, 2 tablet, 1 mobile)
+Filter Sidebar — Controls
+Asset Type (multi-select checkboxes with count badges): Land, Renewable Energy, Infrastructure, Timber/Forestry, Real Estate
+Status filter (multi-select): Active (green dot), Locked (amber dot), Verified (blue dot), Pending (purple dot), Coming Soon (gray dot)
+Yield Range: dual-handle range slider, 0% to 30% APY
+Min Investment: range slider, $10 to $100,000 (log scale)
+Total Asset Value: range slider, $100K to $500M
+Location: country multi-select dropdown (searchable)
+Chain: BNB Chain, Ethereum, Polygon (checkboxes)
+Funding Progress: "Fully Funded", "Partially Funded", "Just Listed" quick filter pills
+Sort by: Highest Yield | Newest | Most Popular | Lowest Min Investment | Highest TVL
+"Clear All Filters" button at bottom of sidebar
+Asset Card — Common Fields (All Types)
+Field Name
+Type
+Required
+Description / Validation
+Asset Image
+Image
+No
+Hero image of the asset (land photo, solar farm, tower). Aspect ratio 16:9, lazy loaded.
+Asset Name
+Text
+Yes
+Bold title, max 40 chars, truncated with ellipsis.
+Asset Type Badge
+Badge
+Yes
+Color-coded pill: Land (green), Energy (yellow), Infra (indigo), Timber (amber), RE (pink).
+Location
+Text
+Yes
+Country flag emoji + "City, Country" string.
+Status Badge
+Badge
+Yes
+Active / Locked / Verified / Pending with animated colored dot.
+Yield APY
+Number
+Yes
+Large teal number e.g. "12.4% APY" — most prominent metric on card.
+Funding Progress
+Progress
+Yes
+Thin progress bar (0–100%) with "76% Funded" label and token count.
+Total Value
+Currency
+Yes
+e.g. "$2,400,000" — total tokenized value.
+Min Investment
+Currency
+Yes
+e.g. "From $50" — minimum token purchase.
+Token Price
+Currency
+Yes
+Current token price in USD, delta since last 24h.
+View Asset CTA
+Button
+Yes
+Primary teal button → navigates to /assets/:id.
+Asset Card — Type-Specific Extra Fields
+Land: Area (acres/ha), Land use type badge (Agri / Commercial / Residential / Industrial), Soil quality indicator (stars or label), Irrigation status icon.
+Renewable Energy: Energy sub-type badge (Solar / Wind / Hydro / Biomass), Installed capacity (kWp or MW), Annual generation (MWh/year), PPA status indicator (Active / Negotiating / None).
+Infrastructure: Infrastructure sub-type badge (Telecom / Road / Port / Logistics / Industrial), Concession period remaining (years), Government contract status (Yes/No badge).
+Timber / Forestry: Forest area (hectares), Timber yield forecast (t/year), Carbon credits (tCO₂/year), FSC/PEFC certification badges.
+Real Estate: Property type badge (Residential / Commercial / Mixed-Use / REIT), Total area (sqft), Occupancy rate (%).
+Marketplace UX Behaviors
+Skeleton card loading state while assets fetch (shimmer animation)
+Infinite scroll OR pagination (20 assets per page)
+Active filter chips row below the top bar showing applied filters with X to remove each
+Search bar with debounced full-text search across asset name, location, and description
+Empty state illustration + message when no assets match filters
+Hovering a card shows a subtle lift shadow + "Quick View" overlay button
+"Quick View" opens a side-drawer with a compact version of the asset detail (no full navigation)
+Wishlist/Watchlist heart icon on each card (saved to localStorage, synced to backend when wallet connected)
+
+PAGE 3 — Asset Detail  |  Route: /assets/:id  |  Public (wallet required to invest)
+
+5.3 Asset Detail Page
+The full asset information and investment action page. Sticky invest panel on the right, scrollable detail content on the left. Each asset type renders a different set of detail modules.
+Layout
+Left column (65%): scrollable asset detail content
+Right column (35%): sticky investment panel (scrolls with page until it hits the footer)
+Breadcrumb at top: Marketplace > [Asset Type] > [Asset Name]
+Left Column Content
+Hero image carousel (up to 5 images) with full-screen expand
+Asset name (H1), type badge, status badge, location + flag
+Tab system: Overview | Documents | Analytics | Updates | Token Info
+Tab: Overview
+Full description text (markdown rendered)
+Key stats row: Total Value | Yield APY | Token Price | Total Supply | Tokens Available
+Asset-type-specific detail section (see below)
+Map embed (Google Maps / Mapbox) with asset location pin and parcel boundary polygon overlay (for land assets)
+Asset validator information: validator name, verification date, verification score
+Tab: Documents
+Table of uploaded documents: Document Name | Type | Uploaded Date | IPFS Hash | Download
+Document types vary by asset type (e.g., Land: Title Deed, Survey, Valuation Certificate; Energy: PPA, Grid License, Technical Report)
+IPFS hash displayed in monospace with copy-to-clipboard button
+"Verify on Chain" button that checks the on-chain hash against the IPFS document
+Tab: Analytics
+Token price chart (Recharts line/candlestick), time range selector: 1D, 7D, 1M, 3M, 1Y
+Yield history chart (area chart showing cumulative yield distributed per month)
+TVL chart (how total value locked in the asset has changed over time)
+Holder distribution: top 10 holders as a bar chart + total unique holders count
+Asset income breakdown: pie chart showing income sources (rent, energy revenue, carbon credits, etc.)
+Tab: Token Info
+Token contract address (with BscScan link)
+NFT contract address (with BscScan link)
+Vault contract address (ERC-4626, with BscScan link)
+Total supply, circulating supply, treasury held, burned
+Token distribution pie chart: Public Investors / Treasury / Team / Validator Reward
+Add Token to Wallet button (triggers MetaMask watchAsset)
+Right Column — Sticky Investment Panel
+Field Name
+Type
+Required
+Description / Validation
+Asset name + type
+Display
+Yes
+Compact header with badge
+Current Price
+Number
+Yes
+USD per token with 24h delta (green/red)
+APY
+Number
+Yes
+Teal highlighted yield percentage
+Your Balance
+Number
+Yes
+Wallet's token balance for this asset, shown after connect
+Token Amount Input
+Number
+Yes
+Input field + +/- buttons. Shows "Max" to use full available amount.
+USD Equivalent
+Calculated
+Yes
+Live calculation: tokens * price. Updates on every keystroke.
+Protocol Fee
+Calculated
+Yes
+E.g. "0.5% = $12.50" shown below input
+Total Cost
+Calculated
+Yes
+Tokens * price + fee. Bold.
+Invest Now Button
+Button
+Yes
+Primary CTA. Disabled if wallet not connected or insufficient balance.
+Connect Wallet
+Button
+Yes
+Shown instead of Invest when wallet not connected.
+Divider
+UI
+Yes
+Thin line dividing invest from info
+Token Holders
+Number
+Yes
+Total unique addresses holding this asset token
+Your Holdings
+Number
+Yes
+User's current token count + USD value if connected
+Next Yield Date
+Date
+Yes
+Countdown to next yield distribution event
+Add to Watchlist
+Button
+No
+Heart toggle icon button
+Share
+Button
+No
+Copy link to clipboard
+Asset-Type-Specific Detail Modules
+Land Asset Module
+Land Area
+Total area in acres and hectares
+Land Use Type
+Agricultural / Residential / Commercial / Industrial (badge)
+GPS Coordinates
+Latitude, Longitude with map link
+Survey Number
+Government survey registration number
+Land Registration No.
+Official registry ID with verification link
+Soil Quality Rating
+1–5 star rating with label (Excellent / Good / Average / Poor)
+Irrigation Status
+Available / Not Available / Partial
+Existing Crops/Tenants
+Text description of current use
+Annual Income
+USD income generated from land use (rent or produce)
+Lease Agreement
+Active lease details: tenant name, monthly rent, lease expiry date
+Crop Yield History
+Year-wise table of agricultural output (if agri)
+Renewable Energy Asset Module
+Energy sub-type selector tabs at the top: Solar | Wind | Hydro | Biomass
+Solar fields: 
+Installed Capacity
+kWp (kilowatt-peak) for solar array
+Panel Efficiency
+% efficiency rating of solar panels
+Annual Generation
+kWh/year historical + forecast
+Solar Irradiance
+Average daily irradiance (kWh/m²/day) for the location
+Panel Technology
+Monocrystalline / Polycrystalline / Thin Film
+Inverter Type
+String / Micro / Central inverter
+Grid Connection
+Connected / Off-grid, with grid operator name if connected
+PPA Details
+Power Purchase Agreement status, off-taker name, rate ($/kWh), duration
+Wind fields: 
+Turbine Count
+Number of turbines installed
+Turbine Model
+Manufacturer and model
+Hub Height
+Meters (hub height of turbine)
+Rotor Diameter
+Meters
+Avg Wind Speed
+m/s at hub height
+Annual Generation
+MWh/year
+Capacity Factor
+% utilization rate
+Hydro fields: 
+Plant Capacity
+MW installed capacity
+River / Water Source
+Name of river or reservoir
+Water Flow Rate
+m³/s average annual flow
+Head Height
+Meters (pressure head)
+Annual Generation
+MWh/year
+Common Energy fields: 
+Revenue Model
+Feed-in Tariff / PPA / Spot Market / Hybrid
+Revenue per MWh
+USD/MWh average realized
+O&M Cost per Year
+USD annual operating & maintenance cost
+Equipment Age
+Years since installation
+Last Maintenance
+Date of last scheduled maintenance
+Next Maintenance
+Upcoming maintenance date
+Insurance Status
+Active / Expired with insurer name
+Grid License No.
+Regulatory license number with authority name
+Infrastructure Asset Module
+Sub-type tabs: Telecom Tower | Road | Port | Logistics Hub | Industrial Facility
+Telecom Tower fields: 
+Tower Height
+Meters
+Tower Type
+Monopole / Lattice / Guyed
+Coverage Radius
+km of cellular coverage
+Tenant Count
+Number of MNO tenants currently on tower
+Tenant Names
+Operators leasing space (e.g., Airtel, Jio, Vodafone)
+Lease Income/Month
+USD monthly revenue from all tenants
+Tower Age
+Years since construction
+Power Source
+Grid / Solar / Hybrid + backup generator info
+Road / Highway fields: 
+Road Length
+Total km
+Road Category
+National Highway / State Highway / Expressway
+Lane Count
+Number of lanes (each direction)
+Toll Plaza Count
+Number of toll collection points
+Daily Traffic Volume
+Average vehicles/day (PCU)
+Toll Rate
+USD per vehicle class
+Annual Revenue
+USD toll revenue per year
+Concession End Date
+Date when concession period expires
+Authority
+Concession-granting government body
+Common Infrastructure fields: 
+Annual Revenue
+USD gross revenue from operations
+EBITDA Margin
+% earnings before interest, tax, depreciation, amortization
+O&M Cost/Year
+USD annual operating cost
+Maintenance Fund
+USD reserve fund balance for major repairs
+Government Contract
+Yes / No — with contract reference number
+Concession Period Left
+Years remaining
+Insurance
+Active policy details
+Timber / Forestry Asset Module
+Forest Area
+Total hectares
+Forest Type
+Softwood / Hardwood / Mixed
+Tree Species
+Primary species (e.g., Teak, Pine, Eucalyptus)
+Average Tree Age
+Years
+Harvest Cycle
+Years between harvests
+Timber Yield Forecast
+Tonnes per year at current harvest cycle
+Timber Market Price
+USD per tonne current market rate
+Annual Revenue Est.
+USD estimated annual from timber sales
+FSC Certified
+Yes / No — with certificate number
+PEFC Certified
+Yes / No — with certificate number
+Carbon Credits Reg.
+Yes / No — Registry name, annual tCO₂ allocation
+Carbon Price (Est.)
+USD per tCO₂ current market price
+Carbon Revenue/Year
+USD estimated annual carbon credit revenue
+Mining Rights
+Yes / No
+Mineral Type
+Conditional on mining rights: Gold / Coal / Iron / etc.
+Reserve Estimate
+Conditional: estimated recoverable tonnes
+Mining License
+License number and validity date
+Biodiversity Score
+1–10 ecological score
+Real Estate Asset Module
+Property Type
+Residential / Commercial / Mixed-Use / REIT Basket
+Total Built-up Area
+sqft and sqm
+Land Area
+Total plot area
+Year Built
+Construction year
+Occupancy Rate
+% of units/space currently occupied
+Total Units
+Number of apartments/offices/units (if applicable)
+Monthly Rental Income
+USD gross rental per month
+Operating Expenses/Year
+USD annual OPEX
+Net Operating Income
+USD monthly NOI (income minus OPEX)
+Cap Rate
+% capitalization rate = NOI / Property Value
+Lease Expiry Range
+Earliest and latest lease expiry among tenants
+Property Manager
+Name of property management company
+Building Grade
+A / B / C commercial grade (if commercial)
+REIT Basket Count
+If REIT: number of underlying properties
+Geographic Coverage
+If REIT: countries / cities covered
+
+PAGE 4 — Tokenize an Asset  |  Route: /tokenize  |  Requires wallet + KYC
+
+5.4 Tokenize — Multi-Step Wizard
+A 6-step wizard that guides asset owners through the process of submitting a real-world asset for tokenization. All form state is persisted in localStorage between sessions. Validation occurs per-step before advancing.
+Step 1 — Asset Type Selection
+Full-width page with 5 large selectable cards (2-column grid): Land | Renewable Energy | Infrastructure | Timber/Forestry | Real Estate
+Each card: illustrated icon, asset type name, 2-line description, estimated process time, example assets
+Selecting a card highlights it with a teal border + checkmark. Only one can be selected.
+"Continue" button becomes active after selection
+Step 2 — Basic Information (All Asset Types)
+Field Name
+Type
+Required
+Description / Validation
+Asset Name
+Text
+Yes
+Max 80 chars. Must be unique in protocol.
+Country
+Select
+Yes
+Searchable country dropdown with flags.
+State / Province
+Text
+Yes
+Free text.
+City
+Text
+Yes
+Free text.
+GPS Coordinates
+Text
+No
+Lat/Lng or "Use My Location" button. Validated as valid coordinates.
+Full Address
+Textarea
+Yes
+Street address or cadastral description. Max 300 chars.
+Asset Description
+Textarea
+Yes
+Markdown-supported. 100–2000 chars. Live character counter.
+Total Estimated Value
+Number
+Yes
+USD. Min $10,000. Thousand-separator formatted.
+Desired Token Supply
+Number
+Yes
+Total tokens to mint. Min 1,000. Max 1,000,000,000.
+Token Symbol
+Text
+Yes
+3–6 uppercase letters. e.g. "LNDK1". Uniqueness checked via API.
+Min Investment (USD)
+Number
+Yes
+Minimum USD per purchase. Auto-calculates token price.
+Expected Annual Yield
+Number
+Yes
+% APY. 0–50%. Validated as reasonable estimate.
+Revenue Wallet
+Address
+Yes
+Wallet to receive protocol revenue inflows. Default: connected wallet.
+Token Decimals
+Select
+Yes
+0, 2, or 18 decimals. Default 18.
+Step 3 — Asset-Specific Details
+This step dynamically renders the appropriate field group based on the asset type selected in Step 1. All fields listed per-type in Section 5.3 apply here as form inputs.
+Land: Shows land area unit toggle (acres / hectares), land use type selector, soil quality dropdown, irrigation toggle, annual income field, and lease detail fields.
+Renewable Energy: Shows energy sub-type radio buttons (Solar / Wind / Hydro / Biomass). Selecting a sub-type dynamically shows only that sub-type's fields. Common energy fields shown for all sub-types.
+Infrastructure: Shows infrastructure sub-type radio buttons (Telecom / Road / Port / Logistics / Industrial). Each sub-type renders its specific field set plus common infrastructure fields.
+Timber/Forestry: Shows all forestry fields. Carbon credits section conditionally expanded if "Carbon Registered" toggle is On. Mining rights section conditionally expanded if "Mining Rights" toggle is On.
+Real Estate: Shows property type selector. REIT-specific fields (basket count, geographic coverage) conditionally shown if REIT is selected.
+Step 4 — Document Upload
+Drag-and-drop file upload zone (react-dropzone) with file type filtering
+Each document type is shown as a named row with Required / Optional label
+Upload state: idle → uploading (progress bar) → uploaded (green checkmark + IPFS hash) → error (red retry)
+IPFS hash is displayed in monospace after upload with copy button
+Max file size: 50MB per file. Supported types: PDF, JPG, PNG, TIFF, DOCX
+Step is valid when all Required documents are uploaded
+Required Documents by Asset Type:
+Land
+Title Deed (R), Survey Report (R), Valuation Certificate (R), Land Registration (R), Lease Agreement (O)
+Renewable Energy
+Land/Site Lease (R), Grid Connection License (R), PPA Agreement (O), Technical Report (R), Equipment Warranty (O), Insurance Policy (R)
+Infrastructure
+Concession Agreement (R), Government Contract (R), Traffic/Revenue Report (R), Land Ownership/Lease (R), Insurance Policy (R)
+Timber/Forestry
+Forest Title (R), FSC/PEFC Certificate (O), Timber Inventory Report (R), Carbon Registry Cert (O), Mining License (O)
+Real Estate
+Title Deed (R), Valuation Report (R), Lease Agreements (R), Building Plans (O), Insurance Policy (R), NOC/Permits (O)
+Step 5 — Tokenomics Configuration
+Field Name
+Type
+Required
+Description / Validation
+Public Sale %
+Slider
+Yes
+Percentage of tokens for public investors. Min 51%. Remaining split between treasury, team, validator.
+Treasury %
+Slider
+Yes
+Protocol treasury allocation. Auto-adjusted with other sliders.
+Team/Founder %
+Slider
+Yes
+Founder reserve. Max 20%.
+Validator Reward %
+Slider
+Yes
+For asset validators. Typically 2–5%.
+Vesting (Team)
+Select
+Yes
+6 / 12 / 24 / 36 months with 3-month cliff options.
+Yield Distribution
+Select
+Yes
+Frequency: Monthly / Quarterly / Annually. Day of distribution.
+Yield Distribution %
+Number
+Yes
+% of revenue distributed to token holders. Min 60%.
+Protocol Fee %
+Display
+No
+Fixed 0.5% protocol fee shown (non-editable).
+Lock-up Period
+Select
+No
+Optional lock-up: None / 30 / 60 / 90 days for public investors.
+Buyback Program
+Toggle
+No
+Enable protocol-managed buyback from revenue surplus. Optional.
+Live tokenomics pie chart updates in real-time as sliders move
+Calculated token price = Total Value / Total Supply shown below sliders
+Step 6 — Review & Submit
+Full summary accordion: all entered data from all steps expandable by section
+Tokenomics summary table: allocation breakdown, vesting schedule
+Estimated protocol onboarding fee shown (in BNB)
+Estimated timeline: "Asset verification: 7–14 business days"
+"I confirm all submitted documents are authentic and legally authorized." checkbox (required)
+"Submit for Verification" button — triggers two transactions: (1) metadata signature, (2) onboarding fee payment in BNB. Transaction modal shows status.
+After success: redirect to /dashboard with success toast + email confirmation sent
+
+PAGE 5 — User Dashboard  |  Route: /dashboard  |  Requires wallet + KYC
+
+5.5 User Dashboard
+The personal command center for each investor. Shows portfolio overview, holdings, claimable yield, transaction history, and quick access to DeFi positions.
+Dashboard Overview Bar (Top Stats Row)
+Total Portfolio Value (USD) — large number with 24h delta
+Total Yield Earned (USD) — cumulative all-time yield received
+Claimable Yield (USD) — pending yield available to claim, with "Claim All" button
+Active Investments — count of distinct assets held
+Portfolio APY — weighted average APY across all holdings
+Section: Holdings Table
+Columns: Asset | Type | Tokens Held | Avg Buy Price | Current Price | Current Value (USD) | Yield Earned | Yield Pending | Status | Actions
+Actions column: "Invest More" | "View Asset" | "Use as Collateral" (links to DeFi page pre-loaded with this asset)
+Sortable by any column. Searchable by asset name.
+Row hover: expands to show mini yield chart sparkline inline
+Section: Portfolio Breakdown
+Donut chart: holdings by asset type (Land / Energy / Infra / Timber / RE) with USD values
+Donut chart: holdings by geography (countries)
+Portfolio performance line chart: total portfolio value over time (1W, 1M, 3M, 1Y)
+Section: Yield History
+Bar chart: monthly yield received per asset type (stacked bars)
+Table: yield event log — Date | Asset | Yield Amount (USD) | Tokens Held at Time | Tx Hash | Status
+Section: Active DeFi Positions (Summary)
+Loans: Asset Collateral | Borrowed Amount | LTV | Health Factor | Interest Accrued | Repay button
+Liquidity Pools: Pool Name | Your LP Value | Earned Fees | APR | Remove Liquidity button
+Vaults: Vault Name | Deposited | Current Value | APY | Withdraw button
+"Go to DeFi" link to full DeFi page
+Section: Transaction History
+Filterable log: All | Investments | Yield Claims | Loans | Repayments | LP | Vault | Stablecoin | Governance
+Columns: Date/Time | Type (badge) | Asset | Amount (USD) | Tx Hash (BscScan link) | Status
+CSV export button
+
+PAGE 6 — DeFi Hub  |  Route: /defi  |  Requires wallet + KYC
+
+5.6 DeFi Hub
+The full-featured DeFi interface consolidating all protocol financial primitives: lending/borrowing, liquidity pools, yield farming, and ERC-4626 vaults. Tab-based navigation between modules.
+DeFi Hub Navigation Tabs
+Tab 1: Lend & Borrow
+Tab 2: Liquidity Pools
+Tab 3: Yield Vaults
+Tab 4: Yield Farming
+Global DeFi stats bar at top: Total Borrowed | Total Supplied | Protocol TVL | Your Net Position
+Tab 1 — Lend & Borrow
+Borrow Panel:
+Select Collateral Asset: dropdown of user's RWA tokens with balance shown
+Enter Collateral Amount: token amount input with USD equivalent
+LTV (Loan-to-Value) slider: 0–80%. Moves between Safe / Moderate / Risky zones with color coding.
+Health Factor meter: visual gauge (1.0 = liquidation threshold, shown in red; >2.0 = safe, green)
+Max Borrow Amount: calculated live as (Collateral USD * LTV%)
+Borrow Asset selector: USDT / USDC / BUSD / BNB
+Borrow Amount input with "Max" button
+Interest Rate display: current variable rate APR for chosen borrow asset
+"Borrow" CTA button — triggers two transactions: deposit collateral + borrow
+Active Loans table: Collateral Asset | Collateral Value | Borrowed | Interest | Health Factor | Repay button | Add Collateral button
+Supply/Earn Panel:
+Supply your stablecoins to the lending pool to earn interest
+Asset selector: USDT / USDC / BUSD
+Amount input with wallet balance shown
+Current supply APY shown prominently
+"Supply" button + active supply positions table
+Liquidation Risk Monitor:
+Alert banner appears when any position Health Factor drops below 1.5
+Push notification (browser) optionally enabled for liquidation warnings
+Tab 2 — Liquidity Pools
+Pool cards grid: each pool shows Asset Token / Pair (e.g., LNDK1/USDT), TVL, APR, Volume 24h, Your Position, Add Liquidity / Remove buttons
+Add Liquidity modal: two-sided input (Asset Token + Stable), slippage tolerance setting (0.1% / 0.5% / 1.0% / custom), price impact warning if >2%
+Remove Liquidity modal: LP token amount slider + estimated return of each asset
+Pool analytics: price ratio chart, volume chart, fee APR trend (7D)
+My Positions summary table: Pool | LP Tokens | Token A Value | Token B Value | Fees Earned | APR
+Tab 3 — Yield Vaults (ERC-4626)
+Each verified asset has a vault. Vault card shows: Asset name, Vault APY, Total Assets in Vault (USD), Your Shares, Your Vault Value
+Deposit tab: enter token amount → calls vault.deposit() → receives vault shares
+Withdraw tab: enter share amount or USD value → calls vault.withdraw() → receives underlying + yield
+Preview function outputs shown before confirmation: previewDeposit, previewWithdraw
+Vault performance chart: share price over time (shows compounding effect)
+Inflation attack protection note: "OpenZeppelin virtual offset protection enabled" shown as a trust indicator
+Tab 4 — Yield Farming
+Farm cards: Stake LP tokens or RWA tokens to earn additional LVT governance token rewards
+Each farm shows: Staked Asset | LVT Reward APR | Your Staked Amount | LVT Earned | Harvest button | Stake/Unstake
+Harvest: claims pending LVT rewards to wallet
+Compound button: auto-reinvests LVT into the farm
+LVT token price ticker and total LVT supply shown at top of tab
+
+PAGE 7 — LVT Stablecoin  |  Route: /stablecoin  |  Requires wallet + KYC
+
+5.7 LVT Stablecoin Page
+Interface for minting and redeeming LVT, the Land Vault native land-backed stablecoin. LVT is over-collateralized (min 150% collateral ratio) and pegged to USD via protocol-managed stability mechanisms.
+Protocol Stats Bar
+LVT Total Supply | Global Collateral Ratio | LVT Price (oracle) | Stability Fee APR | Your LVT Balance
+Mint LVT Panel
+Collateral asset selector: any verified RWA token the user holds
+Collateral amount input with USD equivalent
+Collateralization Ratio meter: large circular gauge. Green ≥ 200%, Amber 150–200%, Red < 150%
+LVT to Mint: calculated live. Shows maximum mintable at current ratio.
+Stability Fee: shown as annual % applied on minted amount
+"Mint LVT" button → two transactions: approve collateral + mint
+Redeem LVT Panel
+LVT amount to burn input
+Collateral to receive: calculated from oracle price
+Any accrued stability fee deducted and shown
+"Redeem" button → burn LVT + unlock collateral
+My Vault Positions
+Table: Collateral Asset | Collateral Value | LVT Minted | Current Ratio | Stability Fee Accrued | Add Collateral | Repay LVT | Liquidation Price
+Warning banner if any vault is below 160% ratio with "Add Collateral" prompt
+LVT Market Info
+LVT price chart (oracle feed vs 1.00 USD peg line)
+Total protocol collateral breakdown by asset type (pie chart)
+
+PAGE 8 — Governance (DAO)  |  Route: /governance  |  Wallet required to vote
+
+5.8 Governance Page
+The DAO governance interface where LVT token holders and RWA token holders vote on protocol parameters, new asset onboarding, fee changes, and geographic expansion decisions.
+Governance Stats Bar
+Total Proposals | Active Proposals | Your Voting Power | Quorum Threshold | Next Proposal Deadline
+Proposals List
+Filter tabs: All | Active | Passed | Failed | Pending Execution
+Proposal card: ID # | Category badge | Title | Author address (truncated) | Created date | Voting deadline (countdown) | For/Against/Abstain vote bars | Quorum progress bar | Your vote (if voted)
+Category badges: Risk Parameters (red) | Asset Onboarding (green) | Protocol Fee (amber) | Geographic Expansion (teal) | Tokenomics (purple) | Emergency (red pulsing)
+Proposal Detail Page (Route: /governance/:id)
+Full proposal description (markdown rendered)
+Proposed changes: before/after table (e.g., "LTV Max: 75% → 80%")
+Voting panel: For / Against / Abstain radio + "Cast Vote" button (requires LVT or RWA token balance)
+Voting power breakdown: how much voting power the user has and from which tokens
+Vote history table: voter address | vote | voting power | timestamp
+Discussion section: on-chain linked to Snapshot or custom forum
+"Execute Proposal" button: shown after voting period ends and quorum/majority met, gated to admin/executor role
+Create Proposal
+Route: /governance/new
+Title, category selector, detailed description (markdown editor), proposed on-chain action (contract call selector)
+Requires minimum LVT balance to create (anti-spam threshold)
+
+PAGE 9 — Protocol Analytics  |  Route: /analytics  |  Public
+
+5.9 Analytics Page
+Protocol TVL over time (area chart), filterable by asset type
+TVL by sector: bar chart (Private Credit, Treasuries, Real Estate, Infra, Timber)
+Daily active users + unique wallets (line chart)
+Total yield distributed: cumulative line chart + recent 30 days bar chart
+Asset onboarding rate: new assets per month (bar chart)
+LVT stablecoin: circulating supply trend, collateral ratio trend, peg deviation chart
+DeFi stats: Total Borrowed, Total Supplied, LP TVL, Active Loans count
+Leaderboard: top 10 assets by TVL, yield, and trading volume
+
+PAGE 10 — Admin Panel  |  Route: /admin  |  Role-gated (VALIDATOR / ADMIN)
+
+5.10 Admin / Validator Panel
+Asset review queue: list of submitted assets pending verification
+Each review shows all submitted data, documents (with IPFS viewer), AI valuation score
+Reviewer actions: Approve (triggers on-chain NFT mint) | Request More Info (sends notification to submitter) | Reject (with reason)
+Approved assets become live in marketplace
+User KYC review queue
+Protocol fee management (admin only): update fee parameters via governance-gated tx
+Emergency pause switch: pause all protocol contracts (multisig required)
+
+6. Backend Application Structure
+6.1 Folder Structure
+backend/
+├── prisma/
+│   ├── schema.prisma             # Full DB schema (see Section 6.3)
+│   └── migrations/               # Auto-generated migration files
+├── src/
+│   ├── app.ts                    # Express app init, middleware setup
+│   ├── server.ts                 # HTTP server entry point
+│   ├── config/
+│   │   ├── env.ts                # Typed env vars with Zod validation
+│   │   ├── database.ts           # Prisma client singleton
+│   │   ├── redis.ts              # Redis client singleton
+│   │   └── contracts.ts          # On-chain contract instances
+│   ├── routes/
+│   │   ├── assets.ts             # /api/v1/assets
+│   │   ├── auth.ts               # /api/v1/auth
+│   │   ├── users.ts              # /api/v1/users
+│   │   ├── defi.ts               # /api/v1/defi
+│   │   ├── governance.ts         # /api/v1/governance
+│   │   ├── analytics.ts          # /api/v1/analytics
+│   │   └── admin.ts              # /api/v1/admin
+│   ├── controllers/
+│   │   ├── assets.controller.ts
+│   │   ├── auth.controller.ts
+│   │   ├── defi.controller.ts
+│   │   ├── governance.controller.ts
+│   │   └── analytics.controller.ts
+│   ├── services/
+│   │   ├── asset.service.ts      # Business logic for assets
+│   │   ├── kyc.service.ts        # KYC/AML checks via third-party API
+│   │   ├── ipfs.service.ts       # IPFS upload, pin, fetch via Pinata
+│   │   ├── oracle.service.ts     # Chainlink + custom AI valuation
+│   │   ├── notification.service.ts # Email + push notifications
+│   │   ├── blockchain.service.ts # Read on-chain data, listen events
+│   │   └── defi.service.ts       # Lending/LP/vault state aggregation
+│   ├── middleware/
+│   │   ├── auth.middleware.ts    # JWT + wallet sig verification
+│   │   ├── role.middleware.ts    # Role-based access (USER/VALIDATOR/ADMIN)
+│   │   ├── kyc.middleware.ts     # KYC status check
+│   │   ├── rateLimit.middleware.ts # Redis-based rate limiting
+│   │   └── validate.middleware.ts # Zod schema validation
+│   ├── jobs/
+│   │   ├── yieldSync.job.ts      # Sync yield distributions from chain
+│   │   ├── priceSync.job.ts      # Update token prices from oracle
+│   │   ├── kycCheck.job.ts       # Async KYC verification queue
+│   │   └── notification.job.ts   # Email/push notification queue
+│   ├── types/
+│   │   ├── express.d.ts          # Augment Request with user, wallet
+│   │   └── index.ts              # Shared types
+│   └── utils/
+│       ├── errors.ts             # Custom error classes + error handler
+│       ├── response.ts           # Standard API response wrapper
+│       └── logger.ts             # Winston logger config
+6.2 API Endpoints
+Authentication
+Method
+Endpoint
+Description
+POST
+/api/v1/auth/nonce
+Get nonce for wallet signature (EIP-191 sign-in)
+POST
+/api/v1/auth/verify
+Verify wallet signature, return JWT access + refresh tokens
+POST
+/api/v1/auth/refresh
+Refresh expired access token using refresh token
+POST
+/api/v1/auth/logout
+Invalidate refresh token in Redis
+
+Assets
+Method
+Endpoint
+Description
+GET
+/api/v1/assets
+List all assets with filters, pagination, sorting
+GET
+/api/v1/assets/:id
+Get single asset with full metadata + on-chain data
+POST
+/api/v1/assets/submit
+Submit new asset for tokenization (auth + KYC required)
+GET
+/api/v1/assets/:id/analytics
+Historical price, yield, TVL data for asset
+GET
+/api/v1/assets/:id/documents
+List IPFS documents for an asset
+POST
+/api/v1/assets/:id/watchlist
+Add/remove asset from user watchlist
+GET
+/api/v1/assets/types/meta
+Get all asset type metadata (fields, docs required, etc.)
+
+Users & Portfolio
+Method
+Endpoint
+Description
+GET
+/api/v1/users/me
+Get current user profile, KYC status, wallet
+PUT
+/api/v1/users/me
+Update user profile (name, email, notification prefs)
+GET
+/api/v1/users/me/portfolio
+Portfolio overview: holdings, values, APY
+GET
+/api/v1/users/me/holdings
+Detailed holdings list with per-asset data
+GET
+/api/v1/users/me/yield-history
+Paginated yield event history
+GET
+/api/v1/users/me/transactions
+Full transaction history with filters
+POST
+/api/v1/kyc/initiate
+Start KYC verification flow (returns third-party URL)
+GET
+/api/v1/kyc/status
+Poll KYC verification status
+
+DeFi
+Method
+Endpoint
+Description
+GET
+/api/v1/defi/lending/pools
+List all lending pools with APY, utilization rate
+GET
+/api/v1/defi/lending/positions
+User's active borrow and supply positions
+GET
+/api/v1/defi/lending/rates
+Current interest rates per asset
+GET
+/api/v1/defi/liquidity/pools
+All liquidity pools with TVL, APR, volume
+GET
+/api/v1/defi/liquidity/positions
+User's LP token positions
+GET
+/api/v1/defi/vaults
+All ERC-4626 vaults with APY, TVL
+GET
+/api/v1/defi/vaults/:id
+Single vault detail + user position
+GET
+/api/v1/defi/farms
+All yield farms with LVT APR
+GET
+/api/v1/defi/farms/positions
+User's staked positions in farms
+
+Stablecoin
+Method
+Endpoint
+Description
+GET
+/api/v1/stablecoin/stats
+LVT supply, global collateral ratio, peg data
+GET
+/api/v1/stablecoin/positions
+User's LVT vault positions
+GET
+/api/v1/stablecoin/price
+LVT price from oracle
+
+Governance
+Method
+Endpoint
+Description
+GET
+/api/v1/governance/proposals
+List proposals with filters (active/passed/failed)
+GET
+/api/v1/governance/proposals/:id
+Single proposal with full detail + vote counts
+POST
+/api/v1/governance/proposals
+Create new proposal (requires min LVT balance)
+GET
+/api/v1/governance/voting-power
+User's current voting power from on-chain tokens
+GET
+/api/v1/governance/votes/me
+User's vote history
+
+Analytics
+Method
+Endpoint
+Description
+GET
+/api/v1/analytics/protocol
+Protocol-wide: TVL, users, yield distributed, asset count
+GET
+/api/v1/analytics/tvl/history
+TVL over time (daily/weekly/monthly), by sector
+GET
+/api/v1/analytics/yield/history
+Protocol yield distributed over time
+GET
+/api/v1/analytics/leaderboard
+Top assets by TVL, yield, volume
+
+Admin
+Method
+Endpoint
+Description
+GET
+/api/v1/admin/queue
+Pending asset review queue (VALIDATOR role)
+PUT
+/api/v1/admin/assets/:id/approve
+Approve asset → trigger on-chain NFT mint
+PUT
+/api/v1/admin/assets/:id/reject
+Reject asset submission with reason
+GET
+/api/v1/admin/kyc/queue
+Pending KYC reviews
+PUT
+/api/v1/admin/kyc/:userId
+Manually approve/reject KYC
+
+6.3 Database Schema (Prisma — Key Models)
+model User {
+  id              String      @id @default(cuid())
+  walletAddress   String      @unique
+  email           String?     @unique
+  name            String?
+  role            Role        @default(USER)
+  kycStatus       KYCStatus   @default(PENDING)
+  kycProvider     String?
+  kycReference    String?
+  createdAt       DateTime    @default(now())
+  assets          Asset[]     @relation("OwnerAssets")
+  holdings        Holding[]
+  transactions    Transaction[]
+  votes           Vote[]
+}
+ 
+model Asset {
+  id              String      @id @default(cuid())
+  name            String
+  tokenSymbol     String      @unique
+  assetType       AssetType
+  status          AssetStatus @default(PENDING)
+  country         String
+  city            String
+  gpsLat          Float?
+  gpsLng          Float?
+  description     String
+  totalValue      Decimal
+  tokenSupply     BigInt
+  tokenPrice      Decimal
+  yieldAPY        Decimal
+  nftAddress      String?
+  tokenAddress    String?
+  vaultAddress    String?
+  ipfsMetadata    String?
+  metadata        Json
+  ownerId         String
+  owner           User        @relation("OwnerAssets", fields: [ownerId], references: [id])
+  documents       Document[]
+  holdings        Holding[]
+  yieldEvents     YieldEvent[]
+}
+ 
+model Holding {
+  id              String    @id @default(cuid())
+  userId          String
+  assetId         String
+  tokenAmount     Decimal
+  avgBuyPrice     Decimal
+  yieldEarned     Decimal   @default(0)
+  user            User      @relation(fields: [userId], references: [id])
+  asset           Asset     @relation(fields: [assetId], references: [id])
+  @@unique([userId, assetId])
+}
+ 
+enum AssetType   { LAND RENEWABLE_ENERGY INFRASTRUCTURE TIMBER REAL_ESTATE }
+enum AssetStatus { PENDING UNDER_REVIEW VERIFIED ACTIVE LOCKED REJECTED }
+enum KYCStatus   { PENDING IN_REVIEW APPROVED REJECTED EXPIRED }
+enum Role        { USER VALIDATOR ADMIN }
+
+7. Smart Contract Architecture
+7.1 Contract Registry
+Contract Name
+Standard
+Chain
+Purpose
+AssetRegistry
+ERC-721
+BNB Chain
+Mints one NFT per verified RWA. Stores IPFS metadata URI. Only VALIDATOR role can mint.
+AssetToken
+ERC-20
+BNB Chain
+Fractional ownership token for each asset. One contract per asset. Mintable by AssetRegistry.
+AssetVault
+ERC-4626
+BNB Chain
+Yield-bearing vault per asset. deposit/mint/withdraw/redeem + preview functions. Virtual offset inflation protection.
+LendingPool
+Custom
+BNB Chain
+Accepts RWA token collateral. Issues stablecoin loans. Tracks LTV, health factor. Liquidation logic.
+AMMPool
+Custom
+BNB Chain
+x*y=k AMM for RWA token / USDT pairs. Add/remove liquidity. Swap with 0.3% fee.
+YieldFarm
+Custom
+BNB Chain
+Stake LP tokens or RWA tokens to earn LVT governance rewards. Emission schedule.
+LVTStablecoin
+ERC-20
+BNB Chain
+Land Vault Token (LVT). Minted by over-collateralized RWA vault. Burn on redemption.
+CollateralVault
+Custom
+BNB Chain
+Manages LVT collateral positions. Tracks collateral ratio per user per asset. Liquidation trigger.
+GovernanceDAO
+Custom
+BNB Chain
+On-chain proposal creation, voting, execution. Time-lock on execution. Quorum enforcement.
+YieldDistributor
+Custom
+BNB Chain
+Receives income from asset operators. Splits per token holding snapshot. Claim function.
+ProtocolTreasury
+Custom
+BNB Chain
+Holds protocol fee revenue. Multi-sig controlled. Funds development + insurance reserve.
+OracleAdapter
+Custom
+BNB Chain
+Chainlink price feed wrapper + custom asset valuation oracle bridge.
+7.2 Contract Interactions Flow
+Asset Submission
+Owner calls AssetRegistry.submitAsset() → stored off-chain → Validator calls AssetRegistry.mintAsset() → NFT minted, AssetToken deployed, AssetVault deployed
+Buy Fractional Token
+Investor calls AssetToken.buy(amount) → ERC-20 transferred, USDT sent to YieldDistributor → Holding recorded on-chain
+Yield Distribution
+Asset operator calls YieldDistributor.depositYield(assetId, amount) → snapshot taken → token holders call claim() → USDT transferred to wallet
+ERC-4626 Vault
+Investor calls AssetVault.deposit(assets) → shares minted → yield auto-compounded in vault → withdraw() redeems shares for assets + yield
+Lending/Borrow
+Borrower calls LendingPool.depositCollateral(rwaToken, amount) → calls borrow(stable, amount) → health factor computed → loan active
+LVT Mint
+User calls CollateralVault.lockCollateral(rwaToken, amount) → calls LVTStablecoin.mint(amount) within collateral ratio → LVT sent to wallet
+Liquidity Add
+LP calls AMMPool.addLiquidity(tokenA, tokenB, amountA, amountB) → LP tokens minted → position tracked
+Governance Vote
+Holder calls GovernanceDAO.castVote(proposalId, support) → vote weight = LVT balance + RWA token balance → quorum check on deadline
+
+8. Authentication, KYC & Security
+8.1 Wallet-Based Authentication (Sign-In With Ethereum)
+Step 1: Frontend requests a nonce from POST /api/v1/auth/nonce (nonce stored in Redis with 10-min TTL)
+Step 2: User signs the nonce with their wallet (EIP-191 personal_sign)
+Step 3: Backend verifies signature via ethers.verifyMessage(), issues JWT access token (15min) + refresh token (7d)
+Step 4: Access token stored in memory (never localStorage). Refresh token in httpOnly cookie.
+All authenticated API calls send Authorization: Bearer <token> header
+Chain ID verification: only BNB Chain (56) and BSC Testnet (97) accepted
+8.2 KYC/AML Requirements
+All users must pass KYC before investing (investing CTA is gated)
+KYC provider: Sumsub or Persona (third-party integration via API + webhook)
+KYC levels: Basic (identity verification) for investments up to $10,000; Enhanced (proof of address + source of funds) for above $10,000
+KYC status stored in DB. Updated via webhook from KYC provider.
+Restricted countries: OFAC sanctions list enforced at KYC + IP level
+8.3 Security Requirements
+All API endpoints: CORS restricted to allowed origins only
+Rate limiting: 100 req/min per IP (public), 300 req/min per authenticated user
+SQL injection: prevented by Prisma ORM parameterized queries
+XSS: Content-Security-Policy headers on all responses
+Smart contracts: OpenZeppelin ReentrancyGuard on all value-transfer functions
+Smart contracts: Ownable + AccessControl roles (VALIDATOR_ROLE, ADMIN_ROLE, PAUSER_ROLE)
+Smart contracts: Pausable mixin for emergency stop
+Multi-sig: ProtocolTreasury + contract upgrades require 3-of-5 multisig (Gnosis Safe)
+Private keys: NEVER stored in code. Loaded from environment secrets only.
+Audits: contracts must pass internal review before mainnet. Third-party audit recommended before public launch.
+
+9. Frontend Routing & Access Control
+/
+Public — Landing page. No wallet required.
+/marketplace
+Public — Browse all assets. Wallet optional (required to invest).
+/assets/:id
+Public — Asset detail. Wallet required for "Invest Now" button.
+/tokenize
+Protected (Wallet + KYC) — Asset submission wizard.
+/dashboard
+Protected (Wallet + KYC) — User portfolio dashboard.
+/defi
+Protected (Wallet + KYC) — DeFi hub: lending, LP, vaults, farming.
+/stablecoin
+Protected (Wallet + KYC) — LVT mint/redeem.
+/governance
+Public view, Protected to vote (Wallet + token balance).
+/governance/:id
+Public view, Protected to vote.
+/governance/new
+Protected (Wallet + min LVT balance).
+/analytics
+Public — Protocol analytics.
+/admin
+Role-gated (VALIDATOR or ADMIN role only).
+/profile
+Protected (Wallet) — Edit user profile, notification settings.
+
+Route guards are implemented as a ProtectedRoute component that checks wallet connection, KYC status, and role. Unauthenticated access to protected routes redirects to "/" with a connect-wallet prompt modal.
+
+10. Notification System
+Yield Distribution
+Email + in-app toast: "You received $X yield from [Asset Name]". Triggered by YieldDistributor on-chain event.
+Asset Status Change
+Email: asset submission approved / rejected / more info requested. In-app bell notification.
+KYC Status
+Email: KYC approved / rejected / expired. In-app banner.
+Health Factor Warning
+In-app alert + email: "Your loan health factor is 1.4 — add collateral to avoid liquidation."
+Governance Proposal
+Email + in-app: "New proposal #42 is active. You have X votes. Deadline: [date]."
+Liquidation Alert
+Email + push notification: "Your position is being liquidated. Health factor reached 1.0."
+Price Alerts
+In-app only: user-defined token price thresholds.
+
+11. Demo Day Build Priorities (Deadline: March 31, 2026)
+Priority 1 — Must Have (Demo Day MVP)
+Landing page with live stats, asset ticker, lifecycle flow, TVL chart, roadmap
+Marketplace page with all 5 asset types, filters, type-specific card fields
+Asset Detail page for 2 demo assets (Land + Solar Energy) with all type-specific fields
+Tokenize Wizard — all 6 steps functional with validation
+Smart Contracts: AssetRegistry (ERC-721) + AssetToken (ERC-20) + AssetVault (ERC-4626) deployed on BSC Testnet
+Wallet connect: MetaMask + WalletConnect
+Basic invest flow: connect wallet → KYC check → buy tokens → transaction confirmation
+User Dashboard: portfolio overview, holdings table, yield history
+Priority 2 — Should Have (Demo Day Bonus Points)
+DeFi Hub: Lending/Borrowing panel (UI + smart contract)
+LVT Stablecoin: mint/redeem UI (even if on testnet with mock collateral)
+Governance page: proposal list + vote UI
+Analytics page: TVL chart, sector breakdown
+KYC flow: integrated third-party KYC widget
+Priority 3 — Nice to Have (Post Demo Day)
+Liquidity Pools (AMM) full UI + contract
+Yield Farming with LVT emissions
+Admin / Validator panel
+Full notification system (email + push)
+Multi-language support
+Mobile app (React Native)
+Mainnet deployment
+
+12. Monorepo Project Structure
+land-vault/                          # Root monorepo
+├── apps/
+│   ├── frontend/                    # React 18 + Vite (Section 3)
+│   └── backend/                     # Node.js + Express (Section 6)
+├── packages/
+│   ├── contracts/                   # Solidity + Hardhat
+│   │   ├── contracts/
+│   │   │   ├── AssetRegistry.sol
+│   │   │   ├── AssetToken.sol
+│   │   │   ├── AssetVault.sol
+│   │   │   ├── LendingPool.sol
+│   │   │   ├── AMMPool.sol
+│   │   │   ├── YieldFarm.sol
+│   │   │   ├── LVTStablecoin.sol
+│   │   │   ├── CollateralVault.sol
+│   │   │   ├── GovernanceDAO.sol
+│   │   │   ├── YieldDistributor.sol
+│   │   │   ├── ProtocolTreasury.sol
+│   │   │   └── OracleAdapter.sol
+│   │   ├── scripts/                 # Deployment + verification scripts
+│   │   ├── test/                    # Hardhat tests
+│   │   └── hardhat.config.ts
+│   ├── shared/                      # Shared types + Zod schemas
+│   │   ├── types/
+│   │   ├── schemas/
+│   │   └── constants/
+│   └── abis/                        # Auto-generated ABIs from Hardhat
+├── turbo.json                       # Turborepo pipeline config
+├── pnpm-workspace.yaml
+└── .github/workflows/
+    ├── ci.yml                       # Lint, test, build
+    └── deploy.yml                   # Deploy frontend + backend
+
+
+END OF REQUIREMENTS DOCUMENT
+Land Vault Protocol  ·  v1.0.0  ·  March 2026
+BNB Chain  ·  RWA Demo Day  ·  Hong Kong Web3 Festival

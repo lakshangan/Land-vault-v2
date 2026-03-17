@@ -1,0 +1,113 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String      @id @default(cuid())
+  walletAddress   String      @unique
+  email           String?     @unique
+  name            String?
+  role            Role        @default(USER)
+  kycStatus       KYCStatus   @default(PENDING)
+  kycProvider     String?
+  kycReference    String?
+  createdAt       DateTime    @default(now())
+  assetsOwned     Asset[]     @relation("OwnerAssets")
+  holdings        Holding[]
+  transactions    Transaction[]
+  votes           Vote[]
+}
+
+model Asset {
+  id              String      @id @default(cuid())
+  name            String
+  tokenSymbol     String      @unique
+  assetType       AssetType
+  status          AssetStatus @default(PENDING)
+  country         String
+  city            String
+  gpsLat          Float?
+  gpsLng          Float?
+  description     String
+  totalValue      Decimal
+  tokenSupply     BigInt
+  tokenPrice      Decimal
+  yieldAPY        Decimal
+  nftAddress      String?
+  tokenAddress    String?
+  vaultAddress    String?
+  ipfsMetadata    String?
+  metadata        Json
+  ownerId         String
+  owner           User        @relation("OwnerAssets", fields: [ownerId], references: [id])
+  documents       Document[]
+  holdings        Holding[]
+  yieldEvents     YieldEvent[]
+  createdAt       DateTime    @default(now())
+}
+
+model Holding {
+  id              String    @id @default(cuid())
+  userId          String
+  assetId         String
+  tokenAmount     Decimal
+  avgBuyPrice     Decimal
+  yieldEarned     Decimal   @default(0)
+  user            User      @relation(fields: [userId], references: [id])
+  asset           Asset     @relation(fields: [assetId], references: [id])
+  @@unique([userId, assetId])
+}
+
+model Document {
+  id          String    @id @default(cuid())
+  assetId     String
+  name        String
+  type        String
+  ipfsHash    String
+  isVerified  Boolean   @default(false)
+  asset       Asset     @relation(fields: [assetId], references: [id])
+}
+
+model YieldEvent {
+  id          String    @id @default(cuid())
+  assetId     String
+  amount      Decimal
+  timestamp   DateTime  @default(now())
+  txHash      String
+  asset       Asset     @relation(fields: [assetId], references: [id])
+}
+
+model Transaction {
+  id          String    @id @default(cuid())
+  userId      String
+  type        String    // MINT, BUY, SELL, CLAIM, VOTE
+  assetId     String?
+  amount      Decimal?
+  txHash      String
+  status      String
+  timestamp   DateTime  @default(now())
+  user        User      @relation(fields: [userId], references: [id])
+}
+
+model Vote {
+  id          String    @id @default(cuid())
+  userId      String
+  proposalId  String
+  support     Boolean
+  weight      Decimal
+  timestamp   DateTime  @default(now())
+  user        User      @relation(fields: [userId], references: [id])
+}
+
+enum AssetType   { LAND RENEWABLE_ENERGY INFRASTRUCTURE TIMBER REAL_ESTATE }
+enum AssetStatus { PENDING UNDER_REVIEW VERIFIED ACTIVE LOCKED REJECTED }
+enum KYCStatus   { PENDING IN_REVIEW APPROVED REJECTED EXPIRED }
+enum Role        { USER VALIDATOR ADMIN }
