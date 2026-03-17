@@ -11,6 +11,7 @@ import AssetDetail from './pages/AssetDetail/index';
 import TokenizeWizard from './pages/Tokenize/index';
 import Dashboard from './pages/Dashboard/index';
 import DeFiHub from './pages/DeFi/index';
+import YieldPage from './pages/Yield/index';
 
 const config = getDefaultConfig({
   appName: 'LandVault Protocol',
@@ -39,7 +40,9 @@ function App() {
                   <Route path="/assets/:id" element={<AssetDetail />} />
                   <Route path="/tokenize" element={<TokenizeWizard />} />
                   <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/portfolio" element={<Navigate to="/dashboard" replace />} />
                   <Route path="/defi" element={<DeFiHub />} />
+                  <Route path="/yield" element={<YieldPage />} />
                   {/* Catch-all route to Marketplace */}
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>

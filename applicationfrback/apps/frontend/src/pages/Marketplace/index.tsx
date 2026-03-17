@@ -1,19 +1,23 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Search, Filter, SlidersHorizontal, ChevronDown } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Search, MapPin, TrendingUp, Plus } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import AssetCard from '../../components/assets/AssetCard.tsx';
 
 const categories = [
-  { id: 'ALL', name: 'All Assets' },
-  { id: 'REAL_ESTATE', name: 'Real Estate' },
-  { id: 'RENEWABLE_ENERGY', name: 'Energy' },
+  { id: 'ALL', name: 'All assets' },
+  { id: 'REAL_ESTATE', name: 'Real estate' },
+  { id: 'RENEWABLE_ENERGY', name: 'Renewable energy' },
   { id: 'INFRASTRUCTURE', name: 'Infrastructure' },
   { id: 'LAND', name: 'Land' },
-  { id: 'TIMBER', name: 'Timber & Forestry' },
+  { id: 'TIMBER', name: 'Timber & forestry' },
 ];
 
 const Marketplace = () => {
+    const navigate = useNavigate();
     const [selectedCategory, setSelectedCategory] = useState('ALL');
+    const [searchQuery, setSearchQuery] = useState('');
+    const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
     
     const assets = [
         { id: '1', name: 'London Prime Residential', type: 'REAL_ESTATE', location: 'London, UK', yield: 12.4, progress: 76, value: 2400000, price: 50, status: 'VERIFIED' },
@@ -24,139 +28,155 @@ const Marketplace = () => {
         { id: '6', name: 'Coastal Agri-Land', type: 'LAND', location: 'Valencia, Spain', yield: 9.4, progress: 62, value: 1800000, price: 25, status: 'VERIFIED' },
     ];
 
-    const filteredAssets = selectedCategory === 'ALL' 
-        ? assets 
-        : assets.filter(a => a.type === selectedCategory);
+    const toggleStatus = (status: string) => {
+        setSelectedStatus(prev => 
+            prev.includes(status) ? prev.filter(s => s !== status) : [...prev, status]
+        );
+    };
+
+    const filteredAssets = useMemo(() => {
+        return assets.filter(asset => {
+            const matchesCategory = selectedCategory === 'ALL' || asset.type === selectedCategory;
+            const matchesSearch = asset.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                 asset.location.toLowerCase().includes(searchQuery.toLowerCase());
+            const matchesStatus = selectedStatus.length === 0 || selectedStatus.includes(asset.status);
+            return matchesCategory && matchesSearch && matchesStatus;
+        });
+    }, [selectedCategory, searchQuery, selectedStatus]);
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-10">
-      {/* Search & Main Header */}
-      <div className="mb-12">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
-            <div>
-                <h1 className="text-4xl md:text-5xl font-syne font-extrabold mb-2 uppercase tracking-tight">Marketplace</h1>
-                <p className="text-slate-400">Institutional grade real-world asset opportunities on <span className="text-primary font-bold">BASE</span>.</p>
-            </div>
-            <div className="relative w-full md:w-96 group">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-primary transition-colors" size={20} />
-                <input 
-                    type="text" 
-                    placeholder="Search by location, asset name, or ID..." 
-                    className="w-full bg-slate-900 border border-slate-800 rounded-xl py-4 pl-12 pr-4 focus:outline-none focus:border-primary transition-all text-sm font-dm"
-                />
-            </div>
-        </div>
-
-        {/* Categories Bar */}
-        <div className="flex items-center gap-3 overflow-x-auto pb-4 scrollbar-hide no-scrollbar">
-            {categories.map((cat) => (
-                <button
-                    key={cat.id}
-                    onClick={() => setSelectedCategory(cat.id)}
-                    className={`whitespace-nowrap px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all ${
-                        selectedCategory === cat.id 
-                        ? 'bg-primary text-background shadow-[0_0_15px_rgba(0,212,170,0.4)]' 
-                        : 'bg-slate-900/50 border border-slate-800 text-slate-400 hover:border-slate-700'
-                    }`}
-                >
-                    {cat.name}
-                </button>
-            ))}
-        </div>
-      </div>
-
-      <div className="flex flex-col lg:flex-row gap-10">
-         {/* Sidebar Filters */}
-         <aside className="w-full lg:w-64 space-y-8 flex-shrink-0">
-            <div className="glass-card p-6">
-                <div className="flex items-center gap-2 mb-6 text-primary">
-                    <SlidersHorizontal size={18} />
-                    <h3 className="text-xs font-bold uppercase tracking-widest">Filter Assets</h3>
-                </div>
-
-                <div className="space-y-8">
-                    {/* Filter Group: Status */}
-                    <div className="space-y-4">
-                        <label className="text-[10px] uppercase font-bold text-slate-500 tracking-widest flex justify-between items-center group cursor-pointer">
-                            Status
-                            <ChevronDown size={14} />
+    <div className="flex min-h-screen bg-page">
+      {/* Fixed Sidebar */}
+      <aside className="w-[260px] border-r border-border-subtle bg-surface/50 h-[calc(100vh-52px)] fixed top-[52px] left-0 p-6 overflow-y-auto hidden lg:block">
+        <div className="space-y-8">
+            <div className="space-y-4">
+                <h3 className="label-muted">Status</h3>
+                <div className="space-y-2">
+                    {['ACTIVE', 'VERIFIED', 'LOCKED'].map(status => (
+                        <label key={status} className="flex items-center gap-3 cursor-pointer group">
+                            <input 
+                                type="checkbox" 
+                                className="hidden" 
+                                checked={selectedStatus.includes(status)}
+                                onChange={() => toggleStatus(status)}
+                            />
+                            <div className={`w-4 h-4 rounded border border-border-default flex items-center justify-center transition-colors ${selectedStatus.includes(status) ? 'bg-accent border-accent' : 'bg-card group-hover:border-text-muted'}`}>
+                                {selectedStatus.includes(status) && <div className="w-1.5 h-1.5 bg-slate-900 rounded-sm" />}
+                            </div>
+                            <span className={`text-[13px] transition-colors ${selectedStatus.includes(status) ? 'text-text-primary' : 'text-text-muted group-hover:text-text-primary'}`}>
+                                {status.charAt(0) + status.slice(1).toLowerCase()}
+                            </span>
                         </label>
-                        <div className="space-y-2">
-                            {['Active', 'Verified', 'Locked', 'Pending'].map((status) => (
-                                <label key={status} className="flex items-center gap-3 cursor-pointer group">
-                                    <div className="w-4 h-4 rounded border border-slate-700 bg-slate-900 group-hover:border-primary transition-colors flex items-center justify-center p-0.5" />
-                                    <span className="text-xs text-slate-400 group-hover:text-slate-100 transition-colors">{status}</span>
-                                </label>
-                            ))}
-                        </div>
-                    </div>
+                    ))}
+                </div>
+            </div>
 
-                    {/* Filter Group: Yield */}
-                    <div className="space-y-4">
-                        <label className="text-[10px] uppercase font-bold text-slate-500 tracking-widest">Yield Range (APY)</label>
-                        <div className="h-1.5 w-full bg-slate-800 rounded-full relative">
-                            <div className="absolute h-full w-2/3 bg-primary rounded-full left-[10%]" />
-                            <div className="absolute w-4 h-4 rounded-full bg-background border-2 border-primary -translate-y-1/2 top-1/2 left-[10%] cursor-pointer shadow-[0_0_10px_rgba(0,212,170,0.5)]" />
-                            <div className="absolute w-4 h-4 rounded-full bg-background border-2 border-primary -translate-y-1/2 top-1/2 left-[76%] cursor-pointer shadow-[0_0_10px_rgba(0,212,170,0.5)]" />
-                        </div>
-                        <div className="flex justify-between text-[10px] font-mono text-slate-500">
-                            <span>0%</span>
-                            <span>30%+</span>
-                        </div>
+            <div className="space-y-4">
+                <h3 className="label-muted">Yield range (APY)</h3>
+                <div className="px-2">
+                    <div className="h-1 w-full bg-border-default rounded-full relative">
+                        <div className="absolute h-full w-2/3 bg-accent rounded-full left-[10%]" />
+                        <div className="absolute w-3 h-3 rounded-full bg-slate-100 -translate-y-1/2 top-1/2 left-[10%] cursor-pointer shadow-minimal" />
+                        <div className="absolute w-3 h-3 rounded-full bg-slate-100 -translate-y-1/2 top-1/2 left-[76%] cursor-pointer shadow-minimal" />
                     </div>
-
-                    {/* Quick Stat Pill */}
-                    <div className="p-4 bg-primary/5 rounded-xl border border-primary/10">
-                        <div className="text-[10px] uppercase font-bold text-primary mb-1 tracking-tighter cursor-default">Yield Opportunity</div>
-                        <p className="text-[9px] text-slate-400 leading-relaxed font-dm">
-                           Assets in <span className="text-secondary font-bold">RENEWABLE_ENERGY</span> currently offer the highest risk-adjusted yield for <span className="text-white">Q1 2026</span>.
-                        </p>
+                    <div className="flex justify-between mt-3">
+                        <span className="mono text-[10px]">0%</span>
+                        <span className="mono text-[10px]">25%+</span>
                     </div>
                 </div>
             </div>
 
-            <button className="w-full btn-outline py-4 text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2">
-               <Filter size={16} />
-               Apply More Filters
-            </button>
-         </aside>
-
-         {/* Asset Grid */}
-         <div className="flex-grow">
-            <div className="flex items-center justify-between mb-8">
-                <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">{filteredAssets.length} Assets Found</span>
-                <div className="flex items-center gap-4 text-xs font-bold text-slate-400">
-                    <span className="cursor-pointer hover:text-primary transition-colors border-b-2 border-primary text-primary">Grid View</span>
-                    <span className="cursor-pointer hover:text-primary transition-colors border-b-2 border-transparent">List View</span>
+            <div className="space-y-4">
+                <h3 className="label-muted">Investment minimum</h3>
+                <div className="grid grid-cols-2 gap-2">
+                    <button className="px-3 py-1.5 rounded-lg bg-card border border-border-default text-[11px] text-text-primary hover:bg-elevated transition-colors">Under $500</button>
+                    <button className="px-3 py-1.5 rounded-lg bg-card border border-border-default text-[11px] text-text-muted hover:bg-elevated transition-colors">$500 - $5k</button>
                 </div>
             </div>
+        </div>
+      </aside>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {filteredAssets.map((asset, idx) => (
-                    <motion.div
-                        key={asset.id}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: idx * 0.05 }}
+      {/* Main Content */}
+      <main className="flex-1 lg:ml-[260px] p-8 pb-20">
+        <div className="max-w-6xl mx-auto">
+            <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                <div>
+                    <h1 className="text-3xl mb-1">Marketplace</h1>
+                    <p className="text-sm text-text-secondary">Discover institutional-grade fractional real-world assets.</p>
+                </div>
+                <div className="flex items-center gap-4">
+                    <div className="relative w-64">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" size={14} />
+                        <input 
+                            type="text" 
+                            placeholder="Search assets..." 
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="w-full h-10 bg-surface border border-border-subtle rounded-lg pl-9 pr-4 text-[13px] focus:outline-none focus:border-accent transition-all"
+                        />
+                    </div>
+                    <button 
+                        onClick={() => navigate('/tokenize')}
+                        className="btn-primary h-10 px-4 gap-2 text-[13px]"
                     >
-                        <AssetCard {...asset} />
-                    </motion.div>
+                        <Plus size={16} />
+                        List your asset
+                    </button>
+                </div>
+            </header>
+
+            {/* Category Tabs */}
+            <div className="flex items-center gap-6 border-b border-border-subtle mb-10 overflow-x-auto no-scrollbar">
+                {categories.map(cat => (
+                    <button
+                        key={cat.id}
+                        onClick={() => setSelectedCategory(cat.id)}
+                        className={`pb-3 text-[13px] font-medium transition-all relative whitespace-nowrap ${
+                            selectedCategory === cat.id ? 'text-text-primary' : 'text-text-muted hover:text-text-primary'
+                        }`}
+                    >
+                        {cat.name}
+                        {selectedCategory === cat.id && (
+                            <motion.div 
+                                layoutId="catTab"
+                                className="absolute bottom-0 left-0 w-full h-[2px] bg-accent" 
+                            />
+                        )}
+                    </button>
                 ))}
             </div>
 
-            {/* Empty State */}
+            {/* Results */}
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                <AnimatePresence mode="popLayout">
+                    {filteredAssets.map((asset) => (
+                        <motion.div
+                            key={asset.id}
+                            layout
+                            initial={{ opacity: 0, scale: 0.98 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.98 }}
+                            transition={{ duration: 0.2 }}
+                        >
+                            <AssetCard {...asset} />
+                        </motion.div>
+                    ))}
+                </AnimatePresence>
+            </div>
+
             {filteredAssets.length === 0 && (
-                <div className="flex flex-col items-center justify-center min-h-[400px] text-center space-y-4">
-                    <div className="p-6 bg-slate-900/50 rounded-full text-slate-600 mb-4 border border-slate-800">
-                         <Filter size={48} />
-                    </div>
-                    <h3 className="text-xl font-syne font-bold uppercase tracking-widest">No Assets Found</h3>
-                    <p className="text-slate-500 max-w-sm">No assets currently match your selected filters. Try clearing some constraints or browse all categories.</p>
-                    <button onClick={() => setSelectedCategory('ALL')} className="btn-primary px-8 mt-4">Browse All Assets</button>
+                <div className="py-20 text-center">
+                    <div className="text-text-muted mb-2">No assets match your search or filters.</div>
+                    <button 
+                        onClick={() => { setSelectedCategory('ALL'); setSearchQuery(''); setSelectedStatus([]); }}
+                        className="text-accent text-[13px] font-medium hover:underline"
+                    >
+                        Reset all filters
+                    </button>
                 </div>
             )}
-         </div>
-      </div>
+        </div>
+      </main>
     </div>
   );
 };

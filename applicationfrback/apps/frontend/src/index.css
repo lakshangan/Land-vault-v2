@@ -1,83 +1,95 @@
 @import "tailwindcss";
 
 @theme {
-  --font-syne: "Syne", sans-serif;
+  --font-geist: "Geist", "Inter", sans-serif;
   --font-dm: "DM Sans", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 
-  --color-background: #090B11;
-  --color-surface: #131720;
-  --color-border: #252D3D;
-  --color-primary: #00D4AA;
-  --color-secondary: #FFD400;
+  /* Apple-style minimalist dark palette */
+  --color-page: #080A0E;
+  --color-surface: #0E1117;
+  --color-card: #141920;
+  --color-elevated: #1C2330;
+  --color-border-subtle: rgba(255,255,255,0.06);
+  --color-border-default: rgba(255,255,255,0.10);
+
+  /* Semantic UI Colors */
+  --color-accent: #00D4AA;
+  --color-text-primary: #F1F5F9;
+  --color-text-secondary: #94A3B8;
+  --color-text-muted: #64748B;
+
+  /* Asset Category Colors (Strictly as per prompt) */
+  --color-asset-land: #10B981; /* Emerald Green */
+  --color-asset-energy: #F59E0B; /* Amber */
+  --color-asset-infra: #6366F1; /* Indigo */
+  --color-asset-timber: #F97316; /* Orange */
+  --color-asset-re: #EC4899; /* Pink */
   
-  --color-asset-realestate: #BB86FC;
-  --color-asset-energy: #03DAC6;
-  --color-asset-infra: #3700B3;
-  
-  --color-status-active: #00FFCC;
-  --color-status-verified: #5D5FEF;
-  --color-status-locked: #FF4B5C;
+  --color-positive: #22C55E;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Syne:wght@400..800&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Syne:wght@400..800&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Inter:wght@100..900&display=swap');
 
 @layer base {
   body {
-    @apply bg-background text-slate-100 font-dm antialiased;
+    @apply bg-page text-text-secondary font-dm antialiased;
+    font-size: 14px;
+    line-height: 1.6;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-syne font-bold;
+    @apply font-geist text-text-primary font-bold tracking-tight;
+    text-transform: none !important; /* Force lowercase/sentence case */
   }
 }
 
 @layer components {
   .glass-card {
-    @apply bg-surface/50 backdrop-blur-md border border-border rounded-xl;
+    @apply bg-card border border-border-subtle rounded-xl overflow-hidden transition-all duration-200;
   }
 
   .btn-primary {
-    @apply bg-primary text-slate-900 px-6 py-3 rounded-xl font-bold hover:opacity-90 transition-all active:scale-95 text-center flex items-center justify-center;
+    @apply bg-accent text-slate-900 px-6 py-2.5 rounded-lg font-semibold hover:opacity-90 transition-all active:scale-95 text-center flex items-center justify-center;
+    text-transform: none;
   }
 
   .btn-outline {
-    @apply border border-border text-slate-100 px-6 py-3 rounded-xl font-bold hover:bg-white/5 transition-all active:scale-95 text-center flex items-center justify-center;
+    @apply border border-border-default text-text-primary px-6 py-2.5 rounded-lg font-semibold hover:bg-white/5 transition-all active:scale-95 text-center flex items-center justify-center;
+    text-transform: none;
   }
 
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
+  .mono {
+    @apply font-mono tracking-tight;
+  }
+
+  .label-muted {
+    @apply text-[10px] text-text-muted font-medium mb-1;
+    text-transform: none;
   }
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-background;
+  @apply bg-page;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-border rounded-full hover:bg-slate-700 transition-colors;
+  @apply bg-border-default rounded-full hover:bg-text-muted transition-colors;
 }
 
-@keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* No AI-generated glow or gradient styles allowed */
+* {
+  text-shadow: none !important;
+  box-shadow: none; /* Reset base shadows for minimalist look */
 }
 
-@keyframes scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.animate-gradient {
-  animation: gradient 8s linear infinite;
-}
-
-.animate-scroll {
-  animation: scroll 30s linear infinite;
+.shadow-minimal {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }

@@ -1,253 +1,209 @@
-import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { 
-  TrendingUp, 
-  Wallet, 
-  Activity, 
+  Plus,
   ArrowUpRight, 
-  Clock, 
-  ShieldCheck,
-  Building2
+  ExternalLink,
+  Wallet,
+  PieChart as PieIcon,
+  Zap,
+  LayoutDashboard
 } from 'lucide-react';
 import { 
-  AreaChart, 
-  Area, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  ResponsiveContainer,
   PieChart,
   Pie,
-  Cell
+  Cell,
+  ResponsiveContainer
 } from 'recharts';
 
-const data = [
-  { name: 'Jan', yield: 400 },
-  { name: 'Feb', yield: 520 },
-  { name: 'Mar', yield: 480 },
-  { name: 'Apr', yield: 800 },
-  { name: 'May', yield: 750 },
-  { name: 'Jun', yield: 950 },
-];
-
-const portfolioBreakdown = [
-  { name: 'Real Estate', value: 45, color: '#F472B6' },
-  { name: 'Energy', value: 25, color: '#FACC15' },
-  { name: 'Infra', value: 20, color: '#818CF8' },
-  { name: 'Land', value: 10, color: '#4ADE80' },
-];
-
 const Dashboard = () => {
-  return (
-    <div className="max-w-7xl mx-auto px-6 py-10 space-y-10">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-syne font-extrabold uppercase tracking-tight">Investor Portfolio</h1>
-          <p className="text-slate-400">Track your real-world asset holdings and compounding yield.</p>
-        </div>
-        <div className="flex items-center gap-3">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Network Score:</span>
-            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 border border-primary/20 rounded-full text-primary text-xs font-bold">
-                <ShieldCheck size={14} />
-                98.2 ALPHA
-            </div>
-        </div>
-      </div>
+  const navigate = useNavigate();
 
-      {/* Main Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard 
-            label="Total Portfolio Value" 
-            value="$124,500.00" 
-            trend="+12.5%" 
-            icon={Wallet} 
-            color="primary" 
-        />
-        <StatCard 
-            label="Total Yield Earned" 
-            value="$8,240.42" 
-            trend="+5.2%" 
-            icon={TrendingUp} 
-            color="secondary" 
-        />
-        <StatCard 
-            label="Active Assets" 
-            value="12" 
-            trend="0" 
-            icon={Building2} 
-            color="info" 
-        />
-        <StatCard 
-            label="Avg. APY" 
-            value="14.8%" 
-            trend="+0.4%" 
-            icon={Activity} 
-            color="primary" 
-        />
-      </div>
+  const portfolioBreakdown = [
+    { name: 'Real estate', value: 45, color: 'var(--color-asset-re)' },
+    { name: 'Renewable energy', value: 25, color: 'var(--color-asset-energy)' },
+    { name: 'Infrastructure', value: 20, color: 'var(--color-asset-infra)' },
+    { name: 'Land', value: 10, color: 'var(--color-asset-land)' },
+  ];
+
+  const holdings = [
+    { id: 1, name: 'London Prime Residential', amount: '200 Tokens', value: '$10,000.00', yield: '+$420', status: 'Active' },
+    { id: 2, name: 'Sahara Solar Arrays', amount: '50 Tokens', value: '$5,000.00', yield: '+$180', status: 'Active' },
+  ];
+
+  return (
+    <div className="max-w-7xl mx-auto px-6 py-8 pb-20">
+      <header className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+        <div>
+          <h1 className="text-3xl mb-1">Portfolio</h1>
+          <p className="text-sm text-text-secondary">Comprehensive overview of your real-world asset holdings.</p>
+        </div>
+        <button 
+          onClick={() => navigate('/')}
+          className="btn-primary h-10 px-4 gap-2 text-[13px]"
+        >
+          <Plus size={16} />
+          Invest in more assets
+        </button>
+      </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Yield Chart */}
-        <div className="lg:col-span-2 glass-card p-8">
-            <div className="flex items-center justify-between mb-8">
-                <h3 className="text-lg font-syne font-bold uppercase tracking-wider">Yield Performance</h3>
-                <div className="flex gap-2">
-                    {['1D', '1M', '3M', '1Y', 'ALL'].map((t) => (
-                        <button key={t} className={`px-3 py-1 text-[10px] font-bold rounded ${t === '3M' ? 'bg-primary text-background' : 'bg-slate-800 text-slate-400'}`}>
-                            {t}
+        {/* Left Column: Holdings & Assets */}
+        <div className="lg:col-span-2 space-y-8">
+          <div className="glass-card">
+            <div className="p-6 border-b border-border-subtle flex items-center justify-between">
+              <h2 className="text-lg font-semibold">Active holdings</h2>
+              <span className="text-[11px] text-text-muted mono">{holdings.length} Assets total</span>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-border-subtle bg-surface/30">
+                    <th className="text-left py-4 px-6 label-muted">Asset name</th>
+                    <th className="text-left py-4 px-6 label-muted">Quantity</th>
+                    <th className="text-left py-4 px-6 label-muted">Market value</th>
+                    <th className="text-right py-4 px-6 label-muted">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {holdings.map((asset) => (
+                    <tr key={asset.id} className="border-b border-border-subtle last:border-0 hover:bg-white/5 transition-colors">
+                      <td className="py-4 px-6">
+                        <span className="text-sm text-text-primary font-medium">{asset.name}</span>
+                      </td>
+                      <td className="py-4 px-6">
+                        <span className="mono text-[13px]">{asset.amount}</span>
+                      </td>
+                      <td className="py-4 px-6">
+                        <span className="mono text-[13px] text-text-primary">{asset.value}</span>
+                      </td>
+                      <td className="py-4 px-6 text-right">
+                        <button className="text-[11px] text-accent font-semibold hover:underline flex items-center gap-1 ml-auto">
+                          Manage <ArrowUpRight size={12} />
                         </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Yield Summary Card */}
+            <div className="glass-card p-6 flex flex-col h-full bg-surface/40">
+              <div className="flex items-start justify-between mb-6">
+                <div className="p-2 rounded-lg bg-accent/10 border border-accent/20">
+                  <TrendingUp size={20} className="text-accent" />
+                </div>
+                <button 
+                  onClick={() => navigate('/yield')}
+                  className="text-[11px] text-accent font-semibold hover:underline flex items-center gap-1"
+                >
+                  Go to yield <ExternalLink size={12} />
+                </button>
+              </div>
+              <div className="flex-grow">
+                <h3 className="text-base font-semibold mb-1">Yield summary</h3>
+                <p className="text-[12px] text-text-muted mb-6">Unclaimed earnings from asset operations.</p>
+                <div className="text-2xl mono text-text-primary">$2,870.70</div>
+              </div>
+              <div className="mt-6 pt-6 border-t border-border-subtle flex justify-between items-center text-[11px] text-text-muted">
+                <span>Next payout</span>
+                <span className="mono text-text-primary">Apr 1, 2026</span>
+              </div>
+            </div>
+
+            {/* DeFi Positions Card */}
+            <div className="glass-card p-6 flex flex-col h-full bg-surface/40">
+              <div className="flex items-start justify-between mb-6">
+                <div className="p-2 rounded-lg bg-indigo-400/10 border border-indigo-400/20">
+                  <Zap size={20} className="text-indigo-400" />
+                </div>
+                <button 
+                  onClick={() => navigate('/defi')}
+                  className="text-[11px] text-indigo-400 font-semibold hover:underline flex items-center gap-1"
+                >
+                  Open DeFi Hub <ExternalLink size={12} />
+                </button>
+              </div>
+              <div className="flex-grow">
+                <h3 className="text-base font-semibold mb-1">DeFi positions</h3>
+                <p className="text-[12px] text-text-muted mb-6">Overview of active collateral & loans.</p>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <div className="label-muted">Collateral</div>
+                    <div className="text-lg mono text-text-primary">$5,000</div>
+                  </div>
+                  <div>
+                    <div className="label-muted">Borrowing</div>
+                    <div className="text-lg mono text-text-primary">$1,250</div>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-6 pt-6 border-t border-border-subtle flex justify-between items-center text-[11px] text-text-muted">
+                <span>Health factor</span>
+                <span className="mono text-positive font-bold">2.44</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Allocation & Stats */}
+        <div className="space-y-8">
+          <div className="glass-card p-8">
+            <h3 className="text-base font-semibold mb-8">Asset allocation</h3>
+            <div className="h-[200px] w-full relative">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={portfolioBreakdown}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={60}
+                    outerRadius={80}
+                    paddingAngle={3}
+                    dataKey="value"
+                    stroke="none"
+                  >
+                    {portfolioBreakdown.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
+                  </Pie>
+                </PieChart>
+              </ResponsiveContainer>
+              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                <span className="text-2xl font-bold mono">100%</span>
+                <span className="text-[10px] text-text-muted font-medium">Allocated</span>
+              </div>
+            </div>
+            <div className="mt-8 space-y-3">
+              {portfolioBreakdown.map((item) => (
+                <div key={item.name} className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: item.color }} />
+                    <span className="text-xs text-text-secondary">{item.name}</span>
+                  </div>
+                  <span className="text-xs mono text-text-primary font-medium">{item.value}%</span>
                 </div>
+              ))}
             </div>
-            <div className="h-[300px] w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={data}>
-                        <defs>
-                            <linearGradient id="colorYield" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="#00D4AA" stopOpacity={0.3}/>
-                                <stop offset="95%" stopColor="#00D4AA" stopOpacity={0}/>
-                            </linearGradient>
-                        </defs>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#252D3D" vertical={false} />
-                        <XAxis dataKey="name" stroke="#64748B" fontSize={10} axisLine={false} tickLine={false} />
-                        <YAxis stroke="#64748B" fontSize={10} axisLine={false} tickLine={false} tickFormatter={(v) => `$${v}`} />
-                        <Tooltip 
-                            contentStyle={{ backgroundColor: '#131720', border: '1px solid #252D3D', borderRadius: '8px' }}
-                            itemStyle={{ color: '#00D4AA' }}
-                        />
-                        <Area type="monotone" dataKey="yield" stroke="#00D4AA" strokeWidth={3} fillOpacity={1} fill="url(#colorYield)" />
-                    </AreaChart>
-                </ResponsiveContainer>
-            </div>
-        </div>
+          </div>
 
-        {/* Portfolio Pie Breakdown */}
-        <div className="glass-card p-8 flex flex-col">
-            <h3 className="text-lg font-syne font-bold uppercase tracking-wider mb-8">Asset Allocation</h3>
-            <div className="flex-grow flex items-center justify-center relative">
-                <div className="h-[200px] w-full">
-                    <ResponsiveContainer width="100%" height="100%">
-                        <PieChart>
-                            <Pie
-                                data={portfolioBreakdown}
-                                cx="50%"
-                                cy="50%"
-                                innerRadius={60}
-                                outerRadius={80}
-                                paddingAngle={5}
-                                dataKey="value"
-                            >
-                                {portfolioBreakdown.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={entry.color} />
-                                ))}
-                            </Pie>
-                        </PieChart>
-                    </ResponsiveContainer>
-                </div>
-                <div className="absolute flex flex-col items-center">
-                    <span className="text-2xl font-bold font-mono">100%</span>
-                    <span className="text-[10px] text-slate-500 uppercase font-bold">Allocated</span>
-                </div>
+          <div className="glass-card p-6 bg-accent/5 border border-accent/20">
+            <div className="flex gap-4">
+              <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
+                <Wallet size={20} className="text-accent" />
+              </div>
+              <div>
+                <div className="label-muted">Total portfolio value</div>
+                <div className="text-2xl mono text-text-primary">$124,500.00</div>
+              </div>
             </div>
-            <div className="mt-6 space-y-3">
-                {portfolioBreakdown.map((item) => (
-                    <div key={item.name} className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: item.color }} />
-                            <span className="text-xs text-slate-400 font-medium">{item.name}</span>
-                        </div>
-                        <span className="text-xs font-mono font-bold">{item.value}%</span>
-                    </div>
-                ))}
-            </div>
-        </div>
-      </div>
-
-      {/* Recent Activity */}
-      <div className="glass-card p-8">
-        <h3 className="text-lg font-syne font-bold uppercase tracking-wider mb-8">Recent Transactions</h3>
-        <div className="space-y-4">
-            <ActivityItem 
-                title="Investment: London Heights #44"
-                subtitle="Purchased 200 Shares • Transaction Verified"
-                time="2 hours ago"
-                value="+$10,000.00"
-                type="purchase"
-            />
-            <ActivityItem 
-                title="Yield Distribution: Sahara Solar Hub"
-                subtitle="Quarterly Revenue Share Distributed"
-                time="1 day ago"
-                value="+$240.12"
-                type="yield"
-            />
-             <ActivityItem 
-                title="Governance Vote Casting"
-                subtitle="Voted on LVT-DAI Liquidity Proposal"
-                time="3 days ago"
-                value="N/A"
-                type="vote"
-            />
+          </div>
         </div>
       </div>
     </div>
   );
 };
-
-const StatCard = ({ label, value, trend, icon: Icon, color }: any) => {
-    const colorMap: any = {
-        primary: 'text-primary bg-primary/10 border-primary/20',
-        secondary: 'text-secondary bg-secondary/10 border-secondary/20',
-        info: 'text-blue-400 bg-blue-400/10 border-blue-400/20'
-    };
-
-    return (
-        <motion.div 
-            whileHover={{ y: -5 }}
-            className="glass-card p-6 flex flex-col justify-between"
-        >
-            <div className="flex items-start justify-between mb-4">
-                <div className={`p-2 rounded-lg ${colorMap[color] || colorMap.primary}`}>
-                    <Icon size={20} />
-                </div>
-                {trend !== '0' && (
-                    <span className="text-[10px] font-bold text-status-active bg-status-active/10 px-2 py-1 rounded-full flex items-center gap-1">
-                        <ArrowUpRight size={10} />
-                        {trend}
-                    </span>
-                )}
-            </div>
-            <div>
-                <div className="text-[10px] uppercase font-bold text-slate-500 mb-1 tracking-widest">{label}</div>
-                <div className="text-2xl font-bold font-mono tracking-tight">{value}</div>
-            </div>
-        </motion.div>
-    );
-};
-
-const ActivityItem = ({ title, subtitle, time, value, type }: any) => (
-    <div className="flex items-center justify-between py-4 border-b border-slate-800 last:border-0 hover:bg-white/5 transition-colors rounded-lg px-3 group">
-        <div className="flex items-center gap-4">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                type === 'purchase' ? 'bg-blue-400/10 text-blue-400' :
-                type === 'yield' ? 'bg-primary/10 text-primary' :
-                'bg-slate-800 text-slate-500'
-            }`}>
-                <Clock size={16} />
-            </div>
-            <div>
-                <h4 className="text-sm font-bold text-slate-200 group-hover:text-white transition-colors">{title}</h4>
-                <p className="text-xs text-slate-500">{subtitle}</p>
-            </div>
-        </div>
-        <div className="text-right">
-            <div className={`text-sm font-bold font-mono ${type === 'yield' ? 'text-primary' : 'text-slate-200'}`}>
-                {value}
-            </div>
-            <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{time}</div>
-        </div>
-    </div>
-);
 
 export default Dashboard;
