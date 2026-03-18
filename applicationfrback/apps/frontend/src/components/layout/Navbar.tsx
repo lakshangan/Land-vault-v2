@@ -6,7 +6,9 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Marketplace', path: '/' },
-    { name: 'Portfolio', path: '/dashboard' },
+    { name: 'Invest', path: '/invest' },
+    { name: 'List', path: '/list' },
+    { name: 'Portfolio', path: '/portfolio' },
   ];
 
   return (

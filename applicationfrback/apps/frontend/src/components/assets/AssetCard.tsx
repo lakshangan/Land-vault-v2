@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { MapPin } from 'lucide-react';
 
-const AssetCard = ({ id, name, type, location, ownershipType, price, status }: any) => {
+const AssetCard = ({ id, name, type, location, ownershipType, price, status, progress = 0 }: any) => {
   const navigate = useNavigate();
 
   const getAssetColor = (assetType: string) => {
@@ -61,6 +61,21 @@ const AssetCard = ({ id, name, type, location, ownershipType, price, status }: a
                 </div>
             </div>
         </div>
+
+        {ownershipType === 'Fractional' && (
+            <div className="mt-4 pt-4 border-t border-border-default">
+                <div className="flex justify-between text-xs mb-1.5">
+                    <span className="text-text-secondary font-medium">Funded</span>
+                    <span className="font-mono text-text-primary">{progress}%</span>
+                </div>
+                <div className="h-1.5 w-full bg-border-default rounded-full overflow-hidden">
+                    <div 
+                        className="h-full bg-accent rounded-full" 
+                        style={{ width: `${progress}%` }} 
+                    />
+                </div>
+            </div>
+        )}
       </div>
 
       {/* Zone 3: Footer */}

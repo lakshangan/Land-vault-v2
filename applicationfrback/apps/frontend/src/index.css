@@ -8,15 +8,15 @@
   --font-mono: "JetBrains Mono", monospace;
 
   /* Modern, premium dark-themed Web3 application */
-  --color-page: #0A0A0B;
-  --color-surface: #0A0A0B;
-  --color-card: #111114;
-  --color-elevated: #111114;
-  --color-border-subtle: #1A1A1F;
-  --color-border-default: #2A2A2F;
+  --color-page: #0a0a0f;
+  --color-surface: #0a0a0f;
+  --color-card: #111118;
+  --color-elevated: #111118;
+  --color-border-subtle: #1e1e2e;
+  --color-border-default: #1e1e2e;
 
   /* Semantic UI Colors */
-  --color-accent: #00D4AA;
+  --color-accent: #00c896;
   --color-text-primary: #FFFFFF;
   --color-text-secondary: #A1A1AA;
   --color-text-muted: #71717A;
@@ -48,8 +48,12 @@
 
 @layer components {
   .glass-card {
-    @apply bg-card border border-border-subtle overflow-hidden transition-all duration-200;
+    @apply bg-card border border-border-subtle overflow-hidden transition-all duration-300;
     border-radius: 16px;
+  }
+  .glass-card:hover {
+    box-shadow: 0 0 12px rgba(0, 200, 150, 0.1);
+    border-color: rgba(0, 200, 150, 0.3);
   }
 
   .btn-primary {

@@ -8,8 +8,9 @@ import { RainbowKitProvider, getDefaultConfig, darkTheme } from '@rainbow-me/rai
 import Navbar from './components/layout/Navbar';
 import Marketplace from './pages/Marketplace/index';
 import AssetDetail from './pages/AssetDetail/index';
-import TokenizeWizard from './pages/Tokenize/index';
-import Dashboard from './pages/Dashboard/index';
+import ListAsset from './pages/Tokenize/index'; // The list page component
+import Portfolio from './pages/Dashboard/index'; // We will rename the content
+import Invest from './pages/Invest/index'; // New page
 
 const config = getDefaultConfig({
   appName: 'LandVault Protocol',
@@ -36,9 +37,9 @@ function App() {
                   <Route path="/" element={<Marketplace />} />
                   <Route path="/marketplace" element={<Navigate to="/" replace />} />
                   <Route path="/assets/:id" element={<AssetDetail />} />
-                  <Route path="/tokenize" element={<TokenizeWizard />} />
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/portfolio" element={<Navigate to="/dashboard" replace />} />
+                  <Route path="/list" element={<ListAsset />} />
+                  <Route path="/portfolio" element={<Portfolio />} />
+                  <Route path="/invest" element={<Invest />} />
                   {/* Catch-all route to Marketplace */}
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>

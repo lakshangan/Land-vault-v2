@@ -19,13 +19,19 @@ const Marketplace = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
     
+    const stats = [
+        { label: 'Total Assets Listed', value: '1,240' },
+        { label: 'Total TVL', value: '$24.5M' },
+        { label: 'Assets Sold', value: '890' },
+    ];
+
     const assets = [
-        { id: '1', name: 'London Prime Residential', type: 'REAL_ESTATE', location: 'London, UK', price: 500000, ownershipType: 'Full', status: 'AVAILABLE' },
-        { id: '2', name: 'Sahara Solar Arrays', type: 'RENEWABLE_ENERGY', location: 'Sahara, Egypt', price: 100, ownershipType: 'Fractional', status: 'AVAILABLE' },
-        { id: '3', name: 'Berlin Tech Hub', type: 'INFRASTRUCTURE', location: 'Berlin, Germany', price: 2000, ownershipType: 'Fractional', status: 'SOLD' },
-        { id: '4', name: 'Amazon Carbon Forestry', type: 'TIMBER', location: 'Manaus, Brazil', price: 75, ownershipType: 'Fractional', status: 'LISTED' },
+        { id: '1', name: 'London Prime Residential', type: 'REAL_ESTATE', location: 'London, UK', price: 50, ownershipType: 'Fractional', status: 'AVAILABLE', progress: 45 },
+        { id: '2', name: 'Sahara Solar Arrays', type: 'RENEWABLE_ENERGY', location: 'Sahara, Egypt', price: 100, ownershipType: 'Fractional', status: 'AVAILABLE', progress: 82 },
+        { id: '3', name: 'Berlin Tech Hub', type: 'INFRASTRUCTURE', location: 'Berlin, Germany', price: 2000, ownershipType: 'Fractional', status: 'SOLD', progress: 100 },
+        { id: '4', name: 'Amazon Carbon Forestry', type: 'TIMBER', location: 'Manaus, Brazil', price: 75, ownershipType: 'Fractional', status: 'LISTED', progress: 15 },
         { id: '5', name: 'Andes Hydro Plant', type: 'RENEWABLE_ENERGY', location: 'Cajamarca, Peru', price: 15000000, ownershipType: 'Full', status: 'AVAILABLE' },
-        { id: '6', name: 'Coastal Agri-Land', type: 'LAND', location: 'Valencia, Spain', price: 250, ownershipType: 'Fractional', status: 'SOLD' },
+        { id: '6', name: 'Coastal Agri-Land', type: 'LAND', location: 'Valencia, Spain', price: 250, ownershipType: 'Fractional', status: 'SOLD', progress: 100 },
     ];
 
     const toggleStatus = (status: string) => {
@@ -109,6 +115,18 @@ const Marketplace = () => {
                     </button>
                 </div>
             </header>
+
+            {/* Stats Bar */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                {stats.map((stat, i) => (
+                    <div key={i} className="glass-card p-5 bg-surface/30 flex items-center justify-between border-border-default hover:border-accent/30 transition-colors">
+                        <div>
+                            <div className="text-[11px] text-text-muted font-medium mb-1 uppercase tracking-wider">{stat.label}</div>
+                            <div className="text-2xl font-bold font-mono text-text-primary">{stat.value}</div>
+                        </div>
+                    </div>
+                ))}
+            </div>
 
             {/* Category Tabs */}
             <div className="flex items-center gap-6 border-b border-border-subtle mb-10 overflow-x-auto no-scrollbar">
