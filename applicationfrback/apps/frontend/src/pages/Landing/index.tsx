@@ -10,7 +10,7 @@ const Landing = () => {
             <StatCard label="Tokenized Assets" value="$35.8B" delta="+12.4%" />
             <StatCard label="Active Protocols" value="127+" delta="+5.2%" />
             <StatCard label="Projected 2030" value="$16T" delta="Global" />
-            <StatCard label="Annual Yield" value="12.8%" delta="Avg" />
+            <StatCard label="Total Owners" value="45.2K" delta="Growing" />
         </div>
       </section>
     </div>

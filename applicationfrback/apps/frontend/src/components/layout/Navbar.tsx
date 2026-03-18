@@ -6,8 +6,6 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Marketplace', path: '/' },
-    { name: 'DeFi Hub', path: '/defi' },
-    { name: 'Yield', path: '/yield' },
     { name: 'Portfolio', path: '/dashboard' },
   ];
 

@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { MapPin, TrendingUp } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 
-const AssetCard = ({ id, name, type, location, yield: apy, progress, value, price, status }: any) => {
+const AssetCard = ({ id, name, type, location, ownershipType, price, status }: any) => {
   const navigate = useNavigate();
 
   const getAssetColor = (assetType: string) => {
@@ -33,12 +33,10 @@ const AssetCard = ({ id, name, type, location, yield: apy, progress, value, pric
                 {type.replace('_', ' ')}
             </span>
         </div>
-        {status === 'ACTIVE' && (
-          <div className="absolute top-4 right-4 bg-page/80 backdrop-blur-sm px-2 py-1 rounded-md border border-border-subtle flex items-center gap-1.5">
-            <div className="w-1.5 h-1.5 rounded-full bg-positive animate-pulse" />
-            <span className="text-[10px] font-bold text-text-primary">LIVE</span>
-          </div>
-        )}
+        <div className="absolute top-4 right-4 bg-page/80 backdrop-blur-sm px-2 py-1 rounded-md border border-border-subtle flex items-center gap-1.5">
+          <div className={`w-1.5 h-1.5 rounded-full ${status === 'AVAILABLE' ? 'bg-positive' : status === 'SOLD' ? 'bg-text-muted' : 'bg-warning'}`} />
+          <span className="text-[10px] font-bold text-text-primary">{status}</span>
+        </div>
       </div>
 
       {/* Zone 2: Content & Stats Grid */}
@@ -51,27 +49,15 @@ const AssetCard = ({ id, name, type, location, yield: apy, progress, value, pric
 
         <div className="grid grid-cols-2 gap-y-5 gap-x-4">
             <div>
-                <div className="label-muted">Target yield</div>
-                <div className="text-[18px] mono font-semibold" style={{ color: color }}>
-                    {apy}%
-                </div>
-            </div>
-            <div>
-                <div className="label-muted">Asset value</div>
-                <div className="text-[18px] mono text-text-primary font-semibold">
-                    ${(value / 1000000).toFixed(1)}M
-                </div>
-            </div>
-            <div>
-                <div className="label-muted">Token price</div>
+                <div className="label-muted">Price</div>
                 <div className="text-[18px] mono text-text-primary font-semibold">
                     ${price}
                 </div>
             </div>
             <div>
-                <div className="label-muted">Min invest</div>
-                <div className="text-[18px] mono text-text-primary font-semibold">
-                    ${price}
+                <div className="label-muted">Ownership</div>
+                <div className="text-[14px] font-semibold text-text-secondary mt-1">
+                    {ownershipType || 'Fractional'}
                 </div>
             </div>
         </div>
@@ -86,7 +72,7 @@ const AssetCard = ({ id, name, type, location, yield: apy, progress, value, pric
             </div>
         </div>
         <button className="h-8 px-5 rounded-lg border border-border-default text-[13px] font-semibold text-text-primary hover:bg-white/5 transition-colors">
-            Invest
+            View details
         </button>
       </div>
     </div>

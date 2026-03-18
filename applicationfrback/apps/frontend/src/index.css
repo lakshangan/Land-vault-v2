@@ -1,23 +1,25 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Syne:wght@400..800&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Inter:wght@100..900&display=swap');
 
 @theme {
   --font-geist: "Geist", "Inter", sans-serif;
+  --font-inter: "Inter", sans-serif;
   --font-dm: "DM Sans", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 
-  /* Apple-style minimalist dark palette */
-  --color-page: #080A0E;
-  --color-surface: #0E1117;
-  --color-card: #141920;
-  --color-elevated: #1C2330;
-  --color-border-subtle: rgba(255,255,255,0.06);
-  --color-border-default: rgba(255,255,255,0.10);
+  /* Modern, premium dark-themed Web3 application */
+  --color-page: #0A0A0B;
+  --color-surface: #0A0A0B;
+  --color-card: #111114;
+  --color-elevated: #111114;
+  --color-border-subtle: #1A1A1F;
+  --color-border-default: #2A2A2F;
 
   /* Semantic UI Colors */
   --color-accent: #00D4AA;
-  --color-text-primary: #F1F5F9;
-  --color-text-secondary: #94A3B8;
-  --color-text-muted: #64748B;
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #A1A1AA;
+  --color-text-muted: #71717A;
 
   /* Asset Category Colors (Strictly as per prompt) */
   --color-asset-land: #10B981; /* Emerald Green */
@@ -31,24 +33,23 @@
   --color-danger: #EF4444;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Syne:wght@400..800&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Inter:wght@100..900&display=swap');
-
 @layer base {
   body {
-    @apply bg-page text-text-secondary font-dm antialiased;
+    @apply bg-page text-text-secondary font-inter antialiased;
     font-size: 14px;
     line-height: 1.6;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-geist text-text-primary font-bold tracking-tight;
+    @apply font-inter text-text-primary font-bold tracking-tight;
     text-transform: none !important; /* Force lowercase/sentence case */
   }
 }
 
 @layer components {
   .glass-card {
-    @apply bg-card border border-border-subtle rounded-xl overflow-hidden transition-all duration-200;
+    @apply bg-card border border-border-subtle overflow-hidden transition-all duration-200;
+    border-radius: 16px;
   }
 
   .btn-primary {

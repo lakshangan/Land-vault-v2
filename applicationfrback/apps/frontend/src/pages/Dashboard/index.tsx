@@ -2,11 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { 
   Plus,
   ArrowUpRight, 
-  ExternalLink,
-  Wallet,
-  PieChart as PieIcon,
-  Zap,
-  LayoutDashboard
+  Wallet
 } from 'lucide-react';
 import { 
   PieChart,
@@ -26,8 +22,8 @@ const Dashboard = () => {
   ];
 
   const holdings = [
-    { id: 1, name: 'London Prime Residential', amount: '200 Tokens', value: '$10,000.00', yield: '+$420', status: 'Active' },
-    { id: 2, name: 'Sahara Solar Arrays', amount: '50 Tokens', value: '$5,000.00', yield: '+$180', status: 'Active' },
+    { id: 1, name: 'London Prime Residential', amount: '200 Tokens', value: '$10,000.00', status: 'Active' },
+    { id: 2, name: 'Sahara Solar Arrays', amount: '50 Tokens', value: '$5,000.00', status: 'Active' },
   ];
 
   return (
@@ -88,64 +84,6 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Yield Summary Card */}
-            <div className="glass-card p-6 flex flex-col h-full bg-surface/40">
-              <div className="flex items-start justify-between mb-6">
-                <div className="p-2 rounded-lg bg-accent/10 border border-accent/20">
-                  <TrendingUp size={20} className="text-accent" />
-                </div>
-                <button 
-                  onClick={() => navigate('/yield')}
-                  className="text-[11px] text-accent font-semibold hover:underline flex items-center gap-1"
-                >
-                  Go to yield <ExternalLink size={12} />
-                </button>
-              </div>
-              <div className="flex-grow">
-                <h3 className="text-base font-semibold mb-1">Yield summary</h3>
-                <p className="text-[12px] text-text-muted mb-6">Unclaimed earnings from asset operations.</p>
-                <div className="text-2xl mono text-text-primary">$2,870.70</div>
-              </div>
-              <div className="mt-6 pt-6 border-t border-border-subtle flex justify-between items-center text-[11px] text-text-muted">
-                <span>Next payout</span>
-                <span className="mono text-text-primary">Apr 1, 2026</span>
-              </div>
-            </div>
-
-            {/* DeFi Positions Card */}
-            <div className="glass-card p-6 flex flex-col h-full bg-surface/40">
-              <div className="flex items-start justify-between mb-6">
-                <div className="p-2 rounded-lg bg-indigo-400/10 border border-indigo-400/20">
-                  <Zap size={20} className="text-indigo-400" />
-                </div>
-                <button 
-                  onClick={() => navigate('/defi')}
-                  className="text-[11px] text-indigo-400 font-semibold hover:underline flex items-center gap-1"
-                >
-                  Open DeFi Hub <ExternalLink size={12} />
-                </button>
-              </div>
-              <div className="flex-grow">
-                <h3 className="text-base font-semibold mb-1">DeFi positions</h3>
-                <p className="text-[12px] text-text-muted mb-6">Overview of active collateral & loans.</p>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <div className="label-muted">Collateral</div>
-                    <div className="text-lg mono text-text-primary">$5,000</div>
-                  </div>
-                  <div>
-                    <div className="label-muted">Borrowing</div>
-                    <div className="text-lg mono text-text-primary">$1,250</div>
-                  </div>
-                </div>
-              </div>
-              <div className="mt-6 pt-6 border-t border-border-subtle flex justify-between items-center text-[11px] text-text-muted">
-                <span>Health factor</span>
-                <span className="mono text-positive font-bold">2.44</span>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Right Column: Allocation & Stats */}

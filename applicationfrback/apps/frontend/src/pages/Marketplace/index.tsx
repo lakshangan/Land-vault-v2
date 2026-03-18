@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, MapPin, TrendingUp, Plus } from 'lucide-react';
+import { Search, Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import AssetCard from '../../components/assets/AssetCard.tsx';
 
@@ -20,12 +20,12 @@ const Marketplace = () => {
     const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
     
     const assets = [
-        { id: '1', name: 'London Prime Residential', type: 'REAL_ESTATE', location: 'London, UK', yield: 12.4, progress: 76, value: 2400000, price: 50, status: 'VERIFIED' },
-        { id: '2', name: 'Sahara Solar Arrays', type: 'RENEWABLE_ENERGY', location: 'Sahara, Egypt', yield: 15.2, progress: 92, value: 5000000, price: 100, status: 'ACTIVE' },
-        { id: '3', name: 'Berlin Tech Hub', type: 'INFRASTRUCTURE', location: 'Berlin, Germany', yield: 10.8, progress: 45, value: 12000000, price: 200, status: 'LOCKED' },
-        { id: '4', name: 'Amazon Carbon Forestry', type: 'TIMBER', location: 'Manaus, Brazil', yield: 18.5, progress: 12, value: 8500000, price: 75, status: 'VERIFIED' },
-        { id: '5', name: 'Andes Hydro Plant', type: 'RENEWABLE_ENERGY', location: 'Cajamarca, Peru', yield: 11.2, progress: 100, value: 15000000, price: 500, status: 'ACTIVE' },
-        { id: '6', name: 'Coastal Agri-Land', type: 'LAND', location: 'Valencia, Spain', yield: 9.4, progress: 62, value: 1800000, price: 25, status: 'VERIFIED' },
+        { id: '1', name: 'London Prime Residential', type: 'REAL_ESTATE', location: 'London, UK', price: 500000, ownershipType: 'Full', status: 'AVAILABLE' },
+        { id: '2', name: 'Sahara Solar Arrays', type: 'RENEWABLE_ENERGY', location: 'Sahara, Egypt', price: 100, ownershipType: 'Fractional', status: 'AVAILABLE' },
+        { id: '3', name: 'Berlin Tech Hub', type: 'INFRASTRUCTURE', location: 'Berlin, Germany', price: 2000, ownershipType: 'Fractional', status: 'SOLD' },
+        { id: '4', name: 'Amazon Carbon Forestry', type: 'TIMBER', location: 'Manaus, Brazil', price: 75, ownershipType: 'Fractional', status: 'LISTED' },
+        { id: '5', name: 'Andes Hydro Plant', type: 'RENEWABLE_ENERGY', location: 'Cajamarca, Peru', price: 15000000, ownershipType: 'Full', status: 'AVAILABLE' },
+        { id: '6', name: 'Coastal Agri-Land', type: 'LAND', location: 'Valencia, Spain', price: 250, ownershipType: 'Fractional', status: 'SOLD' },
     ];
 
     const toggleStatus = (status: string) => {
@@ -52,7 +52,7 @@ const Marketplace = () => {
             <div className="space-y-4">
                 <h3 className="label-muted">Status</h3>
                 <div className="space-y-2">
-                    {['ACTIVE', 'VERIFIED', 'LOCKED'].map(status => (
+                    {['AVAILABLE', 'SOLD', 'LISTED'].map(status => (
                         <label key={status} className="flex items-center gap-3 cursor-pointer group">
                             <input 
                                 type="checkbox" 
@@ -72,25 +72,10 @@ const Marketplace = () => {
             </div>
 
             <div className="space-y-4">
-                <h3 className="label-muted">Yield range (APY)</h3>
-                <div className="px-2">
-                    <div className="h-1 w-full bg-border-default rounded-full relative">
-                        <div className="absolute h-full w-2/3 bg-accent rounded-full left-[10%]" />
-                        <div className="absolute w-3 h-3 rounded-full bg-slate-100 -translate-y-1/2 top-1/2 left-[10%] cursor-pointer shadow-minimal" />
-                        <div className="absolute w-3 h-3 rounded-full bg-slate-100 -translate-y-1/2 top-1/2 left-[76%] cursor-pointer shadow-minimal" />
-                    </div>
-                    <div className="flex justify-between mt-3">
-                        <span className="mono text-[10px]">0%</span>
-                        <span className="mono text-[10px]">25%+</span>
-                    </div>
-                </div>
-            </div>
-
-            <div className="space-y-4">
-                <h3 className="label-muted">Investment minimum</h3>
+                <h3 className="label-muted">Ownership</h3>
                 <div className="grid grid-cols-2 gap-2">
-                    <button className="px-3 py-1.5 rounded-lg bg-card border border-border-default text-[11px] text-text-primary hover:bg-elevated transition-colors">Under $500</button>
-                    <button className="px-3 py-1.5 rounded-lg bg-card border border-border-default text-[11px] text-text-muted hover:bg-elevated transition-colors">$500 - $5k</button>
+                    <button className="px-3 py-1.5 rounded-lg bg-card border border-border-default text-[11px] text-text-primary hover:bg-elevated transition-colors">Fractional</button>
+                    <button className="px-3 py-1.5 rounded-lg bg-card border border-border-default text-[11px] text-text-muted hover:bg-elevated transition-colors">Full</button>
                 </div>
             </div>
         </div>
