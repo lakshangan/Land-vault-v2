@@ -1,251 +1,277 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { 
-  Shield, 
   MapPin, 
   ArrowLeft, 
-  Info,
-  Clock,
-  History,
-  Link as LinkIcon
+  ShieldCheck,
+  TrendingUp,
+  Share2,
+  Heart,
+  ExternalLink,
+  ChevronRight
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const AssetDetail = () => {
     const navigate = useNavigate();
+    const { id } = useParams();
     const [activeTab, setActiveTab] = useState('details');
 
-    const asset = {
-        name: 'London Prime Residential',
-        type: 'REAL_ESTATE',
-        location: 'London, UK',
-        value: 2400000,
-        price: 50,
-        lastSalePrice: 48,
-        status: 'AVAILABLE',
-        owner: '0x8b3...4e9',
-        description: 'London Prime Residential is a flagship asset in our portfolio. Located in the heart of Mayfair, this premium residential complex represents prime real estate. The asset is fully verified and fractionalized into 48,000 protocol-compliant fractions, making ownership simple and highly liquid.',
-        color: 'var(--color-asset-re)'
+    const assets = {
+        '1': {
+            name: 'London Prime Residential',
+            type: 'REAL_ESTATE',
+            location: 'London, UK',
+            value: 5400000,
+            price: 50,
+            lastSalePrice: 48,
+            status: 'AVAILABLE',
+            owner: '0x8b3...4e9',
+            description: 'London Prime Residential is a flagship asset in our portfolio. Located in the heart of Mayfair, this premium residential complex represents prime real estate. The asset is fully verified and fractionalized into 108,000 protocol-compliant fractions, making ownership simple and highly liquid.',
+            color: '#EC4899',
+            image: '/assets/london.png'
+        },
+        '2': {
+            name: 'Sahara Solar Arrays',
+            type: 'RENEWABLE_ENERGY',
+            location: 'Sahara, Egypt',
+            value: 12500000,
+            price: 100,
+            lastSalePrice: 95,
+            status: 'AVAILABLE',
+            owner: '0x2a1...7f3',
+            description: 'Massive solar energy production facility in the Sahara desert. High yield potential with long-term government power purchase agreements.',
+            color: '#10B981',
+            image: '/assets/solar.png'
+        },
     };
+
+    const asset = (assets as any)[id || '1'] || assets['1'];
 
     const tabs = [
         { id: 'details', label: 'Details' },
         { id: 'ownership', label: 'Ownership' },
         { id: 'activity', label: 'Activity' },
-        { id: 'blockchain', label: 'Blockchain Info' }
+        { id: 'blockchain', label: 'Blockchain' }
     ];
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-8 pb-32">
-        <button 
-            onClick={() => navigate('/')}
-            className="flex items-center gap-2 text-[13px] text-text-muted hover:text-text-primary mb-8 transition-colors"
-        >
-            <ArrowLeft size={16} />
-            Back to marketplace
-        </button>
+    <div className="min-h-screen bg-black">
+        {/* Cinematic Header */}
+        <div className="relative h-[50vh] overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10" />
+            <motion.img 
+                initial={{ scale: 1.1 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 10, repeat: Infinity, repeatType: "reverse" }}
+                src={asset.image} 
+                alt="" 
+                className="w-full h-full object-cover"
+            />
+            
+            <div className="absolute inset-0 z-20 flex flex-col justify-end p-12 max-w-7xl mx-auto w-full">
+                <motion.button 
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    onClick={() => navigate('/')}
+                    className="flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.2em] text-white/50 hover:text-white mb-8 transition-colors group w-fit"
+                >
+                    <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+                    Back to marketplace
+                </motion.button>
 
-        <div className="flex flex-col lg:flex-row gap-12">
-            {/* Left Column: 60% */}
-            <div className="lg:w-[60%] space-y-8">
-                <div className="aspect-[4/3] bg-elevated rounded-2xl overflow-hidden relative border border-border-subtle">
-                    <div className="absolute inset-0 bg-gradient-to-t from-page/40 to-transparent" />
-                    <div className="absolute inset-0 flex items-center justify-center text-text-muted opacity-20 font-geist text-2xl font-bold">
-                        High-quality 3D render
-                    </div>
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                    >
+                        <div className="flex items-center gap-3 mb-4">
+                            <span 
+                                style={{ backgroundColor: `${asset.color}20`, color: asset.color, borderColor: `${asset.color}40` }}
+                                className="px-3 py-1 rounded-full text-[9px] font-black tracking-[0.2em] border backdrop-blur-xl uppercase"
+                            >
+                                {asset.type.replace('_', ' ')}
+                            </span>
+                            <div className="flex items-center gap-1.5 px-3 py-1 bg-white/5 border border-white/10 backdrop-blur-xl rounded-full">
+                                <ShieldCheck size={12} className="text-emerald-400" />
+                                <span className="text-[9px] font-black text-white/90 tracking-widest uppercase">Verified Asset</span>
+                            </div>
+                        </div>
+                        <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-4">{asset.name}</h1>
+                        <div className="flex items-center gap-4 text-slate-400">
+                            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
+                                <MapPin size={14} className="text-accent" />
+                                {asset.location}
+                            </div>
+                            <div className="w-1 h-1 rounded-full bg-white/20" />
+                            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
+                                <div className="w-2 h-2 rounded-full bg-blue-400" />
+                                Base Sepolia
+                            </div>
+                        </div>
+                    </motion.div>
+
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.4 }}
+                        className="flex gap-3"
+                    >
+                        <button className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-white/10 transition-all">
+                            <Heart size={20} />
+                        </button>
+                        <button className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-white/10 transition-all">
+                            <Share2 size={20} />
+                        </button>
+                    </motion.div>
                 </div>
+            </div>
+        </div>
 
-                <div className="pt-4 border-t border-border-subtle">
-                    <div className="flex gap-6 border-b border-border-subtle overflow-x-auto no-scrollbar mb-6">
+        <div className="max-w-7xl mx-auto px-12 py-16">
+            <div className="flex flex-col lg:flex-row gap-16">
+                {/* Left Column */}
+                <div className="lg:w-[60%]">
+                    <div className="flex gap-10 border-b border-white/5 mb-10 overflow-x-auto no-scrollbar">
                         {tabs.map(tab => (
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
-                                className={`pb-4 text-[13px] font-medium transition-colors relative whitespace-nowrap ${
-                                    activeTab === tab.id ? 'text-text-primary' : 'text-text-muted hover:text-text-primary'
+                                className={`pb-5 text-[11px] font-black uppercase tracking-[0.2em] transition-all relative whitespace-nowrap ${
+                                    activeTab === tab.id ? 'text-white' : 'text-slate-500 hover:text-white'
                                 }`}
                             >
                                 {tab.label}
                                 {activeTab === tab.id && (
-                                    <div className="absolute bottom-0 left-0 w-full h-[2px] bg-accent" />
+                                    <motion.div 
+                                        layoutId="tabUnderline"
+                                        className="absolute bottom-0 left-0 w-full h-[2px] bg-accent" 
+                                    />
                                 )}
                             </button>
                         ))}
                     </div>
 
-                    <div className="min-h-[300px]">
-                        {activeTab === 'details' && (
-                            <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
-                                <h2 className="text-xl font-semibold mb-4 text-text-primary">Asset overview</h2>
-                                <p className="text-text-secondary leading-relaxed mb-8">
-                                    {asset.description}
-                                </p>
-                                <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                    <div className="min-h-[400px]">
+                        <AnimatePresence mode="wait">
+                            {activeTab === 'details' && (
+                                <motion.div 
+                                    key="details"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -10 }}
+                                    className="space-y-10"
+                                >
                                     <div>
-                                        <div className="text-sm text-text-muted mb-1">Property Type</div>
-                                        <div className="font-medium text-text-primary">Residential</div>
+                                        <h3 className="text-xs font-black text-slate-500 uppercase tracking-[0.3em] mb-4">Investment Thesis</h3>
+                                        <p className="text-lg text-slate-300 leading-relaxed font-medium">
+                                            {asset.description}
+                                        </p>
                                     </div>
-                                    <div>
-                                        <div className="text-sm text-text-muted mb-1">Total Fractions</div>
-                                        <div className="font-medium text-text-primary">48,000</div>
+                                    
+                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-10">
+                                        {[
+                                            { label: 'Asset Valuation', value: `$${asset.value.toLocaleString()}` },
+                                            { label: 'Fractional Tokens', value: '108,000' },
+                                            { label: 'Protocol ID', value: `LV-${id?.padStart(4, '0')}` },
+                                            { label: 'Compliance', value: 'ERC-1155 RWA' },
+                                            { label: 'Yield Type', value: 'Rental Income' },
+                                            { label: 'Settlement', value: 'T+0 Instant' },
+                                        ].map((item, i) => (
+                                            <div key={i}>
+                                                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">{item.label}</div>
+                                                <div className="text-lg font-black text-white">{item.value}</div>
+                                            </div>
+                                        ))}
                                     </div>
-                                    <div>
-                                        <div className="text-sm text-text-muted mb-1">Year Built</div>
-                                        <div className="font-medium text-text-primary">2018</div>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-                        {activeTab === 'ownership' && (
-                            <div className="animate-in fade-in slide-in-from-bottom-2 duration-300 text-text-secondary">
-                                <h2 className="text-xl font-semibold mb-4 text-text-primary">Fraction Holders</h2>
-                                <ul className="space-y-4">
-                                    <li className="flex justify-between pb-4 border-b border-border-subtle">
-                                        <span className="mono">0x123...abc</span>
-                                        <span className="font-medium">12% Ownership</span>
-                                    </li>
-                                    <li className="flex justify-between pb-4 border-b border-border-subtle">
-                                        <span className="mono">0x456...def</span>
-                                        <span className="font-medium">8% Ownership</span>
-                                    </li>
-                                    <li className="flex justify-between pb-4 border-b border-border-subtle">
-                                        <span className="mono">0x789...ghi</span>
-                                        <span className="font-medium">5% Ownership</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        )}
-                        {activeTab === 'activity' && (
-                            <div className="animate-in fade-in slide-in-from-bottom-2 duration-300 text-text-secondary">
-                                <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-text-primary">
-                                    <History size={20}/>
-                                    Recent Transactions
-                                </h2>
-                                <div className="space-y-4">
-                                    <div className="flex justify-between items-center bg-surface/30 p-4 rounded-xl border border-border-subtle">
-                                        <div>
-                                            <div className="text-sm text-text-primary font-medium">Sale</div>
-                                            <div className="text-[12px] text-text-muted">2 hours ago</div>
+                                </motion.div>
+                            )}
+
+                            {activeTab === 'blockchain' && (
+                                <motion.div 
+                                    key="blockchain"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -10 }}
+                                    className="space-y-8"
+                                >
+                                    {[
+                                        { label: 'Registry Contract', value: '0x3234...9821' },
+                                        { label: 'Vault Contract', value: '0x9482...4410' },
+                                        { label: 'Asset Metadata IPFS', value: 'QmXoyp...3221' },
+                                    ].map((item, i) => (
+                                        <div key={i} className="p-6 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-between group hover:bg-white/10 transition-all">
+                                            <div>
+                                                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">{item.label}</div>
+                                                <div className="text-sm font-mono font-bold text-white/90">{item.value}</div>
+                                            </div>
+                                            <ExternalLink size={18} className="text-slate-500 group-hover:text-accent" />
                                         </div>
-                                        <div className="text-right">
-                                            <div className="text-sm text-text-primary mono">100 Fractions</div>
-                                            <div className="text-[12px] text-text-muted mono">@ $49.50</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-                        {activeTab === 'blockchain' && (
-                            <div className="animate-in fade-in slide-in-from-bottom-2 duration-300 text-text-secondary">
-                                <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-text-primary">
-                                    <LinkIcon size={20}/>
-                                    Contract Details
-                                </h2>
-                                <div className="space-y-6">
-                                    <div>
-                                        <div className="text-sm text-text-muted mb-1">Contract Address</div>
-                                        <div className="mono font-medium text-text-primary break-all">0xAbC123...789XYZ</div>
-                                    </div>
-                                    <div>
-                                        <div className="text-sm text-text-muted mb-1">Token Standard</div>
-                                        <div className="mono font-medium text-text-primary">ERC-1155</div>
-                                    </div>
-                                    <div>
-                                        <div className="text-sm text-text-muted mb-1">Network</div>
-                                        <div className="font-medium text-text-primary">BNB Chain</div>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
+                                    ))}
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
                 </div>
-            </div>
 
-            {/* Right Column: 40% (Sticky Panel) */}
-            <div className="lg:w-[40%] flex-shrink-0">
-                <div className="sticky top-24 glass-card p-8 bg-surface/50 border-border-subtle shadow-minimal">
-                    <header className="mb-6">
-                        <div className="flex items-center gap-3 mb-4">
-                            <span 
-                                style={{ backgroundColor: `${asset.color}15`, color: asset.color, borderColor: `${asset.color}30` }}
-                                className="px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider border backdrop-blur-sm"
-                            >
-                                {asset.type.replace('_', ' ')}
-                            </span>
-                            <div className="flex items-center gap-1.5 px-2 py-1 bg-surface border border-border-subtle rounded-md">
-                                <Shield size={12} className="text-positive" />
-                                <span className="text-[10px] font-bold text-text-primary">VERIFIED</span>
+                {/* Right Column: Order Panel */}
+                <div className="lg:w-[40%]">
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="sticky top-32 glass-card p-10 bg-gradient-to-br from-white/10 to-transparent border-white/10 shadow-2xl backdrop-blur-3xl rounded-[2.5rem]"
+                    >
+                        <div className="flex justify-between items-end mb-10">
+                            <div>
+                                <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Price per fraction</div>
+                                <div className="text-5xl font-black text-white font-mono tracking-tighter">${asset.price.toFixed(2)}</div>
                             </div>
-                        </div>
-                        <h1 className="text-3xl font-semibold mb-2">{asset.name}</h1>
-                        <div className="flex items-center gap-2 mb-4 text-text-muted text-[13px]">
-                            <MapPin size={14} />
-                            {asset.location}
-                        </div>
-                        <div className="flex flex-col gap-1 border-t border-border-subtle pt-4">
-                           <div className="text-sm text-text-muted">Owned by <span className="text-accent mono font-medium">{asset.owner}</span></div>
-                        </div>
-                    </header>
-
-                    <div className="grid grid-cols-2 gap-4 mb-8">
-                        <div className="p-4 rounded-xl bg-surface/30 border border-border-subtle">
-                            <div className="text-[12px] text-text-muted mb-1 flex items-center gap-1">
-                                <Clock size={12}/> Current Price
-                            </div>
-                            <div className="text-2xl font-bold mono text-text-primary">${asset.price.toFixed(2)}</div>
-                        </div>
-                        <div className="p-4 rounded-xl bg-surface/30 border border-border-subtle">
-                            <div className="text-[12px] text-text-muted mb-1">Last Sale</div>
-                            <div className="text-xl font-medium mono text-text-secondary">${asset.lastSalePrice.toFixed(2)}</div>
-                        </div>
-                    </div>
-
-                    <div className="space-y-6 mb-8 mt-2 p-5 rounded-xl border border-border-subtle bg-page/40 shadow-inner">
-                        <h3 className="text-sm font-semibold mb-4 text-text-primary border-b border-border-subtle pb-2">Buy Fractions</h3>
-                        <div>
-                            <div className="label-muted flex justify-between mb-2">
-                                <span>Quantity</span>
-                                <span className="text-[10px] text-accent">Available: 4,200</span>
-                            </div>
-                            <div className="relative">
-                                <input 
-                                    type="number" 
-                                    defaultValue="10"
-                                    className="w-full h-12 bg-surface/50 border border-border-subtle rounded-lg px-4 text-xl mono focus:outline-none focus:border-accent text-text-primary"
-                                />
-                                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[11px] font-bold text-text-muted mono">Shares</span>
+                            <div className="text-right">
+                                <div className="flex items-center gap-1 text-emerald-400 font-bold mb-1">
+                                    <TrendingUp size={14} />
+                                    <span>+14.2%</span>
+                                </div>
+                                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Est. APY</div>
                             </div>
                         </div>
 
-                        <div className="space-y-2 pt-2">
-                            <div className="flex justify-between items-center text-sm">
-                                <span className="text-text-secondary">Subtotal</span>
-                                <span className="mono text-text-primary">$500.00</span>
+                        <div className="space-y-10 mb-10">
+                            <div className="space-y-4">
+                                <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-slate-500">
+                                    <span>Order Quantity</span>
+                                    <span className="text-accent">MAX: 4,200</span>
+                                </div>
+                                <div className="relative group">
+                                    <input 
+                                        type="number" 
+                                        defaultValue="100"
+                                        className="w-full h-20 bg-black/40 border border-white/10 group-hover:border-accent/40 rounded-3xl px-8 text-3xl font-black font-mono focus:outline-none transition-all text-white"
+                                    />
+                                    <span className="absolute right-8 top-1/2 -translate-y-1/2 text-xs font-black text-slate-600 uppercase tracking-widest pointer-events-none">Fractions</span>
+                                </div>
                             </div>
-                            <div className="flex justify-between items-center text-sm">
-                                <span className="text-text-secondary flex items-center gap-1">Protocol Fee <Info size={12}/></span>
-                                <span className="mono text-text-primary">$12.50</span>
-                            </div>
-                            <div className="pt-4 border-t border-border-subtle flex justify-between items-center">
-                                <span className="text-sm font-semibold text-text-primary">Total Total</span>
-                                <span className="mono text-xl text-text-primary font-bold">$512.50</span>
+
+                            <div className="bg-white/5 rounded-3xl p-6 space-y-4 border border-white/5">
+                                <div className="flex justify-between items-center text-xs font-bold uppercase tracking-widest">
+                                    <span className="text-slate-500">Service Fee (2.5%)</span>
+                                    <span className="text-white">$125.00</span>
+                                </div>
+                                <div className="flex justify-between items-center text-xs font-bold uppercase tracking-widest">
+                                    <span className="text-slate-500">Network Fee</span>
+                                    <span className="text-blue-400">Base Sepolia</span>
+                                </div>
+                                <div className="pt-4 border-t border-white/10 flex justify-between items-center">
+                                    <span className="text-xs font-black text-white uppercase tracking-[0.2em]">Total Order</span>
+                                    <span className="text-2xl font-black text-accent font-mono">$5,125.00</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div className="flex flex-col gap-3">
-                        <button className="btn-primary w-full h-12 text-sm font-bold shadow-[0_0_20px_rgba(0,212,170,0.15)] hover:shadow-[0_0_25px_rgba(0,212,170,0.25)] transition-shadow">
-                            Buy Now
+                        <button className="w-full h-18 py-5 rounded-3xl bg-white text-black font-black text-sm hover:scale-[1.02] flex items-center justify-center gap-2 transition-all shadow-[0_0_30px_rgba(255,255,255,0.15)] active:scale-95">
+                            Execute Transaction <ChevronRight size={20} />
                         </button>
-                        <div className="grid grid-cols-2 gap-3">
-                            <button className="h-12 rounded-lg border border-border-default bg-surface/30 text-sm font-semibold text-text-primary hover:bg-surface/60 transition-colors">
-                                Make Offer
-                            </button>
-                            <button className="h-12 rounded-lg border border-border-default bg-surface/30 text-sm font-semibold text-text-primary hover:bg-surface/60 transition-colors">
-                                List for Sale
-                            </button>
-                        </div>
-                    </div>
-
+                    </motion.div>
                 </div>
             </div>
         </div>

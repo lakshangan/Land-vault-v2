@@ -6,11 +6,12 @@ import { baseSepolia } from 'wagmi/chains';
 import { RainbowKitProvider, getDefaultConfig, darkTheme } from '@rainbow-me/rainbowkit';
 
 import Navbar from './components/layout/Navbar';
+import Landing from './pages/Landing/index';
 import Marketplace from './pages/Marketplace/index';
 import AssetDetail from './pages/AssetDetail/index';
-import ListAsset from './pages/Tokenize/index'; // The list page component
-import Portfolio from './pages/Dashboard/index'; // We will rename the content
-import Invest from './pages/Invest/index'; // New page
+import ListAsset from './pages/Tokenize/index';
+import Portfolio from './pages/Dashboard/index';
+import Invest from './pages/Invest/index';
 
 const config = getDefaultConfig({
   appName: 'LandVault Protocol',
@@ -33,18 +34,15 @@ function App() {
               <Navbar />
               <main className="flex-grow pt-20">
                 <Routes>
-                  {/* Set Marketplace as the Home Page */}
-                  <Route path="/" element={<Marketplace />} />
-                  <Route path="/marketplace" element={<Navigate to="/" replace />} />
+                  <Route path="/" element={<Landing />} />
+                  <Route path="/marketplace" element={<Marketplace />} />
                   <Route path="/assets/:id" element={<AssetDetail />} />
                   <Route path="/list" element={<ListAsset />} />
                   <Route path="/portfolio" element={<Portfolio />} />
                   <Route path="/invest" element={<Invest />} />
-                  {/* Catch-all route to Marketplace */}
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
               </main>
-              {/* Footer could go here */}
             </div>
           </Router>
         </RainbowKitProvider>

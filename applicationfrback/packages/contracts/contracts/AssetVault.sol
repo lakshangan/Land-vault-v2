@@ -2,6 +2,7 @@
 pragma solidity 0.8.24;
 
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC4626.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
 /**
@@ -44,7 +45,7 @@ contract AssetVault is ERC4626, AccessControl {
     /**
      * @dev Support multi-role access control for system integrations.
      */
-    function supportsInterface(bytes4 interfaceId) public view override(ERC20, AccessControl) returns (bool) {
+    function supportsInterface(bytes4 interfaceId) public view override(AccessControl) returns (bool) {
         return super.supportsInterface(interfaceId);
     }
 }

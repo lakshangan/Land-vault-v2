@@ -1,16 +1,15 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Plus } from 'lucide-react';
+import { Search, Plus, Filter, LayoutGrid, Check } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import AssetCard from '../../components/assets/AssetCard.tsx';
 
 const categories = [
-  { id: 'ALL', name: 'All assets' },
-  { id: 'REAL_ESTATE', name: 'Real estate' },
-  { id: 'RENEWABLE_ENERGY', name: 'Renewable energy' },
+  { id: 'ALL', name: 'All Assets' },
+  { id: 'REAL_ESTATE', name: 'Real Estate' },
+  { id: 'RENEWABLE_ENERGY', name: 'Energy' },
   { id: 'INFRASTRUCTURE', name: 'Infrastructure' },
   { id: 'LAND', name: 'Land' },
-  { id: 'TIMBER', name: 'Timber & forestry' },
 ];
 
 const Marketplace = () => {
@@ -18,20 +17,53 @@ const Marketplace = () => {
     const [selectedCategory, setSelectedCategory] = useState('ALL');
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
+    const [ownershipType, setOwnershipType] = useState<string>('ALL');
     
-    const stats = [
-        { label: 'Total Assets Listed', value: '1,240' },
-        { label: 'Total TVL', value: '$24.5M' },
-        { label: 'Assets Sold', value: '890' },
-    ];
-
     const assets = [
-        { id: '1', name: 'London Prime Residential', type: 'REAL_ESTATE', location: 'London, UK', price: 50, ownershipType: 'Fractional', status: 'AVAILABLE', progress: 45 },
-        { id: '2', name: 'Sahara Solar Arrays', type: 'RENEWABLE_ENERGY', location: 'Sahara, Egypt', price: 100, ownershipType: 'Fractional', status: 'AVAILABLE', progress: 82 },
-        { id: '3', name: 'Berlin Tech Hub', type: 'INFRASTRUCTURE', location: 'Berlin, Germany', price: 2000, ownershipType: 'Fractional', status: 'SOLD', progress: 100 },
-        { id: '4', name: 'Amazon Carbon Forestry', type: 'TIMBER', location: 'Manaus, Brazil', price: 75, ownershipType: 'Fractional', status: 'LISTED', progress: 15 },
-        { id: '5', name: 'Andes Hydro Plant', type: 'RENEWABLE_ENERGY', location: 'Cajamarca, Peru', price: 15000000, ownershipType: 'Full', status: 'AVAILABLE' },
-        { id: '6', name: 'Coastal Agri-Land', type: 'LAND', location: 'Valencia, Spain', price: 250, ownershipType: 'Fractional', status: 'SOLD', progress: 100 },
+        { 
+            id: '1', 
+            name: 'London Prime Residential', 
+            type: 'REAL_ESTATE', 
+            location: 'London, UK', 
+            price: 5400000, 
+            ownershipType: 'Fractional', 
+            status: 'AVAILABLE', 
+            progress: 45,
+            image: '/assets/london.png'
+        },
+        { 
+            id: '2', 
+            name: 'Sahara Solar Arrays', 
+            type: 'RENEWABLE_ENERGY', 
+            location: 'Sahara, Egypt', 
+            price: 12500000, 
+            ownershipType: 'Fractional', 
+            status: 'AVAILABLE', 
+            progress: 82,
+            image: '/assets/solar.png'
+        },
+        { 
+            id: '3', 
+            name: 'Berlin Tech Hub', 
+            type: 'INFRASTRUCTURE', 
+            location: 'Berlin, Germany', 
+            price: 8900000, 
+            ownershipType: 'Fractional', 
+            status: 'SOLD', 
+            progress: 100,
+            image: '/assets/berlin.png'
+        },
+        { 
+            id: '4', 
+            name: 'Amazon Carbon Forestry', 
+            type: 'TIMBER', 
+            location: 'Manaus, Brazil', 
+            price: 3200000, 
+            ownershipType: 'Fractional', 
+            status: 'LISTED', 
+            progress: 15,
+            image: '/assets/amazon.png'
+        }
     ];
 
     const toggleStatus = (status: string) => {
@@ -46,119 +78,178 @@ const Marketplace = () => {
             const matchesSearch = asset.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
                                  asset.location.toLowerCase().includes(searchQuery.toLowerCase());
             const matchesStatus = selectedStatus.length === 0 || selectedStatus.includes(asset.status);
-            return matchesCategory && matchesSearch && matchesStatus;
+            const matchesOwnership = ownershipType === 'ALL' || asset.ownershipType.toLowerCase() === ownershipType.toLowerCase();
+            return matchesCategory && matchesSearch && matchesStatus && matchesOwnership;
         });
-    }, [selectedCategory, searchQuery, selectedStatus]);
+    }, [selectedCategory, searchQuery, selectedStatus, ownershipType]);
 
   return (
-    <div className="flex min-h-screen bg-page">
-      {/* Fixed Sidebar */}
-      <aside className="w-[260px] border-r border-border-subtle bg-surface/50 h-[calc(100vh-52px)] fixed top-[52px] left-0 p-6 overflow-y-auto hidden lg:block">
-        <div className="space-y-8">
-            <div className="space-y-4">
-                <h3 className="label-muted">Status</h3>
-                <div className="space-y-2">
-                    {['AVAILABLE', 'SOLD', 'LISTED'].map(status => (
-                        <label key={status} className="flex items-center gap-3 cursor-pointer group">
-                            <input 
-                                type="checkbox" 
-                                className="hidden" 
-                                checked={selectedStatus.includes(status)}
-                                onChange={() => toggleStatus(status)}
-                            />
-                            <div className={`w-4 h-4 rounded border border-border-default flex items-center justify-center transition-colors ${selectedStatus.includes(status) ? 'bg-accent border-accent' : 'bg-card group-hover:border-text-muted'}`}>
-                                {selectedStatus.includes(status) && <div className="w-1.5 h-1.5 bg-slate-900 rounded-sm" />}
-                            </div>
-                            <span className={`text-[13px] transition-colors ${selectedStatus.includes(status) ? 'text-text-primary' : 'text-text-muted group-hover:text-text-primary'}`}>
-                                {status.charAt(0) + status.slice(1).toLowerCase()}
-                            </span>
-                        </label>
-                    ))}
+    <div className="min-h-screen bg-black pt-20 pb-32">
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-8 flex gap-8 xl:gap-12">
+        {/* Modern Sidebar Filter */}
+        <aside className="hidden lg:block w-[280px] shrink-0 sticky top-28 h-[calc(100vh-140px)] overflow-y-auto no-scrollbar pb-10">
+            <div className="glass-card p-6 bg-gradient-to-br from-white/5 to-transparent border-white/5 space-y-10">
+                {/* Categories */}
+                <div className="space-y-4">
+                    <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-2">
+                        <LayoutGrid size={12} /> Asset Types
+                    </h3>
+                    <div className="flex flex-col gap-1">
+                        {categories.map(cat => (
+                            <button
+                                key={cat.id}
+                                onClick={() => setSelectedCategory(cat.id)}
+                                className={`w-full text-left px-4 py-3 rounded-xl text-xs font-bold transition-all ${
+                                    selectedCategory === cat.id 
+                                    ? 'bg-accent/10 border border-accent/20 text-accent' 
+                                    : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
+                                }`}
+                            >
+                                {cat.name}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Status */}
+                <div className="space-y-4">
+                    <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-2">
+                        <Filter size={12} /> Status
+                    </h3>
+                    <div className="flex flex-col gap-3 px-2">
+                        {['AVAILABLE', 'SOLD', 'LISTED'].map(status => (
+                            <label key={status} className="flex items-center gap-4 cursor-pointer group">
+                                <input 
+                                    type="checkbox" 
+                                    className="hidden" 
+                                    checked={selectedStatus.includes(status)}
+                                    onChange={() => toggleStatus(status)}
+                                />
+                                <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all ${
+                                    selectedStatus.includes(status) 
+                                    ? 'bg-accent border-accent text-black' 
+                                    : 'border-white/20 bg-black/50 group-hover:border-white/40'
+                                }`}>
+                                    {selectedStatus.includes(status) && <Check size={12} strokeWidth={4} />}
+                                </div>
+                                <span className={`text-xs font-bold transition-colors ${
+                                    selectedStatus.includes(status) ? 'text-white' : 'text-slate-500 group-hover:text-slate-300'
+                                }`}>
+                                    {status === 'AVAILABLE' ? 'Available' : status === 'SOLD' ? 'Fully Funded' : 'Recently Listed'}
+                                </span>
+                            </label>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Ownership */}
+                <div className="space-y-4">
+                    <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Ownership Type</h3>
+                    <div className="grid grid-cols-2 gap-2">
+                        <button 
+                            onClick={() => setOwnershipType('FRACTIONAL')}
+                            className={`px-3 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+                                ownershipType === 'FRACTIONAL' 
+                                ? 'bg-white text-black shadow-[0_0_15px_rgba(255,255,255,0.2)]' 
+                                : 'bg-white/5 border border-white/5 text-slate-400 hover:text-white hover:bg-white/10'
+                            }`}
+                        >
+                            Fractional
+                        </button>
+                        <button 
+                            onClick={() => setOwnershipType('FULL')}
+                            className={`px-3 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+                                ownershipType === 'FULL' 
+                                ? 'bg-white text-black shadow-[0_0_15px_rgba(255,255,255,0.2)]' 
+                                : 'bg-white/5 border border-white/5 text-slate-400 hover:text-white hover:bg-white/10'
+                            }`}
+                        >
+                            Direct
+                        </button>
+                    </div>
+                    {ownershipType !== 'ALL' && (
+                        <button 
+                            onClick={() => setOwnershipType('ALL')}
+                            className="w-full mt-2 text-[10px] text-slate-500 hover:text-white uppercase tracking-widest font-bold transition-colors"
+                        >
+                           Clear Filters
+                        </button>
+                    )}
                 </div>
             </div>
+        </aside>
 
-            <div className="space-y-4">
-                <h3 className="label-muted">Ownership</h3>
-                <div className="grid grid-cols-2 gap-2">
-                    <button className="px-3 py-1.5 rounded-lg bg-card border border-border-default text-[11px] text-text-primary hover:bg-elevated transition-colors">Fractional</button>
-                    <button className="px-3 py-1.5 rounded-lg bg-card border border-border-default text-[11px] text-text-muted hover:bg-elevated transition-colors">Full</button>
-                </div>
-            </div>
-        </div>
-      </aside>
+        {/* Main Content */}
+        <main className="flex-1 w-full max-w-none">
+            <header className="mb-14 flex flex-col xl:flex-row xl:items-end justify-between gap-8">
+                <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="max-w-xl"
+                >
+                    <div className="flex items-center gap-2 text-accent font-black text-[10px] uppercase tracking-[0.3em] mb-4">
+                        <LayoutGrid size={14} />
+                        Discovery Terminal
+                    </div>
+                    <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-4">ASSET MARKET</h1>
+                    <p className="text-lg text-slate-500 font-medium leading-relaxed">
+                        Access institutional real-world assets through high-liquidity fractional containers. 
+                        <span className="text-white ml-2 underline decoration-accent/30 underline-offset-8 whitespace-nowrap">Powered by Base.</span>
+                    </p>
+                </motion.div>
 
-      {/* Main Content */}
-      <main className="flex-1 lg:ml-[260px] p-8 pb-20">
-        <div className="max-w-6xl mx-auto">
-            <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-                <div>
-                    <h1 className="text-3xl mb-1">Marketplace</h1>
-                    <p className="text-sm text-text-secondary">Discover institutional-grade fractional real-world assets.</p>
-                </div>
-                <div className="flex items-center gap-4">
-                    <div className="relative w-64">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" size={14} />
+                <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex flex-col sm:flex-row items-center gap-4 w-full xl:w-auto"
+                >
+                    <div className="relative w-full sm:w-72 xl:w-80 group">
+                        <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-accent transition-colors" size={18} />
                         <input 
                             type="text" 
-                            placeholder="Search assets..." 
+                            placeholder="Search Assets..." 
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full h-10 bg-surface border border-border-subtle rounded-lg pl-9 pr-4 text-[13px] focus:outline-none focus:border-accent transition-all"
+                            className="w-full h-14 bg-white/5 border border-white/10 rounded-2xl pl-12 pr-6 text-sm font-bold text-white focus:outline-none focus:border-accent/40 transition-all placeholder:text-slate-600"
                         />
                     </div>
                     <button 
-                        onClick={() => navigate('/tokenize')}
-                        className="btn-primary h-10 px-4 gap-2 text-[13px]"
+                        onClick={() => navigate('/list')}
+                        className="w-full sm:w-auto h-14 px-8 rounded-2xl bg-white text-black font-black text-xs uppercase tracking-widest hover:scale-[1.02] transition-all flex items-center justify-center gap-3 active:scale-95 whitespace-nowrap"
                     >
-                        <Plus size={16} />
-                        List your asset
+                        <Plus size={18} />
+                        List Asset
                     </button>
-                </div>
+                </motion.div>
             </header>
 
-            {/* Stats Bar */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                {stats.map((stat, i) => (
-                    <div key={i} className="glass-card p-5 bg-surface/30 flex items-center justify-between border-border-default hover:border-accent/30 transition-colors">
-                        <div>
-                            <div className="text-[11px] text-text-muted font-medium mb-1 uppercase tracking-wider">{stat.label}</div>
-                            <div className="text-2xl font-bold font-mono text-text-primary">{stat.value}</div>
-                        </div>
-                    </div>
-                ))}
-            </div>
-
-            {/* Category Tabs */}
-            <div className="flex items-center gap-6 border-b border-border-subtle mb-10 overflow-x-auto no-scrollbar">
+            {/* Mobile Category Scroll (Hidden on Desktop) */}
+            <div className="lg:hidden flex items-center gap-3 overflow-x-auto no-scrollbar pb-6 mb-6 border-b border-white/5">
                 {categories.map(cat => (
                     <button
                         key={cat.id}
                         onClick={() => setSelectedCategory(cat.id)}
-                        className={`pb-3 text-[13px] font-medium transition-all relative whitespace-nowrap ${
-                            selectedCategory === cat.id ? 'text-text-primary' : 'text-text-muted hover:text-text-primary'
+                        className={`px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap ${
+                            selectedCategory === cat.id 
+                            ? 'bg-accent text-black' 
+                            : 'bg-white/5 text-slate-400 border border-white/5'
                         }`}
                     >
                         {cat.name}
-                        {selectedCategory === cat.id && (
-                            <motion.div 
-                                layoutId="catTab"
-                                className="absolute bottom-0 left-0 w-full h-[2px] bg-accent" 
-                            />
-                        )}
                     </button>
                 ))}
             </div>
 
-            {/* Results */}
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {/* Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
                 <AnimatePresence mode="popLayout">
                     {filteredAssets.map((asset) => (
                         <motion.div
                             key={asset.id}
                             layout
-                            initial={{ opacity: 0, scale: 0.98 }}
+                            initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.98 }}
+                            exit={{ opacity: 0, scale: 0.95 }}
                             transition={{ duration: 0.2 }}
                         >
                             <AssetCard {...asset} />
@@ -168,18 +259,22 @@ const Marketplace = () => {
             </div>
 
             {filteredAssets.length === 0 && (
-                <div className="py-20 text-center">
-                    <div className="text-text-muted mb-2">No assets match your search or filters.</div>
+                <div className="py-32 text-center flex flex-col items-center">
+                    <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center text-slate-600 mb-6">
+                        <Search size={32} />
+                    </div>
+                    <h3 className="text-xl font-black text-white mb-2">No matching assets</h3>
+                    <p className="text-sm text-slate-500 font-medium mb-8">Try adjusting your filters or search constraints.</p>
                     <button 
-                        onClick={() => { setSelectedCategory('ALL'); setSearchQuery(''); setSelectedStatus([]); }}
-                        className="text-accent text-[13px] font-medium hover:underline"
+                        onClick={() => { setSelectedCategory('ALL'); setSearchQuery(''); setSelectedStatus([]); setOwnershipType('ALL'); }}
+                        className="px-8 py-3 rounded-xl bg-white/5 border border-white/10 text-white font-bold text-xs uppercase tracking-widest hover:bg-white/10 transition-all"
                     >
-                        Reset all filters
+                        Reset Filters
                     </button>
                 </div>
             )}
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
 };

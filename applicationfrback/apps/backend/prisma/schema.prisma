@@ -107,7 +107,33 @@ model Vote {
   user        User      @relation(fields: [userId], references: [id])
 }
 
-enum AssetType   { LAND RENEWABLE_ENERGY INFRASTRUCTURE TIMBER REAL_ESTATE }
-enum AssetStatus { PENDING UNDER_REVIEW VERIFIED ACTIVE LOCKED REJECTED }
-enum KYCStatus   { PENDING IN_REVIEW APPROVED REJECTED EXPIRED }
-enum Role        { USER VALIDATOR ADMIN }
+enum AssetType {
+  LAND
+  RENEWABLE_ENERGY
+  INFRASTRUCTURE
+  TIMBER
+  REAL_ESTATE
+}
+
+enum AssetStatus {
+  PENDING
+  UNDER_REVIEW
+  VERIFIED
+  ACTIVE
+  LOCKED
+  REJECTED
+}
+
+enum KYCStatus {
+  PENDING
+  IN_REVIEW
+  APPROVED
+  REJECTED
+  EXPIRED
+}
+
+enum Role {
+  USER
+  VALIDATOR
+  ADMIN
+}
