@@ -29,7 +29,7 @@ const Marketplace = () => {
             ownershipType: 'Fractional', 
             status: 'AVAILABLE', 
             progress: 45,
-            image: '/assets/london.png'
+            image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800&h=600'
         },
         { 
             id: '2', 
@@ -40,7 +40,7 @@ const Marketplace = () => {
             ownershipType: 'Fractional', 
             status: 'AVAILABLE', 
             progress: 82,
-            image: '/assets/solar.png'
+            image: 'https://images.unsplash.com/photo-1509391366360-1e97d5261688?auto=format&fit=crop&q=80&w=800&h=600'
         },
         { 
             id: '3', 
@@ -51,7 +51,7 @@ const Marketplace = () => {
             ownershipType: 'Fractional', 
             status: 'SOLD', 
             progress: 100,
-            image: '/assets/berlin.png'
+            image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800&h=600'
         },
         { 
             id: '4', 
@@ -62,7 +62,7 @@ const Marketplace = () => {
             ownershipType: 'Fractional', 
             status: 'LISTED', 
             progress: 15,
-            image: '/assets/amazon.png'
+            image: 'https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&q=80&w=800&h=600'
         }
     ];
 
@@ -187,14 +187,13 @@ const Marketplace = () => {
                     animate={{ opacity: 1, x: 0 }}
                     className="max-w-xl"
                 >
-                    <div className="flex items-center gap-2 text-accent font-black text-[10px] uppercase tracking-[0.3em] mb-4">
+                    <div className="flex items-center gap-2 text-slate-400 font-medium text-xs mb-4">
                         <LayoutGrid size={14} />
                         Discovery Terminal
                     </div>
-                    <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-4">ASSET MARKET</h1>
-                    <p className="text-lg text-slate-500 font-medium leading-relaxed">
-                        Access institutional real-world assets through high-liquidity fractional containers. 
-                        <span className="text-white ml-2 underline decoration-accent/30 underline-offset-8 whitespace-nowrap">Powered by Base.</span>
+                    <h1 className="text-5xl md:text-6xl font-semibold text-white tracking-tight mb-4">Asset Market</h1>
+                    <p className="text-lg text-slate-400 font-normal leading-relaxed max-w-xl">
+                        Access institutional real-world assets through high-liquidity fractional containers. Powered by Base.
                     </p>
                 </motion.div>
 
@@ -215,7 +214,7 @@ const Marketplace = () => {
                     </div>
                     <button 
                         onClick={() => navigate('/list')}
-                        className="w-full sm:w-auto h-14 px-8 rounded-2xl bg-white text-black font-black text-xs uppercase tracking-widest hover:scale-[1.02] transition-all flex items-center justify-center gap-3 active:scale-95 whitespace-nowrap"
+                        className="w-full sm:w-auto h-14 px-8 rounded-xl bg-white text-black font-semibold text-sm hover:bg-white/90 transition-all flex items-center justify-center gap-2 active:scale-95 whitespace-nowrap"
                     >
                         <Plus size={18} />
                         List Asset
