@@ -15,7 +15,7 @@ import Invest from './pages/Invest/index';
 
 const config = getDefaultConfig({
   appName: 'LandVault Protocol',
-  projectId: 'YOUR_WALLET_CONNECT_PROJECT_ID', 
+  projectId: 'c652d0148879380bfece46f785d135a8', 
   chains: [baseSepolia],
   transports: {
     [baseSepolia.id]: http(),

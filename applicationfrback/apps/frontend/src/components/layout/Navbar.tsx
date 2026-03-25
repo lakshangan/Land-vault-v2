@@ -21,23 +21,22 @@ const Navbar = () => {
 
         <div className="hidden md:flex items-center gap-2 h-full">
           {navLinks.map((link) => {
-            const isActive = link.path === '/' 
-              ? location.pathname === '/' 
+            const isActive = link.path === '/'
+              ? location.pathname === '/'
               : location.pathname.startsWith(link.path);
-            
+
             return (
-              <Link 
-                key={link.name} 
-                to={link.path} 
-                className={`text-[14px] font-medium transition-all relative px-4 h-full flex items-center group ${
-                  isActive ? 'text-white' : 'text-slate-400 hover:text-white'
-                }`}
+              <Link
+                key={link.name}
+                to={link.path}
+                className={`text-[14px] font-medium transition-all relative px-4 h-full flex items-center group ${isActive ? 'text-white' : 'text-slate-400 hover:text-white'
+                  }`}
               >
                 {link.name}
                 {isActive && (
-                  <motion.div 
+                  <motion.div
                     layoutId="navTab"
-                    className="absolute bottom-0 left-0 w-full h-[2px] bg-white" 
+                    className="absolute bottom-0 left-0 w-full h-[2px] bg-white"
                   />
                 )}
                 <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors rounded-lg m-2" />
@@ -47,9 +46,7 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-6">
-          <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
-            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-[12px] font-medium text-slate-300">Base Sepolia</span>
+          <div>
           </div>
 
           <ConnectButton.Custom>
@@ -57,7 +54,6 @@ const Navbar = () => {
               account,
               chain,
               openAccountModal,
-              openChainModal,
               openConnectModal,
               mounted,
             }) => {
@@ -78,8 +74,8 @@ const Navbar = () => {
                   {(() => {
                     if (!connected) {
                       return (
-                        <button 
-                          onClick={openConnectModal} 
+                        <button
+                          onClick={openConnectModal}
                           className="px-5 py-2.5 rounded-xl bg-white text-black font-semibold text-sm hover:bg-white/90 transition-all active:scale-95"
                         >
                           Connect Wallet
@@ -89,13 +85,7 @@ const Navbar = () => {
 
                     return (
                       <div className="flex items-center gap-3">
-                        <button
-                          onClick={openChainModal}
-                          className="px-3 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2 hover:bg-white/10 transition-all active:scale-95 group"
-                        >
-                          <div className="w-2 h-2 rounded-full bg-blue-500" />
-                          <span className="text-[13px] font-medium text-slate-200">Base</span>
-                        </button>
+
 
                         <button
                           onClick={openAccountModal}

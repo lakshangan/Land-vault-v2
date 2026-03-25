@@ -3,7 +3,7 @@ import { ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center px-6 overflow-hidden">
@@ -12,7 +12,7 @@ const Hero = () => {
         {/* Subtle dark radial glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-emerald-500/10 blur-[120px] rounded-full z-10 pointer-events-none" />
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/5 blur-[100px] rounded-full z-10 pointer-events-none" />
-        
+
         {/* Modern minimal grid pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[length:4rem_4rem] z-20 [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,black_20%,transparent_100%)]" />
       </div>
@@ -44,7 +44,7 @@ const Hero = () => {
           transition={{ duration: 1, delay: 0.4 }}
           className="text-lg md:text-xl text-slate-400 max-w-2xl mb-12 font-normal leading-relaxed"
         >
-          Access global institutional-grade real estate, energy, 
+          Access global institutional-grade real estate, energy,
           and infrastructure through on-chain fractional ownership.
         </motion.p>
 
@@ -54,7 +54,7 @@ const Hero = () => {
           transition={{ duration: 1, delay: 0.6 }}
           className="flex flex-col sm:flex-row items-center gap-6"
         >
-          <button 
+          <button
             onClick={() => navigate('/marketplace')}
             className="h-14 px-8 rounded-xl bg-white text-black font-semibold text-sm hover:bg-white/90 transition-all flex items-center gap-2 group active:scale-95"
           >
@@ -66,28 +66,7 @@ const Hero = () => {
           </button>
         </motion.div>
 
-        {/* Floating Stat Card (Bottom Right) */}
-        <motion.div 
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 1 }}
-            className="absolute bottom-10 right-10 hidden xl:flex flex-col gap-4 p-8 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-2xl text-left"
-        >
-            <div className="flex items-center gap-2 mb-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-[11px] font-medium text-slate-400">Live Protocol Data</span>
-            </div>
-            <div className="grid grid-cols-2 gap-x-10 gap-y-4">
-                <div>
-                    <div className="text-[11px] font-medium text-slate-500 mb-1">Total TVL</div>
-                    <div className="text-2xl font-semibold text-white">$142.8M</div>
-                </div>
-                <div>
-                    <div className="text-[11px] font-medium text-slate-500 mb-1">Yield APY</div>
-                    <div className="text-2xl font-semibold text-emerald-400">14.2%</div>
-                </div>
-            </div>
-        </motion.div>
+
       </div>
     </section>
   );
