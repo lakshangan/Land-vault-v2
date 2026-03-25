@@ -1,7 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
 import { Shield, Share2, Brain, ShoppingCart, Percent, Zap, Building2, LandPlot } from 'lucide-react';
 
 const features = [
@@ -16,25 +15,15 @@ const features = [
 ];
 
 export default function Features() {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start end", "center center"]
-    });
-
-    const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
-
-    const headerY = useTransform(smoothProgress, [0, 1], [150, 0]);
-    const headerOpacity = useTransform(smoothProgress, [0, 0.8], [0, 1]);
-
-    const gridY = useTransform(smoothProgress, [0, 1], [200, 0]);
-    const gridOpacity = useTransform(smoothProgress, [0, 0.9], [0, 1]);
-
     return (
-        <section ref={containerRef} className="section-spacing" style={{ background: '#050505', position: 'relative', overflow: 'hidden' }}>
+        <section className="section-spacing" style={{ background: '#050505', position: 'relative' }}>
             <div className="container">
                 <div style={{ textAlign: 'center', marginBottom: '8rem' }}>
-                    <motion.div style={{ opacity: headerOpacity, y: headerY }}>
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                    >
                         <h2 style={{ fontSize: 'clamp(3rem, 5vw, 4rem)', lineHeight: 1, fontWeight: 900 }}>
                             Infrastructure for the <br />
                             <span style={{ color: '#bfff00' }}>Tokenized Economy</span>
@@ -42,10 +31,14 @@ export default function Features() {
                     </motion.div>
                 </div>
 
-                <motion.div className="features-grid" style={{ opacity: gridOpacity, y: gridY }}>
+                <div className="features-grid">
                     {features.map((f, i) => (
                         <motion.div
                             key={i}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: i * 0.05, duration: 0.8 }}
+                            viewport={{ once: true }}
                             className="feature-card"
                             style={{
                                 padding: '3rem 2rem',
@@ -78,7 +71,7 @@ export default function Features() {
                             <p style={{ color: 'rgba(255,255,255,0.4)', lineHeight: 1.6, fontSize: '0.95rem' }}>{f.desc}</p>
                         </motion.div>
                     ))}
-                </motion.div>
+                </div>
             </div>
 
             <style jsx>{`

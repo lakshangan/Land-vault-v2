@@ -2,6 +2,7 @@ import Preloader from "@/components/Preloader";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Problem from "@/components/Problem";
+import ProtocolFlow from "@/components/ProtocolFlow";
 import Solution from "@/components/Solution";
 import Ecosystem from "@/components/Ecosystem";
 import HowItWorks from "@/components/HowItWorks";
@@ -24,6 +25,7 @@ export default function Home() {
         <Hero />
         <div id="protocol">
           <Problem />
+          <ProtocolFlow />
           <Solution />
         </div>
         <Ecosystem />
