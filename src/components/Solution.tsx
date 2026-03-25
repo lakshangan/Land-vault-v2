@@ -8,8 +8,8 @@ const stackLayers = [
     {
         id: "intelligence",
         title: "Asset Intelligence Layer",
-        desc: "AI-powered analytics evaluate asset value, market trends, and yield potential across real estate, energy infrastructure, and physical assets.",
-        items: ["Valuation Engine", "Yield Analytics", "Market Trends"],
+        desc: "AI-powered analytics evaluate asset value, market trends, and growth potential across real estate, energy infrastructure, and physical assets.",
+        items: ["Valuation Engine", "Performance Analytics", "Market Trends"],
         get icon() { return <Cpu size={24} /> },
         color: "#bfff00"
     },
@@ -54,7 +54,7 @@ export default function Solution() {
                             style={{ marginBottom: '6rem' }}
                         >
                             <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: 1, marginBottom: '2rem' }}>
-                                The Land Vault <br />
+                                The Land Protocol <br />
                                 <span className="accent-color">RWA Protocol</span>
                             </h2>
                             <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '1.1rem', lineHeight: 1.6, maxWidth: '450px' }}>

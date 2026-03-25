@@ -325,7 +325,7 @@ function IsometricIllustration() {
                     </div>
                 </motion.div>
 
-                {/* Floating Card 2: Yield Intelligence */}
+                {/* Floating Card 2: Asset Growth */}
                 <motion.div
                     animate={{ z: [60, 80, 60], x: [10, 30, 10] }}
                     transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
@@ -349,10 +349,10 @@ function IsometricIllustration() {
                     <div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem' }}>
                             <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#000', boxShadow: '0 0 10px rgba(0,0,0,0.2)' }} />
-                            <div style={{ fontSize: '0.65rem', fontWeight: 900, color: 'rgba(0,0,0,0.4)', textTransform: 'uppercase', letterSpacing: 3 }}>YIELD_ENGINE</div>
+                            <div style={{ fontSize: '0.65rem', fontWeight: 900, color: 'rgba(0,0,0,0.4)', textTransform: 'uppercase', letterSpacing: 3 }}>GROWTH_ENGINE</div>
                         </div>
                         <div style={{ fontSize: '2.8rem', fontWeight: 900, color: '#000', letterSpacing: -2, lineHeight: 1 }}>12.8<span style={{ fontSize: '1rem', color: '#bfff00', WebkitTextStroke: '1px #000', marginLeft: '4px' }}>%</span></div>
-                        <div style={{ fontSize: '0.6rem', color: 'rgba(0,0,0,0.3)', fontWeight: 800, marginTop: '5px' }}>ESTIMATED_ANNUAL_YIELD</div>
+                        <div style={{ fontSize: '0.6rem', color: 'rgba(0,0,0,0.3)', fontWeight: 800, marginTop: '5px' }}>ESTIMATED_ANNUAL_GROWTH</div>
                     </div>
 
                     <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-end', height: '45px' }}>

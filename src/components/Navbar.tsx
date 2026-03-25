@@ -26,8 +26,7 @@ export default function Navbar() {
     const navItems = [
         { name: 'Protocol', href: '#protocol' },
         { name: 'Assets', href: '#assets' },
-        { name: 'Economy', href: '#economy' },
-        { name: 'Governance', href: '#governance' }
+        { name: 'Economy', href: '#economy' }
     ];
 
     return (
@@ -91,7 +90,7 @@ export default function Navbar() {
                                     whiteSpace: 'nowrap'
                                 }}
                             >
-                                LAND VAULT
+                                LAND PROTOCOL
                             </motion.div>
                         </div>
 
@@ -192,7 +191,7 @@ export default function Navbar() {
                         }}
                     >
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4rem' }}>
-                            <div style={{ fontWeight: 900, letterSpacing: '0.4em', color: '#fff', fontSize: '0.8rem' }}>LAND VAULT</div>
+                            <div style={{ fontWeight: 900, letterSpacing: '0.4em', color: '#fff', fontSize: '0.8rem' }}>LAND PROTOCOL</div>
                             <div onClick={() => setMobileMenuOpen(false)} style={{ color: '#fff', cursor: 'pointer' }}>
                                 <X size={32} />
                             </div>

@@ -17,7 +17,7 @@ const phases = [
     },
     {
         title: "Phase 3: Fractional Investment",
-        desc: "Launch of the global fractional investment marketplace. Automated yield distribution and asset monitoring.",
+        desc: "Launch of the global fractional investment marketplace. Automated revenue distribution and asset monitoring.",
         status: "Upcoming",
         date: "Q3 2026"
     },

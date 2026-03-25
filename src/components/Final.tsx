@@ -122,7 +122,7 @@ export function FinalCTA() {
             </div>
 
             <div style={{ marginTop: '10rem', color: '#444', fontSize: '0.8rem', letterSpacing: 2 }}>
-                © 2026 LAND VAULT PROTOCOL. ALL RIGHTS RESERVED.
+                © 2026 LAND PROTOCOL. ALL RIGHTS RESERVED.
             </div>
         </section>
     );

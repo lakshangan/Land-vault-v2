@@ -7,7 +7,7 @@ const flowPoints = [
     { text: "Asset Verification", icon: <Shield size={20} />, color: "#ff2d55", top: "20%" },
     { text: "Tokenization Engine", icon: <Cpu size={20} />, color: "#5856d6", top: "60%" },
     { text: "Market Intelligence", icon: <Globe size={20} />, color: "#007aff", top: "30%" },
-    { text: "Yield Analytics", icon: <Zap size={20} />, color: "#ff9500", top: "70%" },
+    { text: "Growth Analytics", icon: <Zap size={20} />, color: "#ff9500", top: "70%" },
     { text: "Liquidity Layer", icon: <Coins size={20} />, color: "#ffcc00", top: "40%" }
 ];
 

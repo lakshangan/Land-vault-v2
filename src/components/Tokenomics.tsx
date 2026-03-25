@@ -8,7 +8,7 @@ const flowSteps = [
     { icon: <Database size={32} />, text: "NFT Tokenization", color: "#c5a059" },
     { icon: <Wallet size={32} />, text: "Fractional Tokens", color: "#00f2ff" },
     { icon: <Users size={32} />, text: "Global Investors", color: "#fff" },
-    { icon: <RefreshCw size={32} />, text: "Yield Distribution", color: "#bfff00" }
+    { icon: <RefreshCw size={32} />, text: "Revenue Distribution", color: "#bfff00" }
 ];
 
 export default function Tokenomics() {
@@ -22,7 +22,7 @@ export default function Tokenomics() {
                         transition={{ duration: 0.8 }}
                     >
                         <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: 1.1, marginBottom: '2rem', fontWeight: 900 }}>
-                            The Land Vault <span style={{ color: '#bfff00' }}>Tokenization Engine</span>
+                            The Land Protocol <span style={{ color: '#bfff00' }}>Tokenization Engine</span>
                         </h2>
                         <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '1.25rem', maxWidth: '750px', margin: '0 auto', lineHeight: 1.6 }}>
                             A programmable economic layer powering asset tokenization and liquidity.
@@ -140,7 +140,7 @@ export default function Tokenomics() {
                         <p style={{ color: '#666', fontSize: '1rem', lineHeight: 1.6 }}>Proprietary automated market maker specialized in high-value fractional land assets.</p>
                     </div>
                     <div className="glass" style={{ padding: '3rem', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.04)', background: 'rgba(255,255,255,0.02)' }}>
-                        <h4 style={{ color: '#c5a059', marginBottom: '1.2rem', fontSize: '1.2rem', fontWeight: 700 }}>Native Yield Hub</h4>
+                        <h4 style={{ color: '#c5a059', marginBottom: '1.2rem', fontSize: '1.2rem', fontWeight: 700 }}>Native Value Hub</h4>
                         <p style={{ color: '#666', fontSize: '1rem', lineHeight: 1.6 }}>Income from land agriculture and commercial use is pinned directly to token holders.</p>
                     </div>
                     <div className="glass" style={{ padding: '3rem', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.04)', background: 'rgba(255,255,255,0.02)' }}>

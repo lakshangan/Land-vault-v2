@@ -10,8 +10,7 @@ import TechStack from "@/components/TechStack";
 import Features from "@/components/Features";
 import InteractiveMap from "@/components/Map";
 import Tokenomics from "@/components/Tokenomics";
-import Roadmap from "@/components/Roadmap";
-import { Team, FinalCTA } from "@/components/Final";
+import { FinalCTA } from "@/components/Final";
 import ThreeBackground from "@/components/ThreeBackground";
 
 export default function Home() {
@@ -34,8 +33,6 @@ export default function Home() {
         <Features />
         <TechStack />
         <div id="economy"><Tokenomics /></div>
-        <div id="governance"><Roadmap /></div>
-        <Team />
         <FinalCTA />
       </div>
     </main>

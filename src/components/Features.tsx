@@ -1,29 +1,40 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { useRef } from 'react';
 import { Shield, Share2, Brain, ShoppingCart, Percent, Zap, Building2, LandPlot } from 'lucide-react';
 
 const features = [
     { title: "Real Estate Tokenization", desc: "Tokenize land, buildings, and property assets into on-chain investment instruments.", icon: <Building2 size={22} /> },
-    { title: "Renewable Energy Assets", desc: "Invest in solar farms, wind energy, and infrastructure producing real-world yield.", icon: <Zap size={22} /> },
+    { title: "Renewable Energy Assets", desc: "Invest in solar farms, wind energy, and infrastructure producing real-world value.", icon: <Zap size={22} /> },
     { title: "Infrastructure Investments", desc: "Access logistics facilities, telecom towers, and industrial assets.", icon: <LandPlot size={22} /> },
     { title: "Fractional Ownership", desc: "Divide large assets into smaller tokens accessible to global investors.", icon: <Share2 size={22} /> },
     { title: "Global Asset Marketplace", desc: "Buy, sell, and manage tokenized assets across blockchain networks.", icon: <ShoppingCart size={22} /> },
     { title: "AI Asset Valuation", desc: "Advanced analytics provide valuation insights and investment intelligence.", icon: <Brain size={22} /> },
     { title: "On-Chain Ownership Registry", desc: "Transparent ownership records secured through blockchain technology.", icon: <Shield size={22} /> },
-    { title: "Automated Yield Distribution", desc: "Smart contracts distribute income from assets directly to token holders.", icon: <Percent size={22} /> }
+    { title: "Automated Revenue Distribution", desc: "Smart contracts distribute income from assets directly to token holders.", icon: <Percent size={22} /> }
 ];
 
 export default function Features() {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start end", "center center"]
+    });
+
+    const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+
+    const headerY = useTransform(smoothProgress, [0, 1], [150, 0]);
+    const headerOpacity = useTransform(smoothProgress, [0, 0.8], [0, 1]);
+
+    const gridY = useTransform(smoothProgress, [0, 1], [200, 0]);
+    const gridOpacity = useTransform(smoothProgress, [0, 0.9], [0, 1]);
+
     return (
-        <section className="section-spacing" style={{ background: '#050505', position: 'relative' }}>
+        <section ref={containerRef} className="section-spacing" style={{ background: '#050505', position: 'relative', overflow: 'hidden' }}>
             <div className="container">
                 <div style={{ textAlign: 'center', marginBottom: '8rem' }}>
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                    >
+                    <motion.div style={{ opacity: headerOpacity, y: headerY }}>
                         <h2 style={{ fontSize: 'clamp(3rem, 5vw, 4rem)', lineHeight: 1, fontWeight: 900 }}>
                             Infrastructure for the <br />
                             <span style={{ color: '#bfff00' }}>Tokenized Economy</span>
@@ -31,14 +42,10 @@ export default function Features() {
                     </motion.div>
                 </div>
 
-                <div className="features-grid">
+                <motion.div className="features-grid" style={{ opacity: gridOpacity, y: gridY }}>
                     {features.map((f, i) => (
                         <motion.div
                             key={i}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: i * 0.05, duration: 0.8 }}
-                            viewport={{ once: true }}
                             className="feature-card"
                             style={{
                                 padding: '3rem 2rem',
@@ -71,7 +78,7 @@ export default function Features() {
                             <p style={{ color: 'rgba(255,255,255,0.4)', lineHeight: 1.6, fontSize: '0.95rem' }}>{f.desc}</p>
                         </motion.div>
                     ))}
-                </div>
+                </motion.div>
             </div>
 
             <style jsx>{`
@@ -90,6 +97,7 @@ export default function Features() {
                     .features-grid {
                         grid-template-columns: repeat(2, 1fr);
                     }
+                }
                 @media (max-width: 768px) {
                     div[style*="margin-bottom: 8rem"] {
                         margin-bottom: 4rem !important;

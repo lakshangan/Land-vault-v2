@@ -259,7 +259,7 @@ export default function InteractiveMap() {
                             </span>
                         </h2>
                         <p style={{ color: 'rgba(0,0,0,0.45)', fontSize: '1.2rem', maxWidth: '680px', margin: '0 auto', lineHeight: 1.65, fontWeight: 500 }}>
-                            Real-World Asset tokenization is transforming global capital markets — Land Vault is positioned at the center of this $16 trillion wave.
+                            Real-World Asset tokenization is transforming global capital markets — Land Protocol is positioned at the center of this $16 trillion wave.
                         </p>
                     </motion.div>
 
@@ -387,7 +387,7 @@ export default function InteractiveMap() {
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '6rem', padding: '3rem 4rem', background: '#000', borderRadius: '32px', gap: '2rem' }}>
                         <div>
                             <div style={{ fontSize: '1.5rem', fontWeight: 900, color: '#fff', letterSpacing: '-0.02em', marginBottom: '0.4rem' }}>Ready to tokenize your assets?</div>
-                            <div style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.4)', fontWeight: 500 }}>Join 127+ protocols already on Land Vault.</div>
+                            <div style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.4)', fontWeight: 500 }}>Join 127+ groups already on Land Protocol.</div>
                         </div>
                         <div style={{ display: 'flex', gap: '1rem', flexShrink: 0 }}>
                             <motion.button

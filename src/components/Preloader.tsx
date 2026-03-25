@@ -80,7 +80,7 @@ export default function Preloader() {
                                 }}
                             >
                                 <span style={{ opacity: 0.2 }}>LAND</span>
-                                <span style={{ opacity: 0.2 }}>VAULT</span>
+                                <span style={{ opacity: 0.2 }}>PROTOCOL</span>
 
                                 {/* Filling Overlay */}
                                 <div style={{
@@ -96,7 +96,7 @@ export default function Preloader() {
                                     clipPath: `inset(0 ${100 - progress}% 0 0)`
                                 }}>
                                     <span style={{ color: '#bfff00' }}>LAND</span>
-                                    <span style={{ color: '#bfff00' }}>VAULT</span>
+                                    <span style={{ color: '#bfff00' }}>PROTOCOL</span>
                                 </div>
                             </motion.div>
                         </div>
