@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -15,8 +15,8 @@ model User {
   walletAddress   String      @unique
   email           String?     @unique
   name            String?
-  role            Role        @default(USER)
-  kycStatus       KYCStatus   @default(PENDING)
+  role            String      @default("USER")
+  kycStatus       String      @default("PENDING")
   kycProvider     String?
   kycReference    String?
   createdAt       DateTime    @default(now())
@@ -30,8 +30,8 @@ model Asset {
   id              String      @id @default(cuid())
   name            String
   tokenSymbol     String      @unique
-  assetType       AssetType
-  status          AssetStatus @default(PENDING)
+  assetType       String
+  status          String      @default("PENDING")
   country         String
   city            String
   gpsLat          Float?
@@ -45,7 +45,7 @@ model Asset {
   tokenAddress    String?
   vaultAddress    String?
   ipfsMetadata    String?
-  metadata        Json
+  metadata        String
   ownerId         String
   owner           User        @relation("OwnerAssets", fields: [ownerId], references: [id])
   documents       Document[]
@@ -107,33 +107,4 @@ model Vote {
   user        User      @relation(fields: [userId], references: [id])
 }
 
-enum AssetType {
-  LAND
-  RENEWABLE_ENERGY
-  INFRASTRUCTURE
-  TIMBER
-  REAL_ESTATE
-}
 
-enum AssetStatus {
-  PENDING
-  UNDER_REVIEW
-  VERIFIED
-  ACTIVE
-  LOCKED
-  REJECTED
-}
-
-enum KYCStatus {
-  PENDING
-  IN_REVIEW
-  APPROVED
-  REJECTED
-  EXPIRED
-}
-
-enum Role {
-  USER
-  VALIDATOR
-  ADMIN
-}
