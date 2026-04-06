@@ -6,10 +6,10 @@ import { useState } from 'react';
 
 export default function Hero() {
     return (
-        <section style={{ 
-            minHeight: '100vh', 
-            background: '#000', 
-            position: 'relative', 
+        <section style={{
+            minHeight: '100vh',
+            background: '#000',
+            position: 'relative',
             overflow: 'hidden',
             display: 'flex',
             alignItems: 'center',
@@ -36,7 +36,7 @@ export default function Hero() {
                 filter: 'blur(130px)',
                 zIndex: 0
             }} />
-            
+
             <div style={{
                 position: 'absolute',
                 top: '40%',
@@ -74,8 +74,8 @@ export default function Hero() {
                                     marginBottom: '2rem'
                                 }}
                             >
-                                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#bfff00', display: 'inline-block', boxShadow: '0 0 8px #bfff00' }} />
-                                <span style={{ fontSize: '0.68rem', fontWeight: 800, color: '#bfff00', textTransform: 'uppercase', letterSpacing: '0.15em' }}>RWA Protocol · On-chain Now</span>
+                                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#bfff00f', display: 'inline-block', boxShadow: '0 0 8px #bfff00f' }} />
+                                <span style={{ fontSize: '0.68rem', fontWeight: 800, color: '#bfff00f', textTransform: 'uppercase', letterSpacing: '0.15em' }}>RWA Protocol · On-chain Now</span>
                             </motion.div>
 
                             {/* Headline */}
@@ -90,7 +90,7 @@ export default function Hero() {
                                 Infrastructure<br />
                                 for Tokenizing<br />
                                 <span style={{
-                                    background: 'linear-gradient(90deg, #bfff00 0%, rgba(191,255,0,0.5) 100%)',
+                                    background: 'linear-gradient(90deg, #bfff00f 0%, rgba(191,255,0,0.5) 100%)',
                                     WebkitBackgroundClip: 'text',
                                     WebkitTextFillColor: 'transparent'
                                 }}>Real-World</span>{' '}
@@ -99,7 +99,7 @@ export default function Hero() {
 
                             {/* Divider + Subtext */}
                             <div style={{ display: 'flex', gap: '1.4rem', alignItems: 'flex-start', marginTop: '2.5rem' }}>
-                                <div style={{ width: '2px', flexShrink: 0, alignSelf: 'stretch', background: 'linear-gradient(to bottom, #bfff00, transparent)', borderRadius: '4px' }} />
+                                <div style={{ width: '2px', flexShrink: 0, alignSelf: 'stretch', background: 'linear-gradient(to bottom, #bfff00f, transparent)', borderRadius: '4px' }} />
                                 <p style={{
                                     color: 'rgba(255,255,255,0.45)',
                                     fontSize: '1.05rem',
@@ -231,7 +231,7 @@ function IsometricIllustration() {
                             </feMerge>
                         </filter>
                     </defs>
-                    
+
                     <motion.path
                         d="M 100,100 Q 250,50 400,100 T 500,400"
                         stroke="rgba(191, 255, 0, 0.2)"
@@ -241,13 +241,13 @@ function IsometricIllustration() {
                         animate={{ pathLength: 1 }}
                         transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                     />
-                    
+
                     {/* Traveling Particles */}
                     {[0, 0.4, 0.8].map((delay, i) => (
                         <motion.circle
                             key={i}
                             r="3"
-                            fill="#bfff00"
+                            fill="#bfff00f"
                             filter="url(#glow)"
                             initial={{ offsetDistance: "0%" }}
                             animate={{ offsetDistance: "100%" }}
@@ -278,7 +278,7 @@ function IsometricIllustration() {
                 >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                            <div style={{ width: '12px', height: '12px', borderRadius: '3px', background: '#bfff00', boxShadow: '0 0 15px #bfff00' }} />
+                            <div style={{ width: '12px', height: '12px', borderRadius: '3px', background: '#bfff00f', boxShadow: '0 0 15px #bfff00f' }} />
                             <div style={{ fontSize: '0.75rem', fontWeight: 900, color: '#fff', letterSpacing: 3 }}>ASSET_REGISTRY</div>
                         </div>
                         <div style={{ padding: '4px 8px', background: 'rgba(255,255,255,0.05)', borderRadius: '6px', fontSize: '0.55rem', color: 'rgba(255,255,255,0.4)', fontWeight: 800 }}>LIVE_MESH</div>
@@ -286,7 +286,7 @@ function IsometricIllustration() {
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.4rem' }}>
                         {[
-                            { name: 'LONDON_PRIME_01', status: 'VERIFIED', val: '84.2%', color: '#bfff00' },
+                            { name: 'LONDON_PRIME_01', status: 'VERIFIED', val: '84.2%', color: '#bfff00f' },
                             { name: 'DUBAI_SQUARE_04', status: 'LOCKED', val: '92.8%', color: '#ffcc00' },
                             { name: 'NY_CENTRAL_09', status: 'ACTIVE', val: '76.1%', color: '#007aff' }
                         ].map((asset, i) => (
@@ -319,7 +319,7 @@ function IsometricIllustration() {
                         </div>
                         <div style={{ display: 'flex', gap: '3px', height: '100%', alignItems: 'flex-end', paddingBottom: '15px' }}>
                             {Array.from({ length: 20 }).map((_, i) => (
-                                <motion.div key={i} animate={{ height: [2, 10, 2] }} transition={{ duration: 1, repeat: Infinity, delay: i * 0.1 }} style={{ flex: 1, background: '#bfff00', opacity: 0.3, borderRadius: '1px' }} />
+                                <motion.div key={i} animate={{ height: [2, 10, 2] }} transition={{ duration: 1, repeat: Infinity, delay: i * 0.1 }} style={{ flex: 1, background: '#bfff00f', opacity: 0.3, borderRadius: '1px' }} />
                             ))}
                         </div>
                     </div>
@@ -351,7 +351,7 @@ function IsometricIllustration() {
                             <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#000', boxShadow: '0 0 10px rgba(0,0,0,0.2)' }} />
                             <div style={{ fontSize: '0.65rem', fontWeight: 900, color: 'rgba(0,0,0,0.4)', textTransform: 'uppercase', letterSpacing: 3 }}>GROWTH_ENGINE</div>
                         </div>
-                        <div style={{ fontSize: '2.8rem', fontWeight: 900, color: '#000', letterSpacing: -2, lineHeight: 1 }}>12.8<span style={{ fontSize: '1rem', color: '#bfff00', WebkitTextStroke: '1px #000', marginLeft: '4px' }}>%</span></div>
+                        <div style={{ fontSize: '2.8rem', fontWeight: 900, color: '#000', letterSpacing: -2, lineHeight: 1 }}>12.8<span style={{ fontSize: '1rem', color: '#bfff00f', WebkitTextStroke: '1px #000', marginLeft: '4px' }}>%</span></div>
                         <div style={{ fontSize: '0.6rem', color: 'rgba(0,0,0,0.3)', fontWeight: 800, marginTop: '5px' }}>ESTIMATED_ANNUAL_GROWTH</div>
                     </div>
 
@@ -362,7 +362,7 @@ function IsometricIllustration() {
                                 initial={{ height: 0 }}
                                 animate={{ height: `${h}%` }}
                                 transition={{ delay: 2 + i * 0.1, duration: 1.5, ease: "easeOut" }}
-                                style={{ flex: 1, background: i === 5 ? '#bfff00' : '#000', borderRadius: '4px', boxShadow: i === 5 ? '0 0 15px #bfff00' : 'none' }}
+                                style={{ flex: 1, background: i === 5 ? '#bfff00f' : '#000', borderRadius: '4px', boxShadow: i === 5 ? '0 0 15px #bfff00f' : 'none' }}
                             />
                         ))}
                     </div>
@@ -376,15 +376,15 @@ function IsometricIllustration() {
                 ].map((token, i) => (
                     <motion.div
                         key={i}
-                        animate={{ 
+                        animate={{
                             y: [0, -20, 0],
                             rotate: [0, 360],
                             z: [100, 150, 100]
                         }}
-                        transition={{ 
-                            duration: 10, 
-                            repeat: Infinity, 
-                            delay: token.delay 
+                        transition={{
+                            duration: 10,
+                            repeat: Infinity,
+                            delay: token.delay
                         }}
                         style={{
                             position: 'absolute',

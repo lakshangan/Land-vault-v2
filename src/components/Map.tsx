@@ -393,7 +393,7 @@ export default function InteractiveMap() {
                             <motion.button
                                 whileHover={{ scale: 1.04, boxShadow: '0 0 30px rgba(191,255,0,0.3)' }}
                                 whileTap={{ scale: 0.97 }}
-                                style={{ background: '#bfff00', color: '#000', padding: '1.2rem 2.8rem', borderRadius: '100px', fontWeight: 900, fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: 3, border: 'none', cursor: 'pointer' }}
+                                style={{ background: '#bfff00f', color: '#000', padding: '1.2rem 2.8rem', borderRadius: '100px', fontWeight: 900, fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: 3, border: 'none', cursor: 'pointer' }}
                             >
                                 Start Building
                             </motion.button>

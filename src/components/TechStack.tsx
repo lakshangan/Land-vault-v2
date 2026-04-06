@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 const techs = [
     { name: "BNB Chain", type: "Smart Contract Infrastructure", color: "#F3BA2F" },
-    { name: "ERC-721", type: "Asset NFT Standard", color: "#bfff00" },
+    { name: "ERC-721", type: "Asset NFT Standard", color: "#bfff00f" },
     { name: "ERC-20", type: "Fractional Ownership Tokens", color: "#00f2ff" },
     { name: "IPFS", type: "Decentralized Document Storage", color: "#6ACAD1" },
     { name: "Solidity", type: "Smart Contract Logic", color: "#363636" },
@@ -23,7 +23,7 @@ export default function TechStack() {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 900 }}>Powered by <span style={{ color: '#bfff00' }}>Web3 Infrastructure</span></h2>
+                        <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 900 }}>Powered by <span style={{ color: '#bfff00f' }}>Web3 Infrastructure</span></h2>
                         <p style={{ color: 'rgba(255,255,255,0.4)', marginTop: '1.5rem', fontSize: '1.1rem' }}>Built on a scalable stack designed for real-world asset tokenization.</p>
                     </motion.div>
                 </div>
@@ -71,7 +71,7 @@ export default function TechStack() {
                             whileInView={{ pathLength: 1 }}
                             transition={{ duration: 2 }}
                         />
-                        <motion.circle cx="300" cy="90" r="4" fill="#bfff00" animate={{ r: [4, 6, 4] }} transition={{ repeat: Infinity, duration: 2 }} />
+                        <motion.circle cx="300" cy="90" r="4" fill="#bfff00f" animate={{ r: [4, 6, 4] }} transition={{ repeat: Infinity, duration: 2 }} />
                         <motion.circle cx="600" cy="150" r="4" fill="#c5a059" animate={{ r: [4, 6, 4] }} transition={{ repeat: Infinity, duration: 2, delay: 0.5 }} />
                         <motion.circle cx="900" cy="210" r="4" fill="#6ACAD1" animate={{ r: [4, 6, 4] }} transition={{ repeat: Infinity, duration: 2, delay: 1 }} />
                     </svg>

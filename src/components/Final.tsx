@@ -20,7 +20,7 @@ export function Team() {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h2 style={{ fontSize: '3rem', fontWeight: 900 }}>The <span style={{ color: '#bfff00' }}>Architects</span></h2>
+                        <h2 style={{ fontSize: '3rem', fontWeight: 900 }}>The <span style={{ color: '#bfff00f' }}>Architects</span></h2>
                         <p style={{ color: 'rgba(255,255,255,0.4)', marginTop: '1.5rem', fontSize: '1.1rem' }}>Builders designing the infrastructure for tokenized real-world assets.</p>
                     </motion.div>
                 </div>
@@ -50,7 +50,7 @@ export function Team() {
                                 <div style={{ fontSize: '2rem', color: '#444' }}>{member.name[0]}</div>
                             </div>
                             <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>{member.name}</h3>
-                            <p style={{ color: '#bfff00', fontSize: '0.85rem', marginBottom: '0.5rem', fontWeight: 600 }}>{member.role}</p>
+                            <p style={{ color: '#bfff00f', fontSize: '0.85rem', marginBottom: '0.5rem', fontWeight: 600 }}>{member.role}</p>
                             <p style={{ color: '#444', fontSize: '0.75rem', marginBottom: '1.5rem', textTransform: 'uppercase' }}>{member.origin}</p>
                             <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', color: '#666' }}>
                                 <Twitter size={16} style={{ cursor: 'pointer' }} />
@@ -87,14 +87,14 @@ export function FinalCTA() {
                     transition={{ duration: 1 }}
                 >
                     <h2 style={{ fontSize: 'clamp(3rem, 7vw, 6rem)', lineHeight: 1.1, marginBottom: '2.5rem', fontWeight: 900 }}>
-                        The Future of Real-World <br /> Assets is <span style={{ color: '#bfff00' }}>On-Chain</span>
+                        The Future of Real-World <br /> Assets is <span style={{ color: '#bfff00f' }}>On-Chain</span>
                     </h2>
                     <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '1.25rem', maxWidth: '700px', margin: '0 auto', lineHeight: 1.6 }}>
                         Join the infrastructure powering the next generation of tokenized real-world investments.
                     </p>
                     <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '4rem' }}>
                         <button style={{
-                            background: '#bfff00',
+                            background: '#bfff00f',
                             color: '#000',
                             padding: '1.2rem 3.5rem',
                             borderRadius: '100px',

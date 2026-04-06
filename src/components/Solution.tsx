@@ -11,7 +11,7 @@ const stackLayers = [
         desc: "AI-powered analytics evaluate asset value, market trends, and growth potential across real estate, energy infrastructure, and physical assets.",
         items: ["Valuation Engine", "Performance Analytics", "Market Trends"],
         get icon() { return <Cpu size={24} /> },
-        color: "#bfff00"
+        color: "#bfff00f"
     },
     {
         id: "tokenization",

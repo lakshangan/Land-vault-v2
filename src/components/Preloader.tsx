@@ -28,10 +28,10 @@ export default function Preloader() {
             {loading && (
                 <motion.div
                     initial={{ opacity: 1 }}
-                    exit={{ 
-                        opacity: 0, 
+                    exit={{
+                        opacity: 0,
                         scale: 1.05,
-                        transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } 
+                        transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
                     }}
                     style={{
                         position: 'fixed',
@@ -46,8 +46,8 @@ export default function Preloader() {
                     }}
                 >
                     {/* Background Ambient Glows */}
-                    <motion.div 
-                        animate={{ 
+                    <motion.div
+                        animate={{
                             opacity: [0.1, 0.2, 0.1],
                             scale: [1, 1.2, 1]
                         }}
@@ -59,7 +59,7 @@ export default function Preloader() {
                             background: 'radial-gradient(circle, rgba(191, 255, 0, 0.08) 0%, transparent 70%)',
                             filter: 'blur(100px)',
                             zIndex: 0
-                        }} 
+                        }}
                     />
 
                     <div style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
@@ -95,8 +95,8 @@ export default function Preloader() {
                                     overflow: 'hidden',
                                     clipPath: `inset(0 ${100 - progress}% 0 0)`
                                 }}>
-                                    <span style={{ color: '#bfff00' }}>LAND</span>
-                                    <span style={{ color: '#bfff00' }}>PROTOCOL</span>
+                                    <span style={{ color: '#bfff00f' }}>LAND</span>
+                                    <span style={{ color: '#bfff00f' }}>PROTOCOL</span>
                                 </div>
                             </motion.div>
                         </div>
@@ -119,10 +119,10 @@ export default function Preloader() {
                         </motion.p>
 
                         {/* Minimal Progress Indicator */}
-                        <div style={{ 
-                            width: '240px', 
-                            height: '2px', 
-                            background: 'rgba(255,255,255,0.05)', 
+                        <div style={{
+                            width: '240px',
+                            height: '2px',
+                            background: 'rgba(255,255,255,0.05)',
                             margin: '0 auto',
                             position: 'relative',
                             borderRadius: '10px',
@@ -131,7 +131,7 @@ export default function Preloader() {
                             <motion.div
                                 style={{
                                     height: '100%',
-                                    background: '#bfff00',
+                                    background: '#bfff00f',
                                     width: `${progress}%`,
                                     boxShadow: '0 0 15px rgba(191, 255, 0, 0.5)',
                                 }}

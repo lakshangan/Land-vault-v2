@@ -51,12 +51,12 @@ export default function ProtocolFlow() {
     return (
         <section className="section-spacing" style={{ background: '#050505', position: 'relative', overflow: 'hidden' }}>
             <div className="container" style={{ position: 'relative', zIndex: 1, paddingBottom: '4rem' }}>
-                
+
                 {/* Responsive Wrapper */}
                 <div style={{ width: '100%', overflowX: isMobile ? 'auto' : 'visible' }}>
-                    <div style={{ 
-                        minWidth: isMobile ? '900px' : '100%', 
-                        position: 'relative', 
+                    <div style={{
+                        minWidth: isMobile ? '900px' : '100%',
+                        position: 'relative',
                         height: `${DIAGRAM_HEIGHT}px`,
                         marginTop: '4rem'
                     }}>
@@ -65,14 +65,14 @@ export default function ProtocolFlow() {
                         <div style={{ position: 'absolute', top: 0, right: '0%', width: '45%', zIndex: 10 }}>
                             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
                                 <h2 style={{ fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', fontWeight: 300, color: '#fff', lineHeight: 1.1, letterSpacing: '-0.02em' }}>
-                                    Stop problems <br/> before they <br/> start
+                                    Stop problems <br /> before they <br /> start
                                 </h2>
                             </motion.div>
                         </div>
 
                         <div style={{ position: 'absolute', bottom: '20px', right: '0%', width: '40%', zIndex: 10 }}>
                             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}>
-                                <div style={{ fontSize: '1rem', fontWeight: 900, color: '#bfff00', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: 2 }}>
+                                <div style={{ fontSize: '1rem', fontWeight: 900, color: '#bfff00f', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: 2 }}>
                                     Land Protocol
                                 </div>
                                 <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.95rem', lineHeight: 1.7 }}>
@@ -82,9 +82,9 @@ export default function ProtocolFlow() {
                         </div>
 
                         {/* Background SVG for connector lines */}
-                        <svg 
-                            viewBox={`0 0 100 ${DIAGRAM_HEIGHT}`} 
-                            preserveAspectRatio="none" 
+                        <svg
+                            viewBox={`0 0 100 ${DIAGRAM_HEIGHT}`}
+                            preserveAspectRatio="none"
                             style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 0, pointerEvents: 'none' }}
                         >
                             <defs>
@@ -94,13 +94,13 @@ export default function ProtocolFlow() {
                                 </linearGradient>
                                 <linearGradient id="rightGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                                     <stop offset="0%" stopColor="#5856d6" stopOpacity="0.3" />
-                                    <stop offset="100%" stopColor="#bfff00" stopOpacity="0.8" />
+                                    <stop offset="100%" stopColor="#bfff00f" stopOpacity="0.8" />
                                 </linearGradient>
                                 <filter id="glow">
-                                    <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                                    <feGaussianBlur stdDeviation="2" result="coloredBlur" />
                                     <feMerge>
-                                        <feMergeNode in="coloredBlur"/>
-                                        <feMergeNode in="SourceGraphic"/>
+                                        <feMergeNode in="coloredBlur" />
+                                        <feMergeNode in="SourceGraphic" />
                                     </feMerge>
                                 </filter>
                             </defs>
@@ -111,7 +111,7 @@ export default function ProtocolFlow() {
                                 return (
                                     <motion.path
                                         key={`l-${i}`}
-                                        d={`M 26 ${y} C 40 ${y}, 35 ${DIAGRAM_HEIGHT/2}, 45 ${DIAGRAM_HEIGHT/2}`}
+                                        d={`M 26 ${y} C 40 ${y}, 35 ${DIAGRAM_HEIGHT / 2}, 45 ${DIAGRAM_HEIGHT / 2}`}
                                         fill="none"
                                         stroke="url(#leftGrad)"
                                         strokeWidth="1.5"
@@ -129,7 +129,7 @@ export default function ProtocolFlow() {
                                 return (
                                     <motion.path
                                         key={`r-${i}`}
-                                        d={`M 55 ${DIAGRAM_HEIGHT/2} C 65 ${DIAGRAM_HEIGHT/2}, 60 ${y}, 74 ${y}`}
+                                        d={`M 55 ${DIAGRAM_HEIGHT / 2} C 65 ${DIAGRAM_HEIGHT / 2}, 60 ${y}, 74 ${y}`}
                                         fill="none"
                                         stroke="url(#rightGrad)"
                                         strokeWidth="1.5"
@@ -177,7 +177,7 @@ export default function ProtocolFlow() {
 
                         {/* Center Column (Graphic) */}
                         <div style={{ position: 'absolute', left: '45%', top: '50%', transform: 'translateY(-50%)', width: '10%', zIndex: 5, display: 'flex', justifyContent: 'center' }}>
-                            <motion.div 
+                            <motion.div
                                 style={{
                                     width: '180px',
                                     height: '220px',
@@ -190,27 +190,27 @@ export default function ProtocolFlow() {
                                 <svg viewBox="0 0 100 100" style={{ width: '100%', height: '100%', filter: 'drop-shadow(0 0 40px rgba(88, 86, 214, 0.4))' }}>
                                     {/* Central Hexagon Background */}
                                     <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="rgba(88,86,214,0.15)" stroke="rgba(88,86,214,0.4)" strokeWidth="0.5" />
-                                    
+
                                     {/* 3D Cubes Arrangement */}
                                     {[
-                                        { cx: 50, cy: 35, c: '#bfff00' },
+                                        { cx: 50, cy: 35, c: '#bfff00f' },
                                         { cx: 35, cy: 50, c: '#fff' },
                                         { cx: 65, cy: 50, c: '#777' },
                                         { cx: 50, cy: 65, c: '#aaa' },
                                     ].map((cube, i) => (
                                         <g key={i} transform={`translate(${cube.cx - 50}, ${cube.cy - 50})`}>
-                                            <motion.g 
-                                                animate={{ 
-                                                    y: [-2, 2, -2] 
+                                            <motion.g
+                                                animate={{
+                                                    y: [-2, 2, -2]
                                                 }}
                                                 transition={{ duration: 3, delay: i * 0.4, repeat: Infinity, ease: 'easeInOut' }}
                                             >
                                                 {/* Top face */}
-                                                <polygon points="50,42 58,46 50,50 42,46" fill={cube.c} stroke="rgba(0,0,0,0.5)" strokeWidth="0.5"/>
+                                                <polygon points="50,42 58,46 50,50 42,46" fill={cube.c} stroke="rgba(0,0,0,0.5)" strokeWidth="0.5" />
                                                 {/* Left face */}
-                                                <polygon points="42,46 50,50 50,58 42,54" fill={cube.c} opacity="0.6" stroke="rgba(0,0,0,0.5)" strokeWidth="0.5"/>
+                                                <polygon points="42,46 50,50 50,58 42,54" fill={cube.c} opacity="0.6" stroke="rgba(0,0,0,0.5)" strokeWidth="0.5" />
                                                 {/* Right face */}
-                                                <polygon points="50,50 58,46 58,54 50,58" fill={cube.c} opacity="0.3" stroke="rgba(0,0,0,0.5)" strokeWidth="0.5"/>
+                                                <polygon points="50,50 58,46 58,54 50,58" fill={cube.c} opacity="0.3" stroke="rgba(0,0,0,0.5)" strokeWidth="0.5" />
                                             </motion.g>
                                         </g>
                                     ))}
@@ -245,7 +245,7 @@ export default function ProtocolFlow() {
                                         whiteSpace: 'nowrap'
                                     }}
                                 >
-                                    <CheckCircle2 size={16} color="#bfff00" />
+                                    <CheckCircle2 size={16} color="#bfff00f" />
                                     {text}
                                 </motion.div>
                             ))}

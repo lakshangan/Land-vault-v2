@@ -13,7 +13,7 @@ function Terrain() {
             <Grid
                 args={[100, 100]}
                 sectionSize={5}
-                sectionColor="#bfff00"
+                sectionColor="#bfff00f"
                 sectionThickness={1.5}
                 cellColor="#333"
                 cellThickness={0.5}
@@ -55,7 +55,7 @@ function Particles() {
             </bufferGeometry>
             <pointsMaterial
                 size={0.05}
-                color="#bfff00"
+                color="#bfff00f"
                 transparent
                 opacity={0.4}
                 sizeAttenuation
@@ -78,7 +78,7 @@ function LandCube() {
             <mesh ref={meshRef} position={[4, 0, -5]}>
                 <boxGeometry args={[2, 2, 2]} />
                 <MeshDistortMaterial
-                    color="#bfff00"
+                    color="#bfff00f"
                     speed={2}
                     distort={0.4}
                     radius={1}
@@ -112,7 +112,7 @@ function SceneContent() {
             <fog attach="fog" args={['#050505', 10, 50]} />
 
             <ambientLight intensity={0.5} />
-            <pointLight position={[10, 10, 10]} color="#bfff00" intensity={2} />
+            <pointLight position={[10, 10, 10]} color="#bfff00f" intensity={2} />
             <pointLight position={[-10, -10, -10]} color="#c5a059" intensity={1} />
 
             <Terrain />
