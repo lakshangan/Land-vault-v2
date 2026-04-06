@@ -2,12 +2,11 @@
 
 # 🏛️ LandVault
 
-### Real-World Asset Tokenization Protocol on BNB Chain
+### Real-World Asset Tokenization Protocol 
 
 [![Next.js](https://img.shields.io/badge/Next.js-16.1.6-black?style=flat-square&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.2.3-61DAFB?style=flat-square&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
-[![BNB Chain](https://img.shields.io/badge/BNB_Chain-Smart_Contracts-F3BA2F?style=flat-square)](https://www.bnbchain.org/)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 
 **LandVault bridges physical real-world assets and blockchain technology — enabling fractional ownership, transparent on-chain registries, and automated revenue distribution for land, buildings, energy infrastructure, and more.**
@@ -34,7 +33,7 @@
 
 ## 🏦 About the Project
 
-**LandVault** is an on-chain Real-World Asset (RWA) protocol that transforms physical assets — land, real estate, solar farms, wind energy, and infrastructure — into tokenized, investable instruments on **BNB Chain**.
+**LandVault** is an on-chain Real-World Asset (RWA) protocol that transforms physical assets — land, real estate, solar farms, wind energy, and infrastructure — into tokenized, investable instruments.
 
 By combining **ERC-721 NFTs** for asset representation with **ERC-20 fractional tokens**, LandVault opens global investment opportunities to anyone, anywhere, at any scale. Smart contracts automate revenue distribution, ownership records, and governance — making the entire lifecycle of asset investment transparent and trustless.
 
