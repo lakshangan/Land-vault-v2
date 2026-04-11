@@ -34,7 +34,7 @@ export default function Roadmap() {
         <section className="section-spacing" style={{ background: '#0a0a0a' }}>
             <div className="container">
                 <div style={{ textAlign: 'center', marginBottom: '8rem' }}>
-                    <h2 style={{ fontSize: '3rem' }}>The <span style={{ color: '#bfff00f' }}>Path</span> Forward</h2>
+                    <h2 style={{ fontSize: '3rem' }}>The <span style={{ color: '#D4FF00' }}>Path</span> Forward</h2>
                 </div>
 
                 <div style={{ position: 'relative', maxWidth: '900px', margin: '0 auto' }}>
@@ -72,7 +72,7 @@ export default function Roadmap() {
                                 border: '1px solid rgba(255,255,255,0.05)',
                                 borderRadius: '24px'
                             }}>
-                                <span style={{ color: '#bfff00f', fontSize: '0.8rem', fontWeight: 600 }}>{phase.date}</span>
+                                <span style={{ color: '#D4FF00', fontSize: '0.8rem', fontWeight: 600 }}>{phase.date}</span>
                                 <h3 style={{ fontSize: '1.5rem', margin: '0.5rem 0' }}>{phase.title}</h3>
                                 <p style={{ color: '#666', fontSize: '0.9rem', lineHeight: 1.6 }}>{phase.desc}</p>
                                 <div style={{
@@ -80,7 +80,7 @@ export default function Roadmap() {
                                     fontSize: '0.7rem',
                                     textTransform: 'uppercase',
                                     letterSpacing: 1,
-                                    color: phase.status === "Active" ? '#bfff00f' : '#444'
+                                    color: phase.status === "Active" ? '#D4FF00' : '#444'
                                 }}>
                                     ● {phase.status}
                                 </div>
@@ -93,9 +93,9 @@ export default function Roadmap() {
                                 [i % 2 === 0 ? 'right' : 'left']: '-5px',
                                 width: '10px',
                                 height: '10px',
-                                background: phase.status === "Active" ? '#bfff00f' : '#333',
+                                background: phase.status === "Active" ? '#D4FF00' : '#333',
                                 borderRadius: '50%',
-                                boxShadow: phase.status === "Active" ? '0 0 15px #bfff00f' : 'none',
+                                boxShadow: phase.status === "Active" ? '0 0 15px #D4FF00' : 'none',
                                 transform: 'translateY(-50%)',
                                 zIndex: 5
                             }} />

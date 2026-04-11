@@ -95,8 +95,8 @@ export default function Preloader() {
                                     overflow: 'hidden',
                                     clipPath: `inset(0 ${100 - progress}% 0 0)`
                                 }}>
-                                    <span style={{ color: '#bfff00f' }}>LAND</span>
-                                    <span style={{ color: '#bfff00f' }}>PROTOCOL</span>
+                                    <span style={{ color: '#D4FF00' }}>LAND</span>
+                                    <span style={{ color: '#D4FF00' }}>PROTOCOL</span>
                                 </div>
                             </motion.div>
                         </div>
@@ -131,7 +131,7 @@ export default function Preloader() {
                             <motion.div
                                 style={{
                                     height: '100%',
-                                    background: '#bfff00f',
+                                    background: '#D4FF00',
                                     width: `${progress}%`,
                                     boxShadow: '0 0 15px rgba(191, 255, 0, 0.5)',
                                 }}

@@ -26,7 +26,7 @@ export default function Features() {
                     >
                         <h2 style={{ fontSize: 'clamp(3rem, 5vw, 4rem)', lineHeight: 1, fontWeight: 900 }}>
                             Infrastructure for the <br />
-                            <span style={{ color: '#bfff00f' }}>Tokenized Economy</span>
+                            <span style={{ color: '#D4FF00' }}>Tokenized Economy</span>
                         </h2>
                     </motion.div>
                 </div>
@@ -56,7 +56,7 @@ export default function Features() {
                             <div style={{
                                 width: '56px',
                                 height: '56px',
-                                color: '#bfff00f',
+                                color: '#D4FF00',
                                 background: 'rgba(191, 255, 0, 0.05)',
                                 border: '1px solid rgba(191, 255, 0, 0.1)',
                                 borderRadius: '16px',

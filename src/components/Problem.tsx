@@ -7,22 +7,22 @@ const problems = [
     {
         title: "Fragmented Ownership",
         desc: "Real estate and infrastructure assets are locked within local markets and controlled by complex regulatory systems.",
-        icon: <Users size={32} color="#bfff00f" />
+        icon: <Users size={32} color="#D4FF00" />
     },
     {
         title: "Illiquid Investments",
         desc: "Investing in physical assets requires large capital commitments and long holding periods.",
-        icon: <Lock size={32} color="#bfff00f" />
+        icon: <Lock size={32} color="#D4FF00" />
     },
     {
         title: "Limited Global Access",
         desc: "Most investors cannot access international asset markets due to legal and financial barriers.",
-        icon: <Globe size={32} color="#bfff00f" />
+        icon: <Globe size={32} color="#D4FF00" />
     },
     {
         title: "Lack of Transparency",
         desc: "Ownership records, asset performance, and valuation data are often opaque and difficult to verify.",
-        icon: <EyeOff size={32} color="#bfff00f" />
+        icon: <EyeOff size={32} color="#D4FF00" />
     }
 ];
 
@@ -52,7 +52,7 @@ export default function Problem() {
                             The Challenge
                         </span>
                         <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', marginTop: '1.5rem', fontWeight: 900, letterSpacing: '-0.03em' }}>
-                            Real-World Asset Markets Are <span style={{ color: '#bfff00f' }}>Broken</span>
+                            Real-World Asset Markets Are <span style={{ color: '#D4FF00' }}>Broken</span>
                         </h2>
                         <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '1.2rem', marginTop: '1.5rem', maxWidth: '700px', margin: '1.5rem auto 0' }}>
                             Traditional asset markets are fragmented, illiquid, and inaccessible to global investors.

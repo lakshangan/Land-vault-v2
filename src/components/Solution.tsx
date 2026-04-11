@@ -11,7 +11,7 @@ const stackLayers = [
         desc: "AI-powered analytics evaluate asset value, market trends, and growth potential across real estate, energy infrastructure, and physical assets.",
         items: ["Valuation Engine", "Performance Analytics", "Market Trends"],
         get icon() { return <Cpu size={24} /> },
-        color: "#bfff00f"
+        color: "#D4FF00"
     },
     {
         id: "tokenization",
@@ -68,10 +68,22 @@ export default function Solution() {
                                     key={layer.id}
                                     initial={{ opacity: 0, x: -20 }}
                                     whileInView={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.8 }}
+                                    whileHover={{ 
+                                        x: 10,
+                                        background: 'rgba(255,255,255,0.03)',
+                                        borderColor: `${layer.color}33`,
+                                        boxShadow: `0 20px 40px rgba(0,0,0,0.5), inset 0 0 30px ${layer.color}08`
+                                    }}
+                                    transition={{ duration: 0.4 }}
                                     viewport={{ margin: "-20%" }}
                                     className="layer-card"
-                                    style={{ minHeight: '300px' }}
+                                    style={{ 
+                                        minHeight: '260px',
+                                        padding: '2.5rem',
+                                        borderRadius: '24px',
+                                        border: '1px solid transparent',
+                                        cursor: 'pointer'
+                                    }}
                                 >
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem', marginBottom: '1.5rem' }}>
                                         <div style={{
@@ -90,8 +102,14 @@ export default function Solution() {
                                     <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '1.05rem', marginBottom: '2rem', lineHeight: 1.7, maxWidth: '450px' }}>{layer.desc}</p>
                                     <div style={{ display: 'flex', gap: '0.8rem', flexWrap: 'wrap' }}>
                                         {layer.items.map((item, idx) => (
-                                            <span
+                                            <motion.span
                                                 key={idx}
+                                                whileHover={{ 
+                                                    scale: 1.05, 
+                                                    background: `${layer.color}15`, 
+                                                    borderColor: layer.color, 
+                                                    color: layer.color 
+                                                }}
                                                 style={{
                                                     fontSize: '0.75rem',
                                                     padding: '0.6rem 1.4rem',
@@ -100,11 +118,12 @@ export default function Solution() {
                                                     borderRadius: '100px',
                                                     color: 'rgba(255,255,255,0.6)',
                                                     letterSpacing: 1,
-                                                    fontWeight: 700
+                                                    fontWeight: 700,
+                                                    cursor: 'pointer'
                                                 }}
                                             >
                                                 {item}
-                                            </span>
+                                            </motion.span>
                                         ))}
                                     </div>
                                 </motion.div>

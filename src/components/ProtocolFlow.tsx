@@ -72,7 +72,7 @@ export default function ProtocolFlow() {
 
                         <div style={{ position: 'absolute', bottom: '20px', right: '0%', width: '40%', zIndex: 10 }}>
                             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}>
-                                <div style={{ fontSize: '1rem', fontWeight: 900, color: '#bfff00f', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: 2 }}>
+                                <div style={{ fontSize: '1rem', fontWeight: 900, color: '#D4FF00', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: 2 }}>
                                     Land Protocol
                                 </div>
                                 <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.95rem', lineHeight: 1.7 }}>
@@ -94,7 +94,7 @@ export default function ProtocolFlow() {
                                 </linearGradient>
                                 <linearGradient id="rightGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                                     <stop offset="0%" stopColor="#5856d6" stopOpacity="0.3" />
-                                    <stop offset="100%" stopColor="#bfff00f" stopOpacity="0.8" />
+                                    <stop offset="100%" stopColor="#D4FF00" stopOpacity="0.8" />
                                 </linearGradient>
                                 <filter id="glow">
                                     <feGaussianBlur stdDeviation="2" result="coloredBlur" />
@@ -193,7 +193,7 @@ export default function ProtocolFlow() {
 
                                     {/* 3D Cubes Arrangement */}
                                     {[
-                                        { cx: 50, cy: 35, c: '#bfff00f' },
+                                        { cx: 50, cy: 35, c: '#D4FF00' },
                                         { cx: 35, cy: 50, c: '#fff' },
                                         { cx: 65, cy: 50, c: '#777' },
                                         { cx: 50, cy: 65, c: '#aaa' },
@@ -245,7 +245,7 @@ export default function ProtocolFlow() {
                                         whiteSpace: 'nowrap'
                                     }}
                                 >
-                                    <CheckCircle2 size={16} color="#bfff00f" />
+                                    <CheckCircle2 size={16} color="#D4FF00" />
                                     {text}
                                 </motion.div>
                             ))}
